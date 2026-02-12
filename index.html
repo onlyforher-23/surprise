@@ -8,6 +8,7 @@
 
 <style>
 
+/* BACKGROUND */
 body{
 margin:0;
 overflow:hidden;
@@ -26,6 +27,7 @@ animation:gradient 20s ease infinite;
 100%{background-position:0% 50%}
 }
 
+/* SECTION SYSTEM */
 .section{
 position:absolute;
 width:100%;
@@ -34,7 +36,7 @@ display:flex;
 justify-content:center;
 align-items:center;
 flex-direction:column;
-transition:opacity 0.6s ease;
+transition:0.6s;
 }
 
 .hidden{display:none;}
@@ -50,7 +52,18 @@ transition:0.3s;
 }
 
 #yesBtn{background:white;color:#8e3b59;}
-#noBtn{background:#333;color:white;position:relative;}
+#noBtn{background:#222;color:white;position:relative;}
+
+#bouquetScreen img{
+width:220px;
+cursor:pointer;
+animation:float 3s ease-in-out infinite;
+}
+
+@keyframes float{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-15px);}
+}
 
 .photo-container{
 position:relative;
@@ -59,16 +72,14 @@ height:70%;
 }
 
 .photo{
-width:200px;
+width:190px;
 height:240px;
 background:white;
 color:black;
 position:absolute;
 border-radius:12px;
-box-shadow:0 15px 30px rgba(0,0,0,0.4);
+box-shadow:0 20px 40px rgba(0,0,0,0.5);
 padding:10px;
-text-align:center;
-font-weight:bold;
 cursor:pointer;
 transition:0.4s;
 opacity:0;
@@ -80,26 +91,104 @@ opacity:1;
 transform:translateY(0);
 }
 
+.photo:hover{
+transform:scale(1.08) rotate(0deg);
+}
+
 .photo img{
 width:100%;
 height:170px;
 object-fit:cover;
+border-radius:8px;
+}
+
+.photo1{top:10%; left:18%; transform:rotate(-12deg);}
+.photo2{top:20%; right:18%; transform:rotate(8deg);}
+.photo3{bottom:20%; left:25%; transform:rotate(6deg);}
+.photo4{bottom:15%; right:25%; transform:rotate(-10deg);}
+
+/* LOVE LETTER */
+#letterOverlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(20,0,25,0.95);
+display:none;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+z-index:9999;
+}
+
+.envelope{
+position:relative;
+width:260px;
+height:180px;
+cursor:pointer;
+}
+
+.envelope .body{
+position:absolute;
+width:100%;
+height:100%;
+background:#ffb6d9;
 border-radius:6px;
 }
 
-.photo:hover{
-transform:rotate(0deg) scale(1.1);
+.envelope .flap{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#ffc8e2;
+clip-path:polygon(0 0, 50% 60%, 100% 0);
+transform-origin:top;
+transition:0.8s;
 }
 
-.photo1{top:15%; left:20%; transform:rotate(-12deg);}
-.photo2{top:20%; right:18%; transform:rotate(8deg);}
-.photo3{bottom:18%; left:28%; transform:rotate(6deg);}
-.photo4{bottom:15%; right:25%; transform:rotate(-10deg);}
+.envelope.open .flap{
+transform:rotateX(180deg);
+}
+
+.letterCard{
+position:absolute;
+width:80%;
+max-width:600px;
+background:linear-gradient(145deg,#2a1230,#3d1846);
+padding:50px;
+border-radius:20px;
+color:#ffd6e8;
+font-family:'Playfair Display', serif;
+display:none;
+animation:fadeIn 0.6s ease;
+}
+
+.letterCard h2{
+font-family:'Dancing Script', cursive;
+font-size:34px;
+color:#ffc2e0;
+margin-bottom:25px;
+}
+
+.signature{
+margin-top:40px;
+font-family:'Dancing Script', cursive;
+font-size:28px;
+color:#ffb6d9;
+}
+
+@keyframes fadeIn{
+from{opacity:0; transform:translateY(20px);}
+to{opacity:1;}
+}
 
 .heart{
 position:absolute;
 font-size:20px;
-animation:floatUp 7s linear infinite;
+animation:floatUp 8s linear infinite;
 }
 
 @keyframes floatUp{
@@ -107,58 +196,23 @@ animation:floatUp 7s linear infinite;
 100%{transform:translateY(-10vh); opacity:0;}
 }
 
-#letterOverlay{
+/* ===== OUR STORY OVERLAY STYLE ===== */
+#storyOverlay{
+display:none;
 position:fixed;
 top:0;
 left:0;
 width:100%;
 height:100%;
-background:rgba(15,8,18,0.94);
-display:none;
+background:rgba(20,0,25,0.95);
+backdrop-filter:blur(12px);
 justify-content:center;
 align-items:center;
-z-index:9999;
-}
-
-.envelope{
-width:300px;
-height:200px;
-background:#ffccd5;
-position:relative;
-cursor:pointer;
-}
-
-.envelope:before{
-content:'';
-position:absolute;
-top:0;
-left:0;
-width:0;
-height:0;
-border-left:150px solid transparent;
-border-right:150px solid transparent;
-border-bottom:100px solid #ff8fab;
-}
-
-.letterPaper{
-display:none;
-background:linear-gradient(145deg,#1c0c1f,#2a1230);
-width:85%;
-max-width:750px;
-padding:60px 50px;
-border-radius:22px;
+z-index:9998;
+flex-direction:column;
 color:#ffd6e8;
-text-align:left;
 font-family:'Playfair Display', serif;
-font-size:18px;
-line-height:1.8;
-}
-
-.signature{
-margin-top:40px;
-font-family:'Dancing Script', cursive;
-font-size:30px;
-color:#ffb6d9;
+text-align:center;
 }
 
 </style>
@@ -166,18 +220,25 @@ color:#ffb6d9;
 
 <body>
 
+<!-- WELCOME -->
 <div id="welcome" class="section">
 <h1>Hi Darling… ❤️</h1>
 <p>This is something I built just for you.</p>
-<p>Tap anywhere to begin ✨</p>
+<p style="margin-top:30px;">Tap anywhere to begin ✨</p>
 </div>
 
+<!-- TIMELINE -->
 <div id="timeline" class="section hidden">
-<h2>We met on 6 September 2023 💫</h2>
-<h2>23 February 2025 💖</h2>
-<p>Tap to continue…</p>
+<h2>We met softly on 6 September 2023 💫</h2>
+<p>A simple message… that slowly became something meaningful.</p>
+
+<h2 style="margin-top:30px;">23 February 💖</h2>
+<p>The day we chose each other again.</p>
+
+<p style="margin-top:40px;">Tap to continue…</p>
 </div>
 
+<!-- QUESTION -->
 <div id="question" class="section hidden">
 <h1>Will you be my Valentine? 💖</h1>
 <div>
@@ -186,13 +247,15 @@ color:#ffb6d9;
 </div>
 </div>
 
+<!-- BOUQUET -->
 <div id="bouquetScreen" class="section hidden">
-<img src="bouquet.png" width="250">
-<h2>For you, always 💐</h2>
-<p>Click the bouquet</p>
+<h1>For you, always. 💖</h1>
+<img src="bouquet.png" id="bouquet">
+<p>Click the bouquet 🌹</p>
 </div>
 
-<div id="dashboard" class="section hidden">
+<!-- CHAPTERS -->
+<div id="chapters" class="section hidden">
 <h1>Our Beautiful Memories ✨</h1>
 
 <div class="photo-container">
@@ -203,34 +266,35 @@ color:#ffb6d9;
 </div>
 </div>
 
+<!-- LOVE LETTER -->
 <div id="letterOverlay">
-<div class="envelope" onclick="openLetter()"></div>
-<div class="letterPaper" id="letterPaper">
+<div class="envelope" id="envelope">
+<div class="flap"></div>
+<div class="body"></div>
+</div>
+
+<div class="letterCard" id="letterCard">
 <h2>23rd February, 2026</h2>
 <div id="letterText"></div>
 <div class="signature">Always yours,<br>Manik</div>
 </div>
 </div>
 
-<!-- OUR STORY OVERLAY (LOCKED NOW) -->
-<div id="storyOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(20,0,25,0.95); backdrop-filter:blur(12px); justify-content:center; align-items:center; z-index:9998; flex-direction:column; color:#ffd6e8; font-family:'Playfair Display', serif; text-align:center;">
+<!-- OUR STORY OVERLAY (ADDED ONLY) -->
+<div id="storyOverlay">
   <div style="max-width:700px; padding:40px;">
     <h2 style="font-family:'Dancing Script'; font-size:40px; color:#ffc2e0;">Our Story</h2>
 
     <p style="margin-top:20px; font-size:18px; line-height:1.8;">
-      It started with a simple message on 6 September 2023.
-      Something small… something casual…
-      Something neither of us knew would become this meaningful.
+      It started with a simple message on 6 September 2023...
     </p>
 
     <p style="margin-top:20px; font-size:18px; line-height:1.8;">
-      Time passed.
-      Feelings grew quietly.
-      And on 23 February, we chose each other again —
-      not by accident, but by heart.
+      Time passed. Feelings grew quietly...
     </p>
 
     <div id="storyHeart" style="font-size:80px; margin-top:40px; cursor:pointer;">❤️</div>
+
     <div id="storyFinal" style="display:none; margin-top:30px;">
       <h3 style="font-family:'Dancing Script'; font-size:28px;">
         And I would choose you again… every single time.
@@ -238,19 +302,19 @@ color:#ffb6d9;
     </div>
   </div>
 </div>
-
 <script>
 
 let welcome=document.getElementById("welcome");
 let timeline=document.getElementById("timeline");
 let question=document.getElementById("question");
 let bouquetScreen=document.getElementById("bouquetScreen");
-let dashboard=document.getElementById("dashboard");
+let chapters=document.getElementById("chapters");
 let yesBtn=document.getElementById("yesBtn");
 let noBtn=document.getElementById("noBtn");
-let bouquet=document.getElementById("bouquetScreen");
+let bouquet=document.getElementById("bouquet");
 let photos=document.querySelectorAll(".photo");
 
+/* FLOW LOCKED */
 welcome.onclick=()=>{
 welcome.classList.add("hidden");
 timeline.classList.remove("hidden");
@@ -261,10 +325,13 @@ timeline.classList.add("hidden");
 question.classList.remove("hidden");
 };
 
+let size=18;
 noBtn.onmouseover=()=>{
 noBtn.style.position="absolute";
 noBtn.style.top=Math.random()*window.innerHeight+"px";
 noBtn.style.left=Math.random()*window.innerWidth+"px";
+size+=5;
+yesBtn.style.fontSize=size+"px";
 };
 
 yesBtn.onclick=()=>{
@@ -272,9 +339,9 @@ question.classList.add("hidden");
 bouquetScreen.classList.remove("hidden");
 };
 
-bouquetScreen.onclick=()=>{
+bouquet.onclick=()=>{
 bouquetScreen.classList.add("hidden");
-dashboard.classList.remove("hidden");
+chapters.classList.remove("hidden");
 
 photos.forEach((photo,index)=>{
 setTimeout(()=>{
@@ -283,7 +350,7 @@ photo.classList.add("show");
 });
 };
 
-/* FLOATING HEARTS RESTORED */
+/* FLOAT HEARTS */
 function createHeart(){
 let heart=document.createElement("div");
 heart.classList.add("heart");
@@ -291,13 +358,15 @@ heart.innerHTML=Math.random()>0.5?"💖":"🌸";
 heart.style.left=Math.random()*100+"vw";
 heart.style.fontSize=(Math.random()*25+15)+"px";
 document.body.appendChild(heart);
-setTimeout(()=>heart.remove(),7000);
+setTimeout(()=>heart.remove(),8000);
 }
-setInterval(createHeart,350);
+setInterval(createHeart,300);
 
-/* LOVE LETTER LOCKED */
+/* LOVE LETTER */
+let letterBtn=document.getElementById("letterBtn");
 let letterOverlay=document.getElementById("letterOverlay");
-let letterPaper=document.getElementById("letterPaper");
+let envelope=document.getElementById("envelope");
+let letterCard=document.getElementById("letterCard");
 let letterText=document.getElementById("letterText");
 
 let typingTimeout=null;
@@ -311,8 +380,7 @@ but because it felt right.
 
 That day meant more to me than words can explain.
 It wasn’t just about being together —
-it was about growing,
-understanding,
+it was about growing, understanding,
 and finding our way back stronger.
 
 This Valentine’s Day feels intentional.
@@ -323,23 +391,37 @@ Thank you for choosing me.
 
 Happy Valentine’s Day.
 And Happy One Year to us. ❤️
+
 `;
 
-function openLetter(){
+letterBtn.onclick=()=>{
 letterOverlay.style.display="flex";
-letterPaper.style.display="block";
+letterCard.style.display="none";
+letterText.innerHTML="";
+envelope.classList.remove("open");
+currentIndex=0;
+if(typingTimeout) clearTimeout(typingTimeout);
+};
+
+envelope.onclick=()=>{
+envelope.classList.add("open");
+
+setTimeout(()=>{
+letterCard.style.display="block";
+startTyping();
+},700);
+};
+
+function startTyping(){
 letterText.innerHTML="";
 currentIndex=0;
 if(typingTimeout) clearTimeout(typingTimeout);
-startTyping();
-}
 
-function startTyping(){
 function type(){
-if(currentIndex < message.length){
-letterText.innerHTML += message.charAt(currentIndex);
+if(currentIndex<message.length){
+letterText.innerHTML+=message.charAt(currentIndex);
 currentIndex++;
-typingTimeout = setTimeout(type,60);
+typingTimeout=setTimeout(type,60);
 }
 }
 type();
@@ -348,12 +430,15 @@ type();
 letterOverlay.onclick=(e)=>{
 if(e.target===letterOverlay){
 letterOverlay.style.display="none";
-letterPaper.style.display="none";
+letterCard.style.display="none";
 if(typingTimeout) clearTimeout(typingTimeout);
 }
 };
 
-/* OUR STORY LOCKED */
+/* ========================= */
+/* ===== OUR STORY ONLY ===== */
+/* ========================= */
+
 let storyBtn=document.querySelector(".photo1");
 let storyOverlay=document.getElementById("storyOverlay");
 let storyHeart=document.getElementById("storyHeart");
@@ -375,5 +460,3 @@ storyOverlay.style.display="none";
 };
 
 </script>
-</body>
-</html>
