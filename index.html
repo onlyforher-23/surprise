@@ -31,7 +31,6 @@ display:flex;
 justify-content:center;
 align-items:center;
 flex-direction:column;
-transition:opacity 0.8s ease;
 }
 
 .hidden{display:none;}
@@ -46,16 +45,8 @@ cursor:pointer;
 transition:0.3s;
 }
 
-#yesBtn{
-background:white;
-color:#c44569;
-}
-
-#noBtn{
-background:#333;
-color:white;
-position:relative;
-}
+#yesBtn{background:white;color:#c44569;}
+#noBtn{background:#333;color:white;position:relative;}
 
 .photo-container{
 position:relative;
@@ -76,7 +67,6 @@ text-align:center;
 font-weight:bold;
 cursor:pointer;
 transition:0.4s;
-animation:drop 1.5s ease forwards;
 }
 
 .photo img{
@@ -86,19 +76,12 @@ object-fit:cover;
 border-radius:6px;
 }
 
-.photo:hover{
-transform:scale(1.1) rotate(0deg);
-}
+.photo:hover{transform:scale(1.1) rotate(0deg);}
 
 .photo1{top:10%; left:18%; transform:rotate(-12deg);}
 .photo2{top:20%; right:18%; transform:rotate(8deg);}
 .photo3{bottom:20%; left:25%; transform:rotate(6deg);}
 .photo4{bottom:15%; right:25%; transform:rotate(-10deg);}
-
-@keyframes drop{
-from{opacity:0; transform:translateY(-200px);}
-to{opacity:1;}
-}
 
 .heart{
 position:absolute;
@@ -111,18 +94,53 @@ animation:floatUp 7s linear infinite;
 100%{transform:translateY(-10vh); opacity:0;}
 }
 
-/* Confetti */
-.confetti{
+/* Love Letter Overlay */
+#letterOverlay{
 position:absolute;
-width:10px;
-height:10px;
-background-color:white;
-animation:fall 3s linear forwards;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.85);
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+z-index:10;
 }
 
-@keyframes fall{
-0%{transform:translateY(0); opacity:1;}
-100%{transform:translateY(100vh); opacity:0;}
+.letterBox{
+background:#fff0f3;
+color:#5e2a3e;
+width:80%;
+max-width:600px;
+padding:30px;
+border-radius:15px;
+box-shadow:0 0 30px rgba(255,255,255,0.3);
+text-align:left;
+font-family:'Courier New', monospace;
+font-size:16px;
+line-height:1.6;
+position:relative;
+}
+
+.closeBtn{
+position:absolute;
+top:10px;
+right:15px;
+cursor:pointer;
+font-weight:bold;
+color:#c44569;
+}
+
+.cursor{
+display:inline-block;
+width:8px;
+background:#c44569;
+animation:blink 1s infinite;
+}
+
+@keyframes blink{
+0%,50%,100%{opacity:1;}
+25%,75%{opacity:0;}
 }
 
 </style>
@@ -130,7 +148,6 @@ animation:fall 3s linear forwards;
 
 <body>
 
-<!-- Welcome -->
 <div id="welcome" class="section">
 <h1>Hi Darling… ❤️</h1>
 <p>This isn’t just a website.</p>
@@ -138,7 +155,6 @@ animation:fall 3s linear forwards;
 <p style="margin-top:30px;">Tap anywhere to begin ✨</p>
 </div>
 
-<!-- Timeline -->
 <div id="timeline" class="section hidden">
 <h2>6 September 2023 💫</h2>
 <p>The Instagram message that changed everything.</p>
@@ -153,7 +169,6 @@ animation:fall 3s linear forwards;
 <p style="margin-top:40px;">Tap to continue…</p>
 </div>
 
-<!-- Question -->
 <div id="question" class="section hidden">
 <h1>After everything…</h1>
 <h1>Will you be my Valentine? 💖</h1>
@@ -163,30 +178,21 @@ animation:fall 3s linear forwards;
 </div>
 </div>
 
-<!-- Dashboard -->
 <div id="dashboard" class="section hidden">
 <h1>Our Beautiful Memories ✨</h1>
 
 <div class="photo-container">
-<div class="photo photo1">
-<img src="photo1.jpg">
-Our Story
+<div class="photo photo1"><img src="photo1.jpg">Our Story</div>
+<div class="photo photo2"><img src="photo2.jpg">Memories</div>
+<div class="photo photo3" id="loveLetterBtn"><img src="photo3.jpg">Love Letter</div>
+<div class="photo photo4"><img src="photo4.jpg">Our Song</div>
+</div>
 </div>
 
-<div class="photo photo2">
-<img src="photo2.jpg">
-Memories
-</div>
-
-<div class="photo photo3">
-<img src="photo3.jpg">
-Love Letter
-</div>
-
-<div class="photo photo4">
-<img src="photo4.jpg">
-Our Song
-</div>
+<div id="letterOverlay" class="hidden">
+<div class="letterBox">
+<div class="closeBtn" onclick="closeLetter()">X</div>
+<div id="letterText"></div><span class="cursor"></span>
 </div>
 </div>
 
@@ -198,39 +204,28 @@ let question=document.getElementById("question");
 let dashboard=document.getElementById("dashboard");
 let yesBtn=document.getElementById("yesBtn");
 let noBtn=document.getElementById("noBtn");
+let loveLetterBtn=document.getElementById("loveLetterBtn");
+let letterOverlay=document.getElementById("letterOverlay");
+let letterText=document.getElementById("letterText");
+
 let size=18;
 
-// Welcome → Timeline
-welcome.addEventListener("click",()=>{
-welcome.classList.add("hidden");
-timeline.classList.remove("hidden");
-});
+welcome.onclick=()=>{welcome.classList.add("hidden");timeline.classList.remove("hidden");};
+timeline.onclick=()=>{timeline.classList.add("hidden");question.classList.remove("hidden");};
 
-// Timeline → Question
-timeline.addEventListener("click",()=>{
-timeline.classList.add("hidden");
-question.classList.remove("hidden");
-});
-
-// No button playful move
-noBtn.addEventListener("mouseover",()=>{
+noBtn.onmouseover=()=>{
 noBtn.style.position="absolute";
 noBtn.style.top=Math.random()*window.innerHeight+"px";
 noBtn.style.left=Math.random()*window.innerWidth+"px";
 size+=5;
 yesBtn.style.fontSize=size+"px";
-});
+};
 
-// Yes click → Confetti + Dashboard
-yesBtn.addEventListener("click",()=>{
+yesBtn.onclick=()=>{
 question.classList.add("hidden");
-createConfetti();
-setTimeout(()=>{
 dashboard.classList.remove("hidden");
-},800);
-});
+};
 
-// Floating hearts & flowers
 function createHeart(){
 let heart=document.createElement("div");
 heart.classList.add("heart");
@@ -242,16 +237,63 @@ setTimeout(()=>heart.remove(),7000);
 }
 setInterval(createHeart,250);
 
-// Confetti
-function createConfetti(){
-for(let i=0;i<80;i++){
-let confetti=document.createElement("div");
-confetti.classList.add("confetti");
-confetti.style.left=Math.random()*100+"vw";
-confetti.style.backgroundColor=["#fff","#ff8fab","#ffd6e0","#ffc2d1"][Math.floor(Math.random()*4)];
-document.body.appendChild(confetti);
-setTimeout(()=>confetti.remove(),3000);
+/* Love Letter Typing */
+loveLetterBtn.onclick=()=>{
+letterOverlay.classList.remove("hidden");
+startTyping();
+};
+
+function closeLetter(){
+letterOverlay.classList.add("hidden");
+letterText.innerHTML="";
 }
+
+let message=`Darling,
+
+From 6 September 2023, when you messaged me first,
+I didn’t know that one simple Instagram notification
+would change my life.
+
+Yes… we stumbled.
+Yes… we paused.
+And on 6 December 2023,
+we weren’t sure about us.
+
+But maybe we just needed time to grow.
+
+Then on 23 February 2025,
+you asked me again.
+
+And that moment?
+That was the easiest yes of my life.
+
+Because even when we were apart,
+I never stopped choosing you in my heart.
+
+You are my comfort.
+You are my chaos.
+You are my second chance.
+And this time… I’m not letting you go.
+
+Also… you’re ridiculously cute when you smile.
+And yes, I still get butterflies.
+
+Happy Valentine’s Day, Darling.
+And Happy 1 Year to us on 23rd Feb.
+
+Forever choosing you. ❤️`;
+
+function startTyping(){
+let i=0;
+let speed=40;
+function type(){
+if(i<message.length){
+letterText.innerHTML+=message.charAt(i);
+i++;
+setTimeout(type,speed);
+}
+}
+type();
 }
 
 </script>
