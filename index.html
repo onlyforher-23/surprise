@@ -111,7 +111,6 @@ justify-content:center;
 align-items:center;
 z-index:9998;
 padding:30px;
-text-align:center;
 }
 
 .storyContainer{
@@ -121,11 +120,13 @@ font-family:'Playfair Display', serif;
 font-size:22px;
 line-height:1.8;
 opacity:0;
-transition:opacity 1s ease;
+transition:opacity 1.2s ease, transform 1.2s ease;
+transform:scale(0.95);
 }
 
 .storyContainer.show{
 opacity:1;
+transform:scale(1);
 }
 
 .storyHighlight{
@@ -235,18 +236,6 @@ font-size:20px;
 color:#ffcce6;
 }
 
-.cursor{
-display:inline-block;
-width:8px;
-background:#ffcce6;
-animation:blink 1s infinite;
-}
-
-@keyframes blink{
-0%,50%,100%{opacity:1;}
-25%,75%{opacity:0;}
-}
-
 </style>
 </head>
 
@@ -320,7 +309,7 @@ let letterText=document.getElementById("letterText");
 let dateText=document.getElementById("dateText");
 let signText=document.getElementById("signText");
 
-/* BASIC FLOW */
+/* FLOW */
 
 welcome.onclick=()=>{welcome.classList.add("hidden");timeline.classList.remove("hidden");};
 timeline.onclick=()=>{timeline.classList.add("hidden");question.classList.remove("hidden");};
@@ -349,7 +338,7 @@ setTimeout(()=>heart.remove(),7000);
 }
 setInterval(createHeart,250);
 
-/* STORY CINEMATIC */
+/* STORY FIXED — NO FLICKER */
 
 let storyChapters=[
 `<div class="storyHighlight">6 September 2023</div>
@@ -374,24 +363,34 @@ You are the story. ❤️`
 ];
 
 ourStoryBtn.onclick=function(){
+
 storyOverlay.style.display="flex";
-storyText.innerHTML="";
+storyText.classList.remove("show");
+
 let index=0;
 
 function showChapter(){
-if(index < storyChapters.length){
+
+if(index >= storyChapters.length){
+storyText.innerHTML="Tap anywhere to close ✨";
+storyText.classList.add("show");
+return;
+}
+
+storyText.classList.remove("show");
+
+setTimeout(()=>{
+
 storyText.innerHTML=storyChapters[index];
 storyText.classList.add("show");
+
 index++;
+
 setTimeout(()=>{
-storyText.classList.remove("show");
-setTimeout(showChapter,1000);
-},4000);
-}else{
-setTimeout(()=>{
-storyText.innerHTML="Tap anywhere to close ✨";
-},800);
-}
+showChapter();
+},6500);
+
+},1000);
 }
 
 showChapter();
@@ -401,7 +400,7 @@ storyOverlay.onclick=function(){
 storyOverlay.style.display="none";
 };
 
-/* LETTER TYPING */
+/* LETTER */
 
 loveLetterBtn.onclick=()=>{
 letterOverlay.style.display="flex";
