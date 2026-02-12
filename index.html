@@ -15,7 +15,7 @@ font-family:Arial, sans-serif;
 color:white;
 text-align:center;
 height:100vh;
-background:linear-gradient(-45deg,#4a1c2f,#8e3b59,#ff8fab,#ffc2d1);
+background:linear-gradient(-45deg,#5e2a3e,#a4506b,#ff8fab,#ffc2d1);
 background-size:400% 400%;
 animation:gradient 20s ease infinite;
 }
@@ -34,7 +34,6 @@ display:flex;
 justify-content:center;
 align-items:center;
 flex-direction:column;
-transition:opacity 0.6s ease;
 }
 
 .hidden{display:none;}
@@ -49,7 +48,7 @@ cursor:pointer;
 transition:0.3s;
 }
 
-#yesBtn{background:white;color:#8e3b59;}
+#yesBtn{background:white;color:#c44569;}
 #noBtn{background:#333;color:white;position:relative;}
 
 .photo-container{
@@ -106,9 +105,8 @@ top:0;
 left:0;
 width:100%;
 height:100%;
-background:rgba(15,8,18,0.94);
-backdrop-filter:blur(14px);
--webkit-backdrop-filter:blur(14px);
+background:rgba(0,0,0,0.88);
+backdrop-filter:blur(12px);
 display:none;
 justify-content:center;
 align-items:center;
@@ -117,13 +115,13 @@ overflow:hidden;
 }
 
 .letterPaper{
-background:linear-gradient(145deg,#1c0c1f,#2a1230);
+background:#fff0f3;
+color:#5e2a3e;
 width:85%;
-max-width:750px;
-padding:60px 50px;
-border-radius:22px;
-box-shadow:0 0 60px rgba(255,150,200,0.25);
-color:#ffd6e8;
+max-width:700px;
+padding:50px;
+border-radius:20px;
+box-shadow:0 0 40px rgba(255,255,255,0.3);
 text-align:left;
 font-family:'Playfair Display', serif;
 font-size:18px;
@@ -138,18 +136,22 @@ animation:riseUp 0.8s ease forwards;
 }
 
 @keyframes riseUp{
-0%{
-transform:translateY(120%) scale(0.9);
-opacity:0;
+0%{transform:translateY(120%) scale(0.9); opacity:0;}
+100%{transform:translateY(0) scale(1); opacity:1;}
 }
-60%{
-transform:translateY(-10px) scale(1.02);
-opacity:1;
+
+.letterDate{
+font-family:'Dancing Script', cursive;
+font-size:34px;
+margin-bottom:30px;
+color:#c44569;
 }
-100%{
-transform:translateY(0) scale(1);
-opacity:1;
-}
+
+.signature{
+margin-top:40px;
+font-family:'Dancing Script', cursive;
+font-size:28px;
+color:#c44569;
 }
 
 .closeBtn{
@@ -158,13 +160,13 @@ top:20px;
 right:25px;
 cursor:pointer;
 font-size:20px;
-color:#ffc2e0;
+color:#c44569;
 }
 
 .cursor{
 display:inline-block;
 width:8px;
-background:#ffc2e0;
+background:#c44569;
 animation:blink 1s infinite;
 }
 
@@ -205,7 +207,6 @@ animation:blink 1s infinite;
 
 <div id="dashboard" class="section hidden">
 <h1>Our Beautiful Memories ✨</h1>
-
 <div class="photo-container">
 <div class="photo photo1"><img src="photo1.jpg">Our Story</div>
 <div class="photo photo2"><img src="photo2.jpg">Memories</div>
@@ -263,7 +264,7 @@ setTimeout(()=>heart.remove(),7000);
 }
 setInterval(createHeart,250);
 
-let message=`23rd February, 2026
+let message=`<div class="letterDate">23rd February, 2026</div>
 
 My Darling,
 
@@ -272,8 +273,7 @@ Not because it was easy,
 but because it felt right.
 
 That day meant more to me than words can explain.
-It wasn’t just about being together —
-it was about growing,
+It was about growing,
 understanding,
 and finding our way back stronger.
 
@@ -287,8 +287,7 @@ Thank you for choosing me.
 Happy Valentine’s Day.
 And Happy One Year to us. ❤️
 
-Always yours,
-Manik
+<div class="signature">Always yours,<br>Manik</div>
 `;
 
 loveLetterBtn.onclick=()=>{
@@ -307,7 +306,7 @@ startTyping();
 
 function startTyping(){
 let i=0;
-let speed=85; 
+let speed=80;
 function type(){
 if(i<message.length){
 letterText.innerHTML+=message.charAt(i);
