@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Our Love Universe ❤️</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Love Universe ❤️</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
 
-/* BACKGROUND */
 body{
 margin:0;
 overflow:hidden;
@@ -18,7 +17,7 @@ text-align:center;
 height:100vh;
 background:linear-gradient(-45deg,#4a1c2f,#8e3b59,#ff8fab,#ffc2d1);
 background-size:400% 400%;
-animation:gradient 20s ease infinite;
+animation:gradient 18s ease infinite;
 }
 
 @keyframes gradient{
@@ -53,7 +52,50 @@ transition:0.3s;
 #yesBtn{background:white;color:#8e3b59;}
 #noBtn{background:#333;color:white;position:relative;}
 
-/* FLOATING HEARTS */
+.photo-container{
+position:relative;
+width:90%;
+height:70%;
+}
+
+.photo{
+width:200px;
+height:240px;
+background:white;
+color:black;
+position:absolute;
+border-radius:14px;
+box-shadow:0 15px 30px rgba(0,0,0,0.4);
+padding:12px;
+text-align:center;
+font-weight:bold;
+cursor:pointer;
+transition:0.4s;
+opacity:0;
+transform:translateY(100px);
+}
+
+.photo img{
+width:100%;
+height:170px;
+object-fit:cover;
+border-radius:8px;
+}
+
+.photo:hover{
+transform:scale(1.08) rotate(0deg);
+}
+
+.photo1{top:10%; left:18%; transform:rotate(-12deg);}
+.photo2{top:20%; right:18%; transform:rotate(8deg);}
+.photo3{bottom:20%; left:25%; transform:rotate(6deg);}
+.photo4{bottom:15%; right:25%; transform:rotate(-10deg);}
+
+.showPhoto{
+opacity:1 !important;
+transform:translateY(0) rotate(0deg) !important;
+}
+
 .heart{
 position:absolute;
 font-size:20px;
@@ -65,74 +107,52 @@ animation:floatUp 7s linear infinite;
 100%{transform:translateY(-10vh); opacity:0;}
 }
 
-/* BOUQUET */
 #bouquetSection{
-display:none;
 position:absolute;
 width:100%;
 height:100%;
-flex-direction:column;
+display:flex;
 justify-content:center;
 align-items:center;
+flex-direction:column;
 }
 
-.bouquet{
-font-size:120px;
+#bouquetSection img{
+width:260px;
 cursor:pointer;
-animation:floatBouquet 3s ease-in-out infinite;
+transition:0.4s;
 }
 
-@keyframes floatBouquet{
-0%,100%{transform:translateY(0px);}
-50%{transform:translateY(-15px);}
+#bouquetSection img:hover{
+transform:scale(1.1);
 }
 
-/* DASHBOARD GROUPED STYLE */
-#dashboard{
-display:none;
-}
-
-.photo-container{
-position:relative;
-width:90%;
-height:70%;
-}
-
-.photo{
-width:180px;
-height:220px;
-background:white;
-color:black;
-position:absolute;
-border-radius:12px;
-box-shadow:0 15px 30px rgba(0,0,0,0.4);
-padding:10px;
-text-align:center;
-font-weight:bold;
-cursor:pointer;
-opacity:0;
-transform:translateY(100px);
-transition:0.8s ease;
-}
-
-.photo.show{
-opacity:1;
-transform:translateY(0);
-}
-
-.photo img{
+#memoryOverlay{
+position:fixed;
+top:0;
+left:0;
 width:100%;
-height:160px;
-object-fit:cover;
-border-radius:6px;
+height:100%;
+background:rgba(0,0,0,0.8);
+display:none;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+z-index:9998;
 }
 
-.photo1{top:10%; left:18%; transform:rotate(-12deg);}
-.photo2{top:20%; right:18%; transform:rotate(8deg);}
-.photo3{bottom:20%; left:25%; transform:rotate(6deg);}
-.photo4{bottom:15%; right:25%; transform:rotate(-10deg);}
+.memoryHeart{
+font-size:90px;
+cursor:pointer;
+animation:pulse 1.2s infinite;
+}
 
-/* LETTER OVERLAY */
+@keyframes pulse{
+0%{transform:scale(1)}
+50%{transform:scale(1.15)}
+100%{transform:scale(1)}
+}
+
 #letterOverlay{
 position:fixed;
 top:0;
@@ -140,50 +160,53 @@ left:0;
 width:100%;
 height:100%;
 background:rgba(15,8,18,0.94);
+backdrop-filter:blur(14px);
 display:none;
 justify-content:center;
 align-items:center;
 z-index:9999;
+overflow:hidden;
 }
 
-/* ENVELOPE */
 .envelope{
-width:280px;
-height:180px;
-background:#ffb6c1;
 position:absolute;
 bottom:-300px;
-border-radius:8px;
-animation:rise 1s forwards;
+width:300px;
 cursor:pointer;
+transition:1s;
 }
 
-@keyframes rise{
-to{bottom:40%;}
+.envelope.open{
+transform:translateY(-200px);
 }
 
 .letterPaper{
+display:none;
 background:linear-gradient(145deg,#1c0c1f,#2a1230);
-width:80%;
-max-width:700px;
-padding:50px;
-border-radius:20px;
+width:85%;
+max-width:750px;
+padding:60px 50px;
+border-radius:22px;
+box-shadow:0 0 60px rgba(255,150,200,0.25);
 color:#ffd6e8;
 text-align:left;
 font-family:'Playfair Display', serif;
-display:none;
+font-size:18px;
+line-height:1.8;
+position:relative;
 }
 
 .letterPaper h2{
 font-family:'Dancing Script', cursive;
-font-size:34px;
+font-size:36px;
+margin-bottom:25px;
 color:#ffc2e0;
 }
 
 .signature{
 margin-top:40px;
 font-family:'Dancing Script', cursive;
-font-size:28px;
+font-size:30px;
 color:#ffb6d9;
 }
 
@@ -199,36 +222,30 @@ animation:blink 1s infinite;
 25%,75%{opacity:0;}
 }
 
-/* END HEART */
-#endHeart{
-display:none;
-position:fixed;
-width:100%;
-height:100%;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-background:rgba(0,0,0,0.8);
-z-index:10000;
-}
-
-.bigHeart{
-font-size:120px;
-cursor:pointer;
-animation:pulse 1.5s infinite;
-}
-
-@keyframes pulse{
-0%{transform:scale(1);}
-50%{transform:scale(1.1);}
-100%{transform:scale(1);}
-}
-
 </style>
 </head>
-<body>
 
-<div id="question" class="section">
+<body>
+<!-- WELCOME -->
+<div id="welcome" class="section">
+<h1>Hi Darling… ❤️</h1>
+<p>This is something I built just for you.</p>
+<p style="margin-top:30px;">Tap anywhere to begin ✨</p>
+</div>
+
+<!-- TIMELINE -->
+<div id="timeline" class="section hidden">
+<h2>6 September 2023 💫</h2>
+<p>A simple message… that slowly became something meaningful.</p>
+
+<h2 style="margin-top:30px;">23 February 2025 💖</h2>
+<p>The day we chose each other again.</p>
+
+<p style="margin-top:40px;">Tap to continue…</p>
+</div>
+
+<!-- QUESTION -->
+<div id="question" class="section hidden">
 <h1>Will you be my Valentine? 💖</h1>
 <div>
 <button id="yesBtn">Yes 💘</button>
@@ -236,24 +253,48 @@ animation:pulse 1.5s infinite;
 </div>
 </div>
 
-<div id="bouquetSection" class="section">
-<div class="bouquet">💐</div>
-<h2>For you, always.</h2>
+<!-- BOUQUET -->
+<div id="bouquetSection" class="hidden">
+<img src="bouquet.png" id="bouquetImg">
+<p style="margin-top:30px;font-family:'Dancing Script';font-size:28px;">
+For you, always. Click the bouquet 🌹
+</p>
 </div>
 
-<div id="dashboard" class="section">
+<!-- CHAPTERS -->
+<div id="dashboard" class="section hidden">
 <h1>Our Beautiful Memories ✨</h1>
+
 <div class="photo-container">
-<div class="photo photo1"><img src="photo1.jpg">Our Story</div>
-<div class="photo photo2"><img src="photo2.jpg">Memories</div>
-<div class="photo photo3" id="loveLetterBtn"><img src="photo3.jpg">Love Letter</div>
-<div class="photo photo4"><img src="photo4.jpg">Our Song</div>
+<div class="photo photo1" id="storyBtn">
+<img src="photo1.jpg">Our Story 💞
+</div>
+
+<div class="photo photo2" id="memoryBtn">
+<img src="photo2.jpg">Memories 💫
+</div>
+
+<div class="photo photo3" id="loveLetterBtn">
+<img src="photo3.jpg">Love Letter 💌
+</div>
+
+<div class="photo photo4">
+<img src="photo4.jpg">Our Song 🎵
+</div>
 </div>
 </div>
 
+<!-- MEMORY OVERLAY -->
+<div id="memoryOverlay">
+<div class="memoryHeart" id="memoryHeart">❤️</div>
+<p style="margin-top:20px;font-family:'Dancing Script';font-size:26px;">
+Click the heart…
+</p>
+</div>
+
+<!-- LETTER OVERLAY -->
 <div id="letterOverlay">
-<div class="envelope" id="envelope"></div>
-
+<img src="https://i.imgur.com/7s7GZ6D.png" class="envelope" id="envelopeImg">
 <div class="letterPaper" id="letterPaper">
 <h2>23rd February, 2026</h2>
 <div id="letterText"></div><span class="cursor"></span>
@@ -261,41 +302,38 @@ animation:pulse 1.5s infinite;
 </div>
 </div>
 
-<div id="endHeart" class="section">
-<div class="bigHeart">❤️</div>
-<h2>Click the heart</h2>
-</div>
 <script>
 
-/* ELEMENTS */
-let question = document.getElementById("question");
-let yesBtn = document.getElementById("yesBtn");
-let noBtn = document.getElementById("noBtn");
-let bouquetSection = document.getElementById("bouquetSection");
-let dashboard = document.getElementById("dashboard");
-let photos = document.querySelectorAll(".photo");
-let loveLetterBtn = document.getElementById("loveLetterBtn");
-let letterOverlay = document.getElementById("letterOverlay");
-let envelope = document.getElementById("envelope");
-let letterPaper = document.getElementById("letterPaper");
-let letterText = document.getElementById("letterText");
-let endHeart = document.getElementById("endHeart");
-let bigHeart = document.querySelector(".bigHeart");
+let welcome=document.getElementById("welcome");
+let timeline=document.getElementById("timeline");
+let question=document.getElementById("question");
+let bouquet=document.getElementById("bouquetSection");
+let dashboard=document.getElementById("dashboard");
+let yesBtn=document.getElementById("yesBtn");
+let noBtn=document.getElementById("noBtn");
+let bouquetImg=document.getElementById("bouquetImg");
+let photos=document.querySelectorAll(".photo");
+let memoryBtn=document.getElementById("memoryBtn");
+let memoryOverlay=document.getElementById("memoryOverlay");
+let memoryHeart=document.getElementById("memoryHeart");
+let loveLetterBtn=document.getElementById("loveLetterBtn");
+let letterOverlay=document.getElementById("letterOverlay");
+let envelope=document.getElementById("envelopeImg");
+let letterPaper=document.getElementById("letterPaper");
+let letterText=document.getElementById("letterText");
 
-/* FLOATING HEARTS */
-function createHeart(){
-let heart=document.createElement("div");
-heart.classList.add("heart");
-heart.innerHTML=Math.random()>0.5?"💖":"🌸";
-heart.style.left=Math.random()*100+"vw";
-heart.style.fontSize=(Math.random()*25+15)+"px";
-document.body.appendChild(heart);
-setTimeout(()=>heart.remove(),7000);
-}
-setInterval(createHeart,250);
-
-/* NO BUTTON RUNS AWAY */
 let size=18;
+
+welcome.onclick=()=>{
+welcome.classList.add("hidden");
+timeline.classList.remove("hidden");
+};
+
+timeline.onclick=()=>{
+timeline.classList.add("hidden");
+question.classList.remove("hidden");
+};
+
 noBtn.onmouseover=()=>{
 noBtn.style.position="absolute";
 noBtn.style.top=Math.random()*window.innerHeight+"px";
@@ -304,39 +342,53 @@ size+=5;
 yesBtn.style.fontSize=size+"px";
 };
 
-/* YES → BOUQUET */
 yesBtn.onclick=()=>{
-question.style.display="none";
-bouquetSection.style.display="flex";
+question.classList.add("hidden");
+bouquet.classList.remove("hidden");
 };
 
-/* BOUQUET CLICK → SHOW CHAPTERS ONE BY ONE */
-document.querySelector(".bouquet").onclick=()=>{
-bouquetSection.style.display="none";
-dashboard.style.display="flex";
+bouquetImg.onclick=()=>{
+bouquet.classList.add("hidden");
+dashboard.classList.remove("hidden");
 
-photos.forEach((photo,index)=>{
+let delay=0;
+photos.forEach(photo=>{
 setTimeout(()=>{
-photo.classList.add("show");
-}, index*500);
+photo.classList.add("showPhoto");
+},delay);
+delay+=400;
 });
 };
 
-/* LOVE LETTER CLICK */
+memoryBtn.onclick=()=>{
+memoryOverlay.style.display="flex";
+};
+
+memoryHeart.onclick=()=>{
+memoryOverlay.innerHTML="<h2 style='font-family:Dancing Script'>You are my favorite memory. ❤️</h2>";
+setTimeout(()=>{
+memoryOverlay.style.display="none";
+memoryOverlay.innerHTML="<div class='memoryHeart' id='memoryHeart'>❤️</div><p style='margin-top:20px;font-family:Dancing Script;font-size:26px;'>Click the heart…</p>";
+memoryHeart=document.getElementById("memoryHeart");
+memoryHeart.onclick=arguments.callee;
+},2000);
+};
+
 loveLetterBtn.onclick=()=>{
 letterOverlay.style.display="flex";
-letterPaper.style.display="none";
-envelope.style.display="block";
+setTimeout(()=>{
+envelope.style.bottom="50%";
+},100);
 };
 
-/* ENVELOPE CLICK → OPEN LETTER */
 envelope.onclick=()=>{
-envelope.style.display="none";
+envelope.classList.add("open");
+setTimeout(()=>{
 letterPaper.style.display="block";
 typeLetter();
+},800);
 };
 
-/* TYPING LETTER */
 let message=`My Darling,
 
 On 23rd February, we chose each other again.
@@ -363,55 +415,17 @@ And Happy One Year to us. ❤️
 function typeLetter(){
 letterText.innerHTML="";
 let i=0;
-
-function type(){
+function typing(){
 if(i<message.length){
 letterText.innerHTML+=message.charAt(i);
 i++;
-setTimeout(type,55);
-}else{
-setTimeout(()=>{
-showEndHeart();
-},1000);
+setTimeout(typing,60);
 }
 }
-
-type();
+typing();
 }
-
-/* END HEART SECTION */
-function showEndHeart(){
-letterOverlay.style.display="none";
-endHeart.style.display="flex";
-}
-
-/* HEART CLICK BEHAVIOR */
-let heartClickCount=0;
-
-bigHeart.onclick=()=>{
-heartClickCount++;
-
-if(heartClickCount===1){
-bigHeart.innerHTML="💖";
-document.querySelector("#endHeart h2").innerText="Love you, Darling.";
-}
-else if(heartClickCount===2){
-endHeart.style.display="none";
-heartClickCount=0;
-}
-
-};
-
-/* CLOSE OVERLAY IF CLICK OUTSIDE */
-letterOverlay.onclick=(e)=>{
-if(e.target===letterOverlay){
-letterOverlay.style.display="none";
-envelope.style.display="block";
-letterPaper.style.display="none";
-letterText.innerHTML="";
-}
-};
 
 </script>
+
 </body>
 </html>
