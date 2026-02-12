@@ -113,6 +113,7 @@ display:none;
 justify-content:center;
 align-items:center;
 z-index:9999;
+overflow:hidden;
 }
 
 .letterPaper{
@@ -128,19 +129,27 @@ font-family:'Playfair Display', serif;
 font-size:18px;
 line-height:1.8;
 position:relative;
-animation:fadeIn 0.6s ease;
+transform:translateY(120%);
+opacity:0;
 }
 
-@keyframes fadeIn{
-from{opacity:0; transform:scale(0.95);}
-to{opacity:1;}
+.letterPaper.open{
+animation:riseUp 0.8s ease forwards;
 }
 
-.letterPaper h2{
-font-family:'Dancing Script', cursive;
-font-size:34px;
-margin-bottom:25px;
-color:#ffc2e0;
+@keyframes riseUp{
+0%{
+transform:translateY(120%) scale(0.9);
+opacity:0;
+}
+60%{
+transform:translateY(-10px) scale(1.02);
+opacity:1;
+}
+100%{
+transform:translateY(0) scale(1);
+opacity:1;
+}
 }
 
 .closeBtn{
@@ -150,13 +159,6 @@ right:25px;
 cursor:pointer;
 font-size:20px;
 color:#ffc2e0;
-}
-
-.signature{
-margin-top:40px;
-font-family:'Dancing Script', cursive;
-font-size:30px;
-color:#ffb6d9;
 }
 
 .cursor{
@@ -213,11 +215,9 @@ animation:blink 1s infinite;
 </div>
 
 <div id="letterOverlay">
-<div class="letterPaper">
+<div class="letterPaper" id="letterPaper">
 <div class="closeBtn" onclick="closeLetter()">×</div>
-<h2>23rd February, 2026</h2>
 <div id="letterText"></div><span class="cursor"></span>
-<div class="signature">Always yours,<br>Manik</div>
 </div>
 </div>
 
@@ -232,6 +232,7 @@ let noBtn=document.getElementById("noBtn");
 let loveLetterBtn=document.getElementById("loveLetterBtn");
 let letterOverlay=document.getElementById("letterOverlay");
 let letterText=document.getElementById("letterText");
+let letterPaper=document.getElementById("letterPaper");
 
 let size=18;
 
@@ -262,7 +263,9 @@ setTimeout(()=>heart.remove(),7000);
 }
 setInterval(createHeart,250);
 
-let message=`My Darling,
+let message=`23rd February, 2026
+
+My Darling,
 
 On 23rd February, we chose each other again.
 Not because it was easy,
@@ -284,25 +287,41 @@ Thank you for choosing me.
 Happy Valentine’s Day.
 And Happy One Year to us. ❤️
 
+Always yours,
+Manik
 `;
 
 loveLetterBtn.onclick=()=>{
 letterOverlay.style.display="flex";
 letterText.innerHTML="";
+letterPaper.classList.remove("open");
+
+setTimeout(()=>{
+letterPaper.classList.add("open");
+},50);
+
+setTimeout(()=>{
+startTyping();
+},800);
+};
+
+function startTyping(){
 let i=0;
+let speed=85; 
 function type(){
 if(i<message.length){
 letterText.innerHTML+=message.charAt(i);
 i++;
-setTimeout(type,60);
+setTimeout(type,speed);
 }
 }
 type();
-};
+}
 
 function closeLetter(){
 letterOverlay.style.display="none";
 letterText.innerHTML="";
+letterPaper.classList.remove("open");
 }
 
 </script>
