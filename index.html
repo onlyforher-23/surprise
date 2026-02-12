@@ -1,156 +1,176 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Will You Be My Valentine? ❤️</title>
+    <title>Our Love Universe ❤️</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        body {
-            margin: 0;
-            height: 100vh;
-            overflow: hidden;
-            font-family: 'Arial', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(-45deg, #8B0000, #B22222, #ff0000, #ff4d6d);
-            background-size: 400% 400%;
-            animation: gradientBG 8s ease infinite;
-            color: white;
-            text-align: center;
-        }
+<style>
+body {
+    margin: 0;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    color: white;
+    text-align: center;
+    height: 100vh;
+    background: linear-gradient(-45deg,#8B0000,#B22222,#ff0000,#ff4d6d);
+    background-size: 400% 400%;
+    animation: gradient 10s ease infinite;
+}
 
-        @keyframes gradientBG {
-            0% {background-position: 0% 50%;}
-            50% {background-position: 100% 50%;}
-            100% {background-position: 0% 50%;}
-        }
+@keyframes gradient {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
 
-        h1 {
-            font-size: 2.5rem;
-        }
+.section {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
 
-        button {
-            padding: 12px 25px;
-            margin: 10px;
-            font-size: 18px;
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+.hidden {
+    display: none;
+}
 
-        #yesBtn {
-            background: white;
-            color: red;
-        }
+button {
+    padding: 12px 25px;
+    margin: 10px;
+    font-size: 18px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
 
-        #noBtn {
-            background: black;
-            color: white;
-            position: relative;
-        }
+#yesBtn {
+    background: white;
+    color: red;
+}
 
-        .hidden {
-            display: none;
-        }
+#noBtn {
+    background: black;
+    color: white;
+    position: relative;
+}
 
-        #mainSection {
-            z-index: 2;
-        }
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(2, 180px);
+    gap: 20px;
+}
 
-        #nextSection {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: black;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
+.card {
+    height: 180px;
+    width: 180px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 20px;
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    font-weight: bold;
+    padding-bottom: 15px;
+    cursor: pointer;
+    transition: 0.4s;
+    box-shadow: 0 0 15px rgba(255,255,255,0.3);
+}
 
-        .card {
-            background: #222;
-            padding: 20px;
-            margin: 10px;
-            border-radius: 15px;
-            cursor: pointer;
-            width: 220px;
-            transition: 0.3s;
-        }
+.card:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 25px rgba(255,255,255,0.8);
+}
 
-        .card:hover {
-            background: red;
-        }
+/* Floating hearts */
+.heart {
+    position: absolute;
+    font-size: 20px;
+    animation: floatUp 4s linear infinite;
+}
 
-        /* Floating Hearts */
-        .heart {
-            position: absolute;
-            color: pink;
-            font-size: 20px;
-            animation: floatUp 5s linear infinite;
-        }
+@keyframes floatUp {
+    0% {transform: translateY(100vh); opacity:1;}
+    100% {transform: translateY(-10vh); opacity:0;}
+}
 
-        @keyframes floatUp {
-            0% { transform: translateY(100vh); opacity: 1; }
-            100% { transform: translateY(-10vh); opacity: 0; }
-        }
-    </style>
+</style>
 </head>
 
 <body>
 
-<div id="mainSection">
-    <h1>Will you be my Valentine? 💖</h1>
-    <button id="yesBtn">Yes 💘</button>
-    <button id="noBtn">No 😢</button>
+<!-- Welcome Screen -->
+<div id="welcome" class="section">
+    <h1>Welcome to Our Love Universe 🌎❤️</h1>
+    <p>Tap anywhere to continue...</p>
 </div>
 
-<div id="nextSection" class="hidden">
-    <h1>Welcome to Our Love Universe 🌎❤️</h1>
-    <div class="card">📖 Our Story</div>
-    <div class="card">📸 Memories</div>
-    <div class="card">💌 Love Letter</div>
-    <div class="card">🎵 Our Song</div>
+<!-- Valentine Question -->
+<div id="question" class="section hidden">
+    <h1>Will you be my Valentine? 💖</h1>
+    <div>
+        <button id="yesBtn">Yes 💘</button>
+        <button id="noBtn">No 😢</button>
+    </div>
+</div>
+
+<!-- Final Dashboard -->
+<div id="dashboard" class="section hidden">
+    <h1>Our Special World ✨</h1>
+    <div class="card-container">
+        <div class="card" style="background-image:url('https://source.unsplash.com/300x300/?love');">Our Story</div>
+        <div class="card" style="background-image:url('https://source.unsplash.com/300x300/?couple');">Memories</div>
+        <div class="card" style="background-image:url('https://source.unsplash.com/300x300/?romantic');">Love Letter</div>
+        <div class="card" style="background-image:url('https://source.unsplash.com/300x300/?music,romance');">Our Song</div>
+    </div>
 </div>
 
 <script>
-    let yesBtn = document.getElementById("yesBtn");
-    let noBtn = document.getElementById("noBtn");
-    let size = 18;
+let welcome = document.getElementById("welcome");
+let question = document.getElementById("question");
+let dashboard = document.getElementById("dashboard");
+let yesBtn = document.getElementById("yesBtn");
+let noBtn = document.getElementById("noBtn");
+let size = 18;
 
-    // No button moves and yes grows
-    noBtn.addEventListener("mouseover", function() {
-        noBtn.style.position = "absolute";
-        noBtn.style.top = Math.random() * window.innerHeight + "px";
-        noBtn.style.left = Math.random() * window.innerWidth + "px";
-        size += 5;
-        yesBtn.style.fontSize = size + "px";
-    });
+// Welcome click
+welcome.addEventListener("click", () => {
+    welcome.classList.add("hidden");
+    question.classList.remove("hidden");
+});
 
-    // Yes button click
-    yesBtn.addEventListener("click", function() {
-        document.getElementById("mainSection").classList.add("hidden");
-        document.getElementById("nextSection").classList.remove("hidden");
-        document.body.style.background = "black";
-    });
+// No button effect
+noBtn.addEventListener("mouseover", function() {
+    noBtn.style.position = "absolute";
+    noBtn.style.top = Math.random() * window.innerHeight + "px";
+    noBtn.style.left = Math.random() * window.innerWidth + "px";
+    size += 5;
+    yesBtn.style.fontSize = size + "px";
+});
 
-    // Floating hearts generator
-    function createHeart() {
-        let heart = document.createElement("div");
-        heart.classList.add("heart");
-        heart.innerHTML = "💖";
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.fontSize = (Math.random() * 20 + 15) + "px";
-        document.body.appendChild(heart);
+// Yes click
+yesBtn.addEventListener("click", function() {
+    question.classList.add("hidden");
+    dashboard.classList.remove("hidden");
+});
 
-        setTimeout(() => {
-            heart.remove();
-        }, 5000);
-    }
+// More hearts
+function createHeart() {
+    let heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = Math.random() > 0.5 ? "💖" : "🌹";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (Math.random() * 25 + 15) + "px";
+    document.body.appendChild(heart);
 
-    setInterval(createHeart, 500);
+    setTimeout(() => heart.remove(), 4000);
+}
+
+setInterval(createHeart, 300);
+
 </script>
 
 </body>
