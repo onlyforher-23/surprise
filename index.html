@@ -8,16 +8,16 @@
 
 <style>
 
+/* ================= GLOBAL ================= */
+
 body{
 margin:0;
 overflow:hidden;
-font-family:Arial, sans-serif;
-color:white;
-text-align:center;
-height:100vh;
-background:linear-gradient(-45deg,#5a1f38,#9e3f67,#ff99bb,#ffd1e6);
+font-family:'Playfair Display', serif;
+background:linear-gradient(-45deg,#3a0d1f,#6e2142,#ff8fab,#ffc2d1);
 background-size:400% 400%;
-animation:gradient 20s ease infinite;
+animation:gradient 18s ease infinite;
+color:white;
 }
 
 @keyframes gradient{
@@ -34,13 +34,16 @@ display:flex;
 justify-content:center;
 align-items:center;
 flex-direction:column;
+transition:opacity 0.6s ease;
 }
 
 .hidden{display:none;}
 
+/* ================= BUTTONS ================= */
+
 button{
-padding:12px 25px;
-margin:10px;
+padding:12px 28px;
+margin:12px;
 font-size:18px;
 border-radius:30px;
 border:none;
@@ -48,185 +51,155 @@ cursor:pointer;
 transition:0.3s;
 }
 
-#yesBtn{background:white;color:#9e3f67;}
-#noBtn{background:#333;color:white;position:relative;}
+#yesBtn{
+background:white;
+color:#8e3b59;
+}
+
+#noBtn{
+background:#222;
+color:white;
+position:relative;
+}
+
+/* ================= BOUQUET SCREEN ================= */
+
+#bouquetScreen{
+position:absolute;
+width:100%;
+height:100%;
+display:none;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+}
+
+#bouquetImg{
+width:280px;
+animation:rise 1.8s ease forwards;
+cursor:pointer;
+}
+
+@keyframes rise{
+from{transform:translateY(300px); opacity:0;}
+to{transform:translateY(0); opacity:1;}
+}
+
+#bouquetText{
+margin-top:30px;
+font-size:28px;
+font-family:'Dancing Script', cursive;
+color:#ffd6e8;
+opacity:0;
+animation:fadeIn 2s ease 1s forwards;
+}
+
+@keyframes fadeIn{
+to{opacity:1;}
+}
+
+/* ================= CHAPTER CARDS ================= */
+
+#dashboard{
+display:none;
+}
 
 .photo-container{
 position:relative;
-width:90%;
-height:70%;
+width:100%;
+height:100%;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+gap:25px;
 }
 
 .photo{
-width:180px;
-height:220px;
+width:220px;
+height:260px;
 background:white;
 color:black;
-position:absolute;
-border-radius:12px;
-box-shadow:0 15px 30px rgba(0,0,0,0.4);
-padding:10px;
+border-radius:14px;
+box-shadow:0 20px 40px rgba(0,0,0,0.5);
+padding:12px;
 text-align:center;
 font-weight:bold;
 cursor:pointer;
-transition:0.4s;
+transform:translateY(200px);
+opacity:0;
+transition:0.6s ease;
 }
 
 .photo img{
 width:100%;
-height:160px;
+height:180px;
 object-fit:cover;
-border-radius:6px;
+border-radius:8px;
 }
 
-.photo:hover{transform:scale(1.1) rotate(0deg);}
-
-.photo1{top:10%; left:18%; transform:rotate(-12deg);}
-.photo2{top:20%; right:18%; transform:rotate(8deg);}
-.photo3{bottom:20%; left:25%; transform:rotate(6deg);}
-.photo4{bottom:15%; right:25%; transform:rotate(-10deg);}
-
-/* REALISTIC BOUQUET */
-
-#bouquetScreen{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(20,8,25,0.95);
-display:none;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-z-index:9997;
+.photo.show{
+transform:translateY(0);
+opacity:1;
 }
 
-.bouquetWrapper{
-position:relative;
-cursor:pointer;
-animation:floatBouquet 3s ease-in-out infinite;
-}
+/* ================= HEART ENDING ================= */
 
-@keyframes floatBouquet{
-0%{transform:translateY(0);}
-50%{transform:translateY(-15px);}
-100%{transform:translateY(0);}
-}
-
-.rose{
+#finalHeartScreen{
 position:absolute;
-font-size:60px;
-}
-
-.rose1{left:-40px; top:0;}
-.rose2{left:0; top:-20px;}
-.rose3{left:40px; top:0;}
-.rose4{left:-20px; top:30px;}
-.rose5{left:20px; top:30px;}
-
-.wrap{
-font-size:100px;
-}
-
-.bouquetText{
-margin-top:40px;
-font-family:'Dancing Script', cursive;
-font-size:38px;
-color:#ffcce6;
-}
-
-/* STORY OVERLAY */
-
-#storyOverlay{
-position:fixed;
-top:0;
-left:0;
 width:100%;
 height:100%;
-background:rgba(10,5,15,0.96);
 display:none;
 justify-content:center;
 align-items:center;
 flex-direction:column;
-z-index:9998;
-padding:30px;
-overflow:hidden;
-}
-
-.storyContainer{
-max-width:750px;
-color:#ffe6f2;
-font-family:'Playfair Display', serif;
-font-size:26px;
-line-height:1.9;
-opacity:0;
-transform:translateY(80px);
-transition:all 1.2s ease;
 text-align:center;
 }
 
-.storyContainer.show{
-opacity:1;
-transform:translateY(0);
-}
-
-.storyHighlight{
-font-family:'Dancing Script', cursive;
-font-size:42px;
-color:#ffcce6;
-margin-bottom:25px;
-}
-
-/* FINAL HEART */
-
-#finalHeart{
-font-size:130px;
+#bigHeart{
+font-size:120px;
 cursor:pointer;
-opacity:0;
-transition:all 0.8s ease;
+transition:0.5s ease;
 }
 
 #heartMessage{
+margin-top:25px;
 font-family:'Dancing Script', cursive;
-font-size:42px;
-margin-top:20px;
+font-size:34px;
 opacity:0;
-transition:opacity 0.6s ease;
-}
-/* LETTER OVERLAY (unchanged styling, simple clean) */
-
-#letterOverlay{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(10,5,15,0.95);
-display:none;
-justify-content:center;
-align-items:center;
-z-index:9999;
+transition:0.6s ease;
 }
 
-/* ================= HTML ================= */
+.split{
+transform:scale(1.3) rotate(20deg);
+}
+
+/* ================= FLOATING PETALS ================= */
+
+.petal{
+position:absolute;
+font-size:20px;
+animation:floatDown 8s linear infinite;
+}
+
+@keyframes floatDown{
+0%{transform:translateY(-10vh); opacity:1;}
+100%{transform:translateY(100vh); opacity:0;}
+}
 
 </style>
 </head>
 
 <body>
 
+<!-- WELCOME -->
 <div id="welcome" class="section">
 <h1>Hi Darling… ❤️</h1>
 <p>Tap anywhere to begin ✨</p>
 </div>
 
-<div id="timeline" class="section hidden">
-<h2>23 February 2025 💖</h2>
-<p>The day we chose each other again.</p>
-<p>Tap to continue…</p>
-</div>
-
+<!-- QUESTION -->
 <div id="question" class="section hidden">
 <h1>Will you be my Valentine? 💖</h1>
 <div>
@@ -235,201 +208,131 @@ z-index:9999;
 </div>
 </div>
 
-<!-- REAL BOUQUET -->
+<!-- BOUQUET SCREEN -->
 <div id="bouquetScreen">
-<div class="bouquetWrapper" id="bouquetBtn">
-<div class="rose rose1">🌹</div>
-<div class="rose rose2">🌹</div>
-<div class="rose rose3">🌹</div>
-<div class="rose rose4">🌹</div>
-<div class="rose rose5">🌹</div>
-<div class="wrap">💐</div>
-</div>
-<div class="bouquetText">For you, always. Click the bouquet 🌹</div>
+<img src="bouquet.png" id="bouquetImg">
+<div id="bouquetText">For you, always. Click the bouquet 🌹</div>
 </div>
 
-<div id="dashboard" class="section hidden">
+<!-- DASHBOARD -->
+<div id="dashboard" class="section">
 <h1>Our Beautiful Memories ✨</h1>
 <div class="photo-container">
-<div class="photo photo1" id="ourStoryBtn"><img src="photo1.jpg">Our Story</div>
-<div class="photo photo2"><img src="photo2.jpg">Memories</div>
-<div class="photo photo3"><img src="photo3.jpg">Love Letter</div>
-<div class="photo photo4"><img src="photo4.jpg">Our Song</div>
+<div class="photo" id="chapter1"><img src="photo1.jpg">Our Story</div>
+<div class="photo" id="chapter2"><img src="photo2.jpg">Memories</div>
+<div class="photo" id="chapter3"><img src="photo3.jpg">Love Letter</div>
+<div class="photo" id="chapter4"><img src="photo4.jpg">Our Song</div>
 </div>
 </div>
 
-<!-- STORY OVERLAY -->
-<div id="storyOverlay">
-<div class="storyContainer" id="storyText"></div>
-<div id="finalHeart">❤️</div>
-<div id="heartMessage"></div>
+<!-- FINAL HEART -->
+<div id="finalHeartScreen">
+<div>You were never just a chapter. You are the story. ❤️</div>
+<div id="bigHeart">❤️</div>
+<div id="heartMessage">Love you, Darling.</div>
 </div>
 
 <script>
 
-/* FLOW CONTROL */
+/* ================= ELEMENTS ================= */
 
-let welcome=document.getElementById("welcome");
-let timeline=document.getElementById("timeline");
-let question=document.getElementById("question");
-let dashboard=document.getElementById("dashboard");
-let bouquetScreen=document.getElementById("bouquetScreen");
-let bouquetBtn=document.getElementById("bouquetBtn");
+let welcome = document.getElementById("welcome");
+let question = document.getElementById("question");
+let yesBtn = document.getElementById("yesBtn");
+let noBtn = document.getElementById("noBtn");
 
-let yesBtn=document.getElementById("yesBtn");
-let noBtn=document.getElementById("noBtn");
-let ourStoryBtn=document.getElementById("ourStoryBtn");
+let bouquetScreen = document.getElementById("bouquetScreen");
+let bouquetImg = document.getElementById("bouquetImg");
 
-let storyOverlay=document.getElementById("storyOverlay");
-let storyText=document.getElementById("storyText");
-let finalHeart=document.getElementById("finalHeart");
-let heartMessage=document.getElementById("heartMessage");
+let dashboard = document.getElementById("dashboard");
 
-/* Navigation */
+let chapter1 = document.getElementById("chapter1");
+let chapter2 = document.getElementById("chapter2");
+let chapter3 = document.getElementById("chapter3");
+let chapter4 = document.getElementById("chapter4");
 
-welcome.onclick=()=>{welcome.classList.add("hidden");timeline.classList.remove("hidden");};
-timeline.onclick=()=>{timeline.classList.add("hidden");question.classList.remove("hidden");};
+let finalHeartScreen = document.getElementById("finalHeartScreen");
+let bigHeart = document.getElementById("bigHeart");
+let heartMessage = document.getElementById("heartMessage");
 
-noBtn.onmouseover=()=>{
-noBtn.style.position="absolute";
-noBtn.style.top=Math.random()*window.innerHeight+"px";
-noBtn.style.left=Math.random()*window.innerWidth+"px";
+/* ================= FLOW CONTROL ================= */
+
+/* Welcome -> Question */
+welcome.onclick = () => {
+    welcome.classList.add("hidden");
+    question.classList.remove("hidden");
 };
 
-yesBtn.onclick=()=>{
-question.classList.add("hidden");
-bouquetScreen.style.display="flex";
+/* No button escapes */
+noBtn.onmouseover = () => {
+    noBtn.style.position = "absolute";
+    noBtn.style.top = Math.random()*80 + "%";
+    noBtn.style.left = Math.random()*80 + "%";
 };
 
-/* Bouquet click -> petals fall effect */
-
-bouquetBtn.onclick=()=>{
-createPetals();
-setTimeout(()=>{
-bouquetScreen.style.display="none";
-dashboard.classList.remove("hidden");
-},1200);
+/* Yes -> Bouquet */
+yesBtn.onclick = () => {
+    question.classList.add("hidden");
+    bouquetScreen.style.display = "flex";
 };
 
-function createPetals(){
-for(let i=0;i<20;i++){
-let petal=document.createElement("div");
-petal.innerHTML="🌸";
-petal.style.position="fixed";
-petal.style.left=Math.random()*100+"vw";
-petal.style.top="-20px";
-petal.style.fontSize="24px";
-petal.style.animation="fall 2s linear forwards";
-document.body.appendChild(petal);
+/* Bouquet Click -> Chapters appear one by one */
+bouquetImg.onclick = () => {
 
-setTimeout(()=>petal.remove(),2000);
-}
-}
+    bouquetScreen.style.display = "none";
+    dashboard.style.display = "flex";
 
-/* Petal animation */
-let style=document.createElement("style");
-style.innerHTML=`
-@keyframes fall{
-to{transform:translateY(100vh) rotate(360deg); opacity:0;}
-}`;
-document.head.appendChild(style);
-
-/* STORY LOGIC */
-
-let storyChapters=[
-`<div class="storyHighlight">6 September 2023</div>
-A simple message. A quiet beginning.`,
-
-`Time moved gently.
-Life shaped us slowly.
-But something between us never truly faded.`,
-
-`<div class="storyHighlight">23 February 2025</div>
-We didn’t just continue.
-We chose each other again.`,
-
-`And now…
-it feels calmer,
-stronger,
-more certain.`,
-
-`You were never just a chapter.
-You are the story. ❤️`
-];
-
-let chapterIndex=0;
-
-ourStoryBtn.onclick=function(){
-
-storyOverlay.style.display="flex";
-dashboard.classList.add("hidden");
-
-chapterIndex=0;
-finalHeart.style.opacity="0";
-heartMessage.style.opacity="0";
-heartMessage.innerHTML="";
-showNextChapter();
+    setTimeout(() => chapter1.classList.add("show"), 300);
+    setTimeout(() => chapter2.classList.add("show"), 900);
+    setTimeout(() => chapter3.classList.add("show"), 1500);
+    setTimeout(() => chapter4.classList.add("show"), 2100);
 };
 
-function showNextChapter(){
+/* ================= FINAL HEART ================= */
 
-if(chapterIndex >= storyChapters.length){
-storyText.classList.remove("show");
-setTimeout(()=>{
-storyText.innerHTML="";
-finalHeart.style.opacity="1";
-},500);
-return;
-}
-
-storyText.classList.remove("show");
-
-setTimeout(()=>{
-storyText.innerHTML=storyChapters[chapterIndex];
-storyText.classList.add("show");
-chapterIndex++;
-},500);
-}
-
-/* Click to move to next chapter */
-storyOverlay.onclick=function(e){
-if(e.target===storyOverlay){
-if(finalHeart.style.opacity==="1") return;
-showNextChapter();
-}
+/* When clicking Our Story (Chapter 1) -> Go to final screen */
+chapter1.onclick = () => {
+    dashboard.style.display = "none";
+    finalHeartScreen.style.display = "flex";
 };
 
-/* FINAL HEART INTERACTION */
+/* Heart interaction */
+let heartState = 0;
 
-let heartStep=0;
+bigHeart.onclick = () => {
 
-finalHeart.onclick=function(e){
+    if(heartState === 0){
+        heartMessage.style.opacity = "1";
+        bigHeart.classList.add("split");
+        heartState = 1;
+    }
+    else{
+        heartMessage.style.opacity = "0";
+        bigHeart.classList.remove("split");
 
-e.stopPropagation();
+        setTimeout(()=>{
+            finalHeartScreen.style.display = "none";
+            dashboard.style.display = "flex";
+        },600);
 
-if(heartStep===0){
-heartMessage.innerHTML="Love you, Darling ❤️";
-heartMessage.style.opacity="1";
-heartStep++;
-}
-else if(heartStep===1){
-heartMessage.innerHTML="Click me again…";
-heartStep++;
-}
-else{
-heartMessage.innerHTML="Forever yours. 💖";
-setTimeout(()=>{
-storyOverlay.style.display="none";
-dashboard.classList.remove("hidden");
-
-/* RESET everything */
-heartStep=0;
-heartMessage.innerHTML="";
-heartMessage.style.opacity="0";
-finalHeart.style.opacity="0";
-},2000);
-}
+        heartState = 0;
+    }
 };
+
+/* ================= FLOATING PETALS ================= */
+
+function createPetal(){
+    let petal = document.createElement("div");
+    petal.classList.add("petal");
+    petal.innerHTML = Math.random() > 0.5 ? "🌸" : "💖";
+    petal.style.left = Math.random()*100 + "vw";
+    petal.style.fontSize = (Math.random()*20 + 15) + "px";
+    document.body.appendChild(petal);
+
+    setTimeout(()=> petal.remove(), 8000);
+}
+
+setInterval(createPetal, 400);
 
 </script>
 
