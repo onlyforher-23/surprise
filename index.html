@@ -41,6 +41,7 @@ transition:0.6s;
 
 .hidden{display:none;}
 
+/* BUTTONS */
 button{
 padding:12px 25px;
 margin:10px;
@@ -54,6 +55,7 @@ transition:0.3s;
 #yesBtn{background:white;color:#8e3b59;}
 #noBtn{background:#222;color:white;position:relative;}
 
+/* BOUQUET */
 #bouquetScreen img{
 width:220px;
 cursor:pointer;
@@ -65,6 +67,7 @@ animation:float 3s ease-in-out infinite;
 50%{transform:translateY(-15px);}
 }
 
+/* CHAPTER CARDS */
 .photo-container{
 position:relative;
 width:90%;
@@ -107,7 +110,7 @@ border-radius:8px;
 .photo3{bottom:20%; left:25%; transform:rotate(6deg);}
 .photo4{bottom:15%; right:25%; transform:rotate(-10deg);}
 
-/* LOVE LETTER */
+/* LOVE LETTER OVERLAY */
 #letterOverlay{
 position:fixed;
 top:0;
@@ -122,6 +125,7 @@ flex-direction:column;
 z-index:9999;
 }
 
+/* ENVELOPE */
 .envelope{
 position:relative;
 width:260px;
@@ -153,6 +157,7 @@ transition:0.8s;
 transform:rotateX(180deg);
 }
 
+/* LETTER CARD */
 .letterCard{
 position:absolute;
 width:80%;
@@ -185,6 +190,7 @@ from{opacity:0; transform:translateY(20px);}
 to{opacity:1;}
 }
 
+/* FLOATING HEARTS */
 .heart{
 position:absolute;
 font-size:20px;
@@ -194,25 +200,6 @@ animation:floatUp 8s linear infinite;
 @keyframes floatUp{
 0%{transform:translateY(100vh); opacity:1;}
 100%{transform:translateY(-10vh); opacity:0;}
-}
-
-/* ===== OUR STORY OVERLAY STYLE ===== */
-#storyOverlay{
-display:none;
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(20,0,25,0.95);
-backdrop-filter:blur(12px);
-justify-content:center;
-align-items:center;
-z-index:9998;
-flex-direction:column;
-color:#ffd6e8;
-font-family:'Playfair Display', serif;
-text-align:center;
 }
 
 </style>
@@ -265,7 +252,6 @@ text-align:center;
 <div class="photo photo4"><img src="photo4.jpg">Our Song</div>
 </div>
 </div>
-
 <!-- LOVE LETTER -->
 <div id="letterOverlay">
 <div class="envelope" id="envelope">
@@ -280,28 +266,109 @@ text-align:center;
 </div>
 </div>
 
-<!-- OUR STORY OVERLAY (ADDED ONLY) -->
-<div id="storyOverlay">
-  <div style="max-width:700px; padding:40px;">
-    <h2 style="font-family:'Dancing Script'; font-size:40px; color:#ffc2e0;">Our Story</h2>
+<!-- OUR STORY OVERLAY -->
+<div id="storyOverlay" style="
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(20,0,25,0.95);
+backdrop-filter:blur(12px);
+justify-content:center;
+align-items:center;
+flex-direction:column;
+z-index:9998;
+color:#ffd6e8;
+font-family:'Playfair Display', serif;
+text-align:center;
+padding:40px;
+">
 
-    <p style="margin-top:20px; font-size:18px; line-height:1.8;">
-      It started with a simple message on 6 September 2023...
-    </p>
+<div style="max-width:750px; line-height:1.9;">
 
-    <p style="margin-top:20px; font-size:18px; line-height:1.8;">
-      Time passed. Feelings grew quietly...
-    </p>
+<h2 style="font-family:'Dancing Script'; font-size:42px; color:#ffc2e0;">
+Our Story
+</h2>
 
-    <div id="storyHeart" style="font-size:80px; margin-top:40px; cursor:pointer;">❤️</div>
+<p style="margin-top:25px;">
+It started with a simple message on 6 September 2023…
+Just a “Hi”.
+Just a moment.
+Just something small that didn’t look important at the time.
+</p>
 
-    <div id="storyFinal" style="display:none; margin-top:30px;">
-      <h3 style="font-family:'Dancing Script'; font-size:28px;">
-        And I would choose you again… every single time.
-      </h3>
-    </div>
-  </div>
+<p style="margin-top:20px;">
+But somehow, that small moment became conversations.
+Conversations became comfort.
+Comfort slowly became attachment.
+And attachment became something neither of us expected —
+something real.
+</p>
+
+<p style="margin-top:20px;">
+We didn’t rush.
+We didn’t force anything.
+We simply talked.
+We laughed.
+We shared pieces of ourselves.
+And somewhere between those little moments,
+you became important to me.
+</p>
+
+<p style="margin-top:20px;">
+There were pauses.
+There were doubts.
+There were days when things felt uncertain.
+But even in silence,
+even in distance,
+there was something that kept pulling us back.
+</p>
+
+<p style="margin-top:20px;">
+And then…
+23 February.
+Not just a date.
+Not just a decision.
+But a choice.
+A conscious, beautiful choice to try again —
+not because it was perfect,
+but because it was worth it.
+</p>
+
+<p style="margin-top:20px;">
+And if I am honest…
+I would go through every twist,
+every pause,
+every uncertain moment again —
+just to end up choosing you the same way.
+</p>
+
+<div id="storyHeart" style="
+font-size:80px;
+margin-top:40px;
+cursor:pointer;
+animation:pulse 1.5s infinite;
+">
+❤️
 </div>
+
+<p style="margin-top:10px;">Tap the heart</p>
+
+<div id="storyFinal" style="display:none; margin-top:30px;">
+<h3 style="font-family:'Dancing Script'; font-size:32px; color:#ffb6d9;">
+And I would choose you again… every single time.
+</h3>
+</div>
+
+<p style="margin-top:30px; font-size:14px; opacity:0.7;">
+Tap anywhere outside to close ✨
+</p>
+
+</div>
+</div>
+
 <script>
 
 let welcome=document.getElementById("welcome");
@@ -435,10 +502,7 @@ if(typingTimeout) clearTimeout(typingTimeout);
 }
 };
 
-/* ========================= */
-/* ===== OUR STORY ONLY ===== */
-/* ========================= */
-
+/* OUR STORY LOGIC */
 let storyBtn=document.querySelector(".photo1");
 let storyOverlay=document.getElementById("storyOverlay");
 let storyHeart=document.getElementById("storyHeart");
@@ -460,3 +524,6 @@ storyOverlay.style.display="none";
 };
 
 </script>
+
+</body>
+</html>
