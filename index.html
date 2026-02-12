@@ -97,7 +97,45 @@ animation:floatUp 7s linear infinite;
 100%{transform:translateY(-10vh); opacity:0;}
 }
 
-/* OVERLAY */
+/* STORY OVERLAY */
+
+#storyOverlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(10,5,15,0.96);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:9998;
+padding:30px;
+text-align:center;
+}
+
+.storyContainer{
+max-width:700px;
+color:#ffe6f2;
+font-family:'Playfair Display', serif;
+font-size:22px;
+line-height:1.8;
+opacity:0;
+transition:opacity 1s ease;
+}
+
+.storyContainer.show{
+opacity:1;
+}
+
+.storyHighlight{
+font-family:'Dancing Script', cursive;
+font-size:36px;
+color:#ffcce6;
+margin-bottom:20px;
+}
+
+/* LETTER OVERLAY */
 
 #letterOverlay{
 position:fixed;
@@ -112,7 +150,6 @@ align-items:center;
 z-index:9999;
 overflow:hidden;
 }
-
 /* ENVELOPE */
 
 .envelope{
@@ -237,15 +274,21 @@ animation:blink 1s infinite;
 <div id="dashboard" class="section hidden">
 <h1>Our Beautiful Memories ✨</h1>
 <div class="photo-container">
-<div class="photo photo1"><img src="photo1.jpg">Our Story</div>
+<div class="photo photo1" id="ourStoryBtn"><img src="photo1.jpg">Our Story</div>
 <div class="photo photo2"><img src="photo2.jpg">Memories</div>
 <div class="photo photo3" id="loveLetterBtn"><img src="photo3.jpg">Love Letter</div>
 <div class="photo photo4"><img src="photo4.jpg">Our Song</div>
 </div>
 </div>
 
+<!-- STORY OVERLAY -->
+<div id="storyOverlay">
+<div class="storyContainer" id="storyText"></div>
+</div>
+
+<!-- LETTER OVERLAY -->
 <div id="letterOverlay">
-<div class="envelope" id="envelope">
+<div class="envelope">
 <div class="flap"></div>
 </div>
 
@@ -266,12 +309,18 @@ let dashboard=document.getElementById("dashboard");
 let yesBtn=document.getElementById("yesBtn");
 let noBtn=document.getElementById("noBtn");
 let loveLetterBtn=document.getElementById("loveLetterBtn");
+let ourStoryBtn=document.getElementById("ourStoryBtn");
+
+let storyOverlay=document.getElementById("storyOverlay");
+let storyText=document.getElementById("storyText");
+
 let letterOverlay=document.getElementById("letterOverlay");
-let envelope=document.getElementById("envelope");
 let letterPaper=document.getElementById("letterPaper");
 let letterText=document.getElementById("letterText");
 let dateText=document.getElementById("dateText");
 let signText=document.getElementById("signText");
+
+/* BASIC FLOW */
 
 welcome.onclick=()=>{welcome.classList.add("hidden");timeline.classList.remove("hidden");};
 timeline.onclick=()=>{timeline.classList.add("hidden");question.classList.remove("hidden");};
@@ -287,6 +336,8 @@ question.classList.add("hidden");
 dashboard.classList.remove("hidden");
 };
 
+/* HEARTS */
+
 function createHeart(){
 let heart=document.createElement("div");
 heart.classList.add("heart");
@@ -297,6 +348,60 @@ document.body.appendChild(heart);
 setTimeout(()=>heart.remove(),7000);
 }
 setInterval(createHeart,250);
+
+/* STORY CINEMATIC */
+
+let storyChapters=[
+`<div class="storyHighlight">6 September 2023</div>
+A simple message.
+A quiet beginning.`,
+
+`Time moved gently.
+Life shaped us slowly.
+But something between us never truly faded.`,
+
+`<div class="storyHighlight">23 February 2025</div>
+We didn’t just continue.
+We chose each other again.`,
+
+`And now…
+it feels calmer,
+stronger,
+more certain.`,
+
+`You were never just a chapter.
+You are the story. ❤️`
+];
+
+ourStoryBtn.onclick=function(){
+storyOverlay.style.display="flex";
+storyText.innerHTML="";
+let index=0;
+
+function showChapter(){
+if(index < storyChapters.length){
+storyText.innerHTML=storyChapters[index];
+storyText.classList.add("show");
+index++;
+setTimeout(()=>{
+storyText.classList.remove("show");
+setTimeout(showChapter,1000);
+},4000);
+}else{
+setTimeout(()=>{
+storyText.innerHTML="Tap anywhere to close ✨";
+},800);
+}
+}
+
+showChapter();
+};
+
+storyOverlay.onclick=function(){
+storyOverlay.style.display="none";
+};
+
+/* LETTER TYPING */
 
 loveLetterBtn.onclick=()=>{
 letterOverlay.style.display="flex";
@@ -326,7 +431,7 @@ type();
 function startTyping(){
 typeText(dateText,"23rd February, 2026",60,function(){
 typeText(letterText,
-"\n\nMy Darling,\n\nOn 23rd February, we chose each other again. Not because it was easy, but because it felt right.\n\nThat day meant more to me than words can explain. It wasn’t just about being together — it was about growing, understanding, and finding our way back stronger.\n\nThis Valentine’s Day feels different. It feels intentional. It feels like us.\n\nThank you for choosing this journey. Thank you for choosing me.\n\nHappy Valentine’s Day.\nAnd Happy One Year to us. ❤️\n\n",
+"\n\nMy Darling,\n\nOn 23rd February, we chose each other again. Not because it was easy, but because it felt right.\n\nThat day meant more to me than words can explain. It was about growing, understanding, and finding our way back stronger.\n\nThis Valentine’s Day feels different. It feels intentional. It feels like us.\n\nThank you for choosing this journey. Thank you for choosing me.\n\nHappy Valentine’s Day.\nAnd Happy One Year to us. ❤️\n\n",
 55,function(){
 typeText(signText,"Always yours,\nManik",60);
 });
