@@ -8,8 +8,6 @@
 
 <style>
 
-/* ===== LOCKED CSS (UNCHANGED) ===== */
-
 body{
 margin:0;
 overflow:hidden;
@@ -73,6 +71,13 @@ text-align:center;
 font-weight:bold;
 cursor:pointer;
 transition:0.4s;
+opacity:0;
+transform:translateY(200px);
+}
+
+.photo.show{
+opacity:1;
+transform:translateY(0);
 }
 
 .photo img{
@@ -101,8 +106,6 @@ animation:floatUp 7s linear infinite;
 0%{transform:translateY(100vh); opacity:1;}
 100%{transform:translateY(-10vh); opacity:0;}
 }
-
-/* ===== LOVE LETTER LOCKED ===== */
 
 #letterOverlay{
 position:fixed;
@@ -163,8 +166,6 @@ color:#ffb6d9;
 
 <body>
 
-<!-- LOCKED FLOW -->
-
 <div id="welcome" class="section">
 <h1>Hi Darling… ❤️</h1>
 <p>This is something I built just for you.</p>
@@ -185,7 +186,7 @@ color:#ffb6d9;
 </div>
 </div>
 
-<div id="bouquetSection" class="section hidden">
+<div id="bouquetScreen" class="section hidden">
 <img src="bouquet.png" width="250">
 <h2>For you, always 💐</h2>
 <p>Click the bouquet</p>
@@ -193,6 +194,7 @@ color:#ffb6d9;
 
 <div id="dashboard" class="section hidden">
 <h1>Our Beautiful Memories ✨</h1>
+
 <div class="photo-container">
 <div class="photo photo1"><img src="photo1.jpg">Our Story</div>
 <div class="photo photo2"><img src="photo2.jpg">Memories</div>
@@ -201,7 +203,6 @@ color:#ffb6d9;
 </div>
 </div>
 
-<!-- LOCKED LOVE LETTER -->
 <div id="letterOverlay">
 <div class="envelope" onclick="openLetter()"></div>
 <div class="letterPaper" id="letterPaper">
@@ -211,7 +212,7 @@ color:#ffb6d9;
 </div>
 </div>
 
-<!-- OUR STORY OVERLAY (MOVED CORRECTLY) -->
+<!-- OUR STORY OVERLAY (LOCKED NOW) -->
 <div id="storyOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(20,0,25,0.95); backdrop-filter:blur(12px); justify-content:center; align-items:center; z-index:9998; flex-direction:column; color:#ffd6e8; font-family:'Playfair Display', serif; text-align:center;">
   <div style="max-width:700px; padding:40px;">
     <h2 style="font-family:'Dancing Script'; font-size:40px; color:#ffc2e0;">Our Story</h2>
@@ -240,15 +241,15 @@ color:#ffb6d9;
 
 <script>
 
-/* ===== LOCKED JS (UNCHANGED) ===== */
-
 let welcome=document.getElementById("welcome");
 let timeline=document.getElementById("timeline");
 let question=document.getElementById("question");
-let bouquetSection=document.getElementById("bouquetSection");
+let bouquetScreen=document.getElementById("bouquetScreen");
 let dashboard=document.getElementById("dashboard");
 let yesBtn=document.getElementById("yesBtn");
 let noBtn=document.getElementById("noBtn");
+let bouquet=document.getElementById("bouquetScreen");
+let photos=document.querySelectorAll(".photo");
 
 welcome.onclick=()=>{
 welcome.classList.add("hidden");
@@ -268,16 +269,33 @@ noBtn.style.left=Math.random()*window.innerWidth+"px";
 
 yesBtn.onclick=()=>{
 question.classList.add("hidden");
-bouquetSection.classList.remove("hidden");
+bouquetScreen.classList.remove("hidden");
 };
 
-bouquetSection.onclick=()=>{
-bouquetSection.classList.add("hidden");
+bouquetScreen.onclick=()=>{
+bouquetScreen.classList.add("hidden");
 dashboard.classList.remove("hidden");
+
+photos.forEach((photo,index)=>{
+setTimeout(()=>{
+photo.classList.add("show");
+},400*index);
+});
 };
 
-/* ===== LOVE LETTER LOCKED ===== */
+/* FLOATING HEARTS RESTORED */
+function createHeart(){
+let heart=document.createElement("div");
+heart.classList.add("heart");
+heart.innerHTML=Math.random()>0.5?"💖":"🌸";
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(Math.random()*25+15)+"px";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),7000);
+}
+setInterval(createHeart,350);
 
+/* LOVE LETTER LOCKED */
 let letterOverlay=document.getElementById("letterOverlay");
 let letterPaper=document.getElementById("letterPaper");
 let letterText=document.getElementById("letterText");
@@ -335,8 +353,7 @@ if(typingTimeout) clearTimeout(typingTimeout);
 }
 };
 
-/* ===== OUR STORY JS (ONLY ADDITION) ===== */
-
+/* OUR STORY LOCKED */
 let storyBtn=document.querySelector(".photo1");
 let storyOverlay=document.getElementById("storyOverlay");
 let storyHeart=document.getElementById("storyHeart");
