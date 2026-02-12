@@ -11,13 +11,13 @@
 body{
 margin:0;
 overflow:hidden;
-font-family:Arial, sans-serif;
+font-family:Arial;
 color:white;
 text-align:center;
 height:100vh;
 background:linear-gradient(-45deg,#4a1c2f,#8e3b59,#ff8fab,#ffc2d1);
 background-size:400% 400%;
-animation:gradient 18s ease infinite;
+animation:gradient 20s ease infinite;
 }
 
 @keyframes gradient{
@@ -54,7 +54,7 @@ transition:0.3s;
 
 .photo-container{
 position:relative;
-width:90%;
+width:100%;
 height:70%;
 }
 
@@ -64,94 +64,62 @@ height:240px;
 background:white;
 color:black;
 position:absolute;
-border-radius:14px;
+border-radius:12px;
 box-shadow:0 15px 30px rgba(0,0,0,0.4);
-padding:12px;
+padding:10px;
 text-align:center;
 font-weight:bold;
 cursor:pointer;
 transition:0.4s;
 opacity:0;
-transform:translateY(100px);
+transform:translateY(120px);
 }
 
 .photo img{
 width:100%;
 height:170px;
 object-fit:cover;
-border-radius:8px;
+border-radius:6px;
 }
 
 .photo:hover{
-transform:scale(1.08) rotate(0deg);
+transform:translateY(0) rotate(0deg) scale(1.07);
 }
 
-.photo1{top:10%; left:18%; transform:rotate(-12deg);}
-.photo2{top:20%; right:18%; transform:rotate(8deg);}
-.photo3{bottom:20%; left:25%; transform:rotate(6deg);}
-.photo4{bottom:15%; right:25%; transform:rotate(-10deg);}
+.photo1{top:15%; left:20%; transform:rotate(-12deg);}
+.photo2{top:15%; right:20%; transform:rotate(8deg);}
+.photo3{bottom:10%; left:30%; transform:rotate(6deg);}
+.photo4{bottom:10%; right:30%; transform:rotate(-10deg);}
 
-.showPhoto{
-opacity:1 !important;
-transform:translateY(0) rotate(0deg) !important;
+.showCard{
+opacity:1;
+transform:translateY(0);
+transition:1s ease;
 }
 
-.heart{
-position:absolute;
-font-size:20px;
-animation:floatUp 7s linear infinite;
-}
-
-@keyframes floatUp{
-0%{transform:translateY(100vh); opacity:1;}
-100%{transform:translateY(-10vh); opacity:0;}
-}
+/* Bouquet */
 
 #bouquetSection{
 position:absolute;
 width:100%;
 height:100%;
-display:flex;
+display:none;
+flex-direction:column;
 justify-content:center;
 align-items:center;
-flex-direction:column;
 }
 
-#bouquetSection img{
-width:260px;
+#bouquet{
+width:300px;
 cursor:pointer;
-transition:0.4s;
+transition:0.5s;
 }
 
-#bouquetSection img:hover{
+#bouquet:hover{
 transform:scale(1.1);
 }
 
-#memoryOverlay{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.8);
-display:none;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-z-index:9998;
-}
-
-.memoryHeart{
-font-size:90px;
-cursor:pointer;
-animation:pulse 1.2s infinite;
-}
-
-@keyframes pulse{
-0%{transform:scale(1)}
-50%{transform:scale(1.15)}
-100%{transform:scale(1)}
-}
+/* Letter Overlay */
 
 #letterOverlay{
 position:fixed;
@@ -159,54 +127,66 @@ top:0;
 left:0;
 width:100%;
 height:100%;
-background:rgba(15,8,18,0.94);
-backdrop-filter:blur(14px);
+background:rgba(0,0,0,0.9);
+backdrop-filter:blur(10px);
 display:none;
 justify-content:center;
 align-items:center;
 z-index:9999;
-overflow:hidden;
 }
 
 .envelope{
-position:absolute;
-bottom:-300px;
-width:300px;
+width:320px;
+height:200px;
+background:#ffb6c1;
+position:relative;
 cursor:pointer;
-transition:1s;
+animation:rise 1s ease forwards;
 }
 
-.envelope.open{
-transform:translateY(-200px);
+@keyframes rise{
+from{transform:translateY(200px);opacity:0;}
+to{transform:translateY(0);opacity:1;}
 }
 
-.letterPaper{
-display:none;
+.envelope:before{
+content:'';
+position:absolute;
+width:0;
+height:0;
+border-left:160px solid transparent;
+border-right:160px solid transparent;
+border-bottom:100px solid #ff8fab;
+top:-100px;
+left:0;
+transition:0.5s;
+}
+
+.envelope.open:before{
+transform:rotateX(180deg);
+}
+
+.letter{
 background:linear-gradient(145deg,#1c0c1f,#2a1230);
-width:85%;
-max-width:750px;
+width:80%;
+max-width:700px;
 padding:60px 50px;
 border-radius:22px;
-box-shadow:0 0 60px rgba(255,150,200,0.25);
 color:#ffd6e8;
-text-align:left;
 font-family:'Playfair Display', serif;
-font-size:18px;
-line-height:1.8;
-position:relative;
+display:none;
 }
 
-.letterPaper h2{
-font-family:'Dancing Script', cursive;
+.letter h2{
+font-family:'Dancing Script';
 font-size:36px;
-margin-bottom:25px;
 color:#ffc2e0;
 }
 
 .signature{
 margin-top:40px;
-font-family:'Dancing Script', cursive;
-font-size:30px;
+font-family:'Dancing Script';
+font-size:28px;
 color:#ffb6d9;
 }
 
@@ -235,8 +215,8 @@ animation:blink 1s infinite;
 
 <!-- TIMELINE -->
 <div id="timeline" class="section hidden">
-<h2>6 September 2023 💫</h2>
-<p>A simple message… that slowly became something meaningful.</p>
+<h2>We met on 6 September 2023 💫</h2>
+<p>A simple message that slowly became something meaningful.</p>
 
 <h2 style="margin-top:30px;">23 February 2025 💖</h2>
 <p>The day we chose each other again.</p>
@@ -254,28 +234,28 @@ animation:blink 1s infinite;
 </div>
 
 <!-- BOUQUET -->
-<div id="bouquetSection" class="hidden">
-<img src="bouquet.png" id="bouquetImg">
+<div id="bouquetSection">
+<img src="bouquet.png" id="bouquet">
 <p style="margin-top:30px;font-family:'Dancing Script';font-size:28px;">
 For you, always. Click the bouquet 🌹
 </p>
 </div>
 
-<!-- CHAPTERS -->
+<!-- DASHBOARD -->
 <div id="dashboard" class="section hidden">
 <h1>Our Beautiful Memories ✨</h1>
 
 <div class="photo-container">
 <div class="photo photo1" id="storyBtn">
-<img src="photo1.jpg">Our Story 💞
+<img src="photo1.jpg">Our Story 💌
 </div>
 
 <div class="photo photo2" id="memoryBtn">
-<img src="photo2.jpg">Memories 💫
+<img src="photo2.jpg">Memories 🌸
 </div>
 
-<div class="photo photo3" id="loveLetterBtn">
-<img src="photo3.jpg">Love Letter 💌
+<div class="photo photo3" id="letterBtn">
+<img src="photo3.jpg">Love Letter 💖
 </div>
 
 <div class="photo photo4">
@@ -284,21 +264,17 @@ For you, always. Click the bouquet 🌹
 </div>
 </div>
 
-<!-- MEMORY OVERLAY -->
-<div id="memoryOverlay">
-<div class="memoryHeart" id="memoryHeart">❤️</div>
-<p style="margin-top:20px;font-family:'Dancing Script';font-size:26px;">
-Click the heart…
-</p>
-</div>
-
 <!-- LETTER OVERLAY -->
 <div id="letterOverlay">
-<img src="https://i.imgur.com/7s7GZ6D.png" class="envelope" id="envelopeImg">
-<div class="letterPaper" id="letterPaper">
+<div class="envelope" id="envelope"></div>
+
+<div class="letter" id="letterPaper">
 <h2>23rd February, 2026</h2>
 <div id="letterText"></div><span class="cursor"></span>
-<div class="signature">Always yours,<br>Manik</div>
+
+<div class="signature">
+Always yours,<br>Manik
+</div>
 </div>
 </div>
 
@@ -307,22 +283,27 @@ Click the heart…
 let welcome=document.getElementById("welcome");
 let timeline=document.getElementById("timeline");
 let question=document.getElementById("question");
-let bouquet=document.getElementById("bouquetSection");
+let bouquetSection=document.getElementById("bouquetSection");
 let dashboard=document.getElementById("dashboard");
+
 let yesBtn=document.getElementById("yesBtn");
 let noBtn=document.getElementById("noBtn");
-let bouquetImg=document.getElementById("bouquetImg");
-let photos=document.querySelectorAll(".photo");
+let bouquet=document.getElementById("bouquet");
+
+let storyBtn=document.getElementById("storyBtn");
 let memoryBtn=document.getElementById("memoryBtn");
-let memoryOverlay=document.getElementById("memoryOverlay");
-let memoryHeart=document.getElementById("memoryHeart");
-let loveLetterBtn=document.getElementById("loveLetterBtn");
+let letterBtn=document.getElementById("letterBtn");
+
 let letterOverlay=document.getElementById("letterOverlay");
-let envelope=document.getElementById("envelopeImg");
+let envelope=document.getElementById("envelope");
 let letterPaper=document.getElementById("letterPaper");
 let letterText=document.getElementById("letterText");
 
+let photos=document.querySelectorAll(".photo");
+
 let size=18;
+
+/* FLOW */
 
 welcome.onclick=()=>{
 welcome.classList.add("hidden");
@@ -344,51 +325,40 @@ yesBtn.style.fontSize=size+"px";
 
 yesBtn.onclick=()=>{
 question.classList.add("hidden");
-bouquet.classList.remove("hidden");
+bouquetSection.style.display="flex";
 };
 
-bouquetImg.onclick=()=>{
-bouquet.classList.add("hidden");
+/* BOUQUET CLICK */
+
+bouquet.onclick=()=>{
+bouquetSection.style.display="none";
 dashboard.classList.remove("hidden");
 
-let delay=0;
-photos.forEach(photo=>{
+photos.forEach((photo,index)=>{
 setTimeout(()=>{
-photo.classList.add("showPhoto");
-},delay);
-delay+=400;
+photo.classList.add("showCard");
+}, index*400);
 });
 };
 
-memoryBtn.onclick=()=>{
-memoryOverlay.style.display="flex";
-};
+/* LOVE LETTER */
 
-memoryHeart.onclick=()=>{
-memoryOverlay.innerHTML="<h2 style='font-family:Dancing Script'>You are my favorite memory. ❤️</h2>";
-setTimeout(()=>{
-memoryOverlay.style.display="none";
-memoryOverlay.innerHTML="<div class='memoryHeart' id='memoryHeart'>❤️</div><p style='margin-top:20px;font-family:Dancing Script;font-size:26px;'>Click the heart…</p>";
-memoryHeart=document.getElementById("memoryHeart");
-memoryHeart.onclick=arguments.callee;
-},2000);
-};
-
-loveLetterBtn.onclick=()=>{
+letterBtn.onclick=()=>{
 letterOverlay.style.display="flex";
-setTimeout(()=>{
-envelope.style.bottom="50%";
-},100);
 };
 
 envelope.onclick=()=>{
 envelope.classList.add("open");
+
 setTimeout(()=>{
+envelope.style.display="none";
 letterPaper.style.display="block";
-typeLetter();
-},800);
+startTyping();
+},600);
 };
 
+function startTyping(){
+letterText.innerHTML="";
 let message=`My Darling,
 
 On 23rd February, we chose each other again.
@@ -401,7 +371,8 @@ it was about growing,
 understanding,
 and finding our way back stronger.
 
-This Valentine’s Day feels intentional.
+This Valentine’s Day feels different.
+It feels intentional.
 It feels like us.
 
 Thank you for choosing this journey.
@@ -409,21 +380,30 @@ Thank you for choosing me.
 
 Happy Valentine’s Day.
 And Happy One Year to us. ❤️
-
 `;
 
-function typeLetter(){
-letterText.innerHTML="";
 let i=0;
-function typing(){
+
+function type(){
 if(i<message.length){
 letterText.innerHTML+=message.charAt(i);
 i++;
-setTimeout(typing,60);
+setTimeout(type,60);
 }
 }
-typing();
+
+type();
 }
+
+letterOverlay.onclick=(e)=>{
+if(e.target===letterOverlay){
+letterOverlay.style.display="none";
+letterPaper.style.display="none";
+envelope.style.display="block";
+envelope.classList.remove("open");
+letterText.innerHTML="";
+}
+};
 
 </script>
 
