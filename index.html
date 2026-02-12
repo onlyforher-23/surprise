@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <title>Our Love Universe ❤️</title>
@@ -40,6 +40,20 @@ transition:0.6s;
 }
 
 .hidden{display:none;}
+
+/* BUTTONS */
+button{
+padding:12px 25px;
+margin:10px;
+font-size:18px;
+border-radius:30px;
+border:none;
+cursor:pointer;
+transition:0.3s;
+}
+
+#yesBtn{background:white;color:#8e3b59;}
+#noBtn{background:#222;color:white;position:relative;}
 
 /* BOUQUET */
 #bouquetScreen img{
@@ -91,7 +105,6 @@ object-fit:cover;
 border-radius:8px;
 }
 
-/* GROUPED ANGLES */
 .photo1{top:10%; left:18%; transform:rotate(-12deg);}
 .photo2{top:20%; right:18%; transform:rotate(8deg);}
 .photo3{bottom:20%; left:25%; transform:rotate(6deg);}
@@ -118,7 +131,6 @@ position:relative;
 width:260px;
 height:180px;
 cursor:pointer;
-transition:0.6s;
 }
 
 .envelope .body{
@@ -195,8 +207,35 @@ animation:floatUp 8s linear infinite;
 
 <body>
 
-<!-- BOUQUET SCREEN -->
-<div id="bouquetScreen" class="section">
+<!-- WELCOME -->
+<div id="welcome" class="section">
+<h1>Hi Darling… ❤️</h1>
+<p>This is something I built just for you.</p>
+<p style="margin-top:30px;">Tap anywhere to begin ✨</p>
+</div>
+
+<!-- TIMELINE -->
+<div id="timeline" class="section hidden">
+<h2>We met softly on 6 September 2023 💫</h2>
+<p>A simple message… that slowly became something meaningful.</p>
+
+<h2 style="margin-top:30px;">23 February 💖</h2>
+<p>The day we chose each other again.</p>
+
+<p style="margin-top:40px;">Tap to continue…</p>
+</div>
+
+<!-- QUESTION -->
+<div id="question" class="section hidden">
+<h1>Will you be my Valentine? 💖</h1>
+<div>
+<button id="yesBtn">Yes 💘</button>
+<button id="noBtn">No 😢</button>
+</div>
+</div>
+
+<!-- BOUQUET -->
+<div id="bouquetScreen" class="section hidden">
 <h1>For you, always. 💖</h1>
 <img src="bouquet.png" id="bouquet">
 <p>Click the bouquet 🌹</p>
@@ -207,8 +246,8 @@ animation:floatUp 8s linear infinite;
 <h1>Our Beautiful Memories ✨</h1>
 
 <div class="photo-container">
-<div class="photo photo1" id="storyBtn"><img src="photo1.jpg">Our Story</div>
-<div class="photo photo2" id="memoryBtn"><img src="photo2.jpg">Memories</div>
+<div class="photo photo1"><img src="photo1.jpg">Our Story</div>
+<div class="photo photo2"><img src="photo2.jpg">Memories</div>
 <div class="photo photo3" id="letterBtn"><img src="photo3.jpg">Love Letter</div>
 <div class="photo photo4"><img src="photo4.jpg">Our Song</div>
 </div>
@@ -229,10 +268,40 @@ animation:floatUp 8s linear infinite;
 </div>
 <script>
 
-let bouquet=document.getElementById("bouquet");
+let welcome=document.getElementById("welcome");
+let timeline=document.getElementById("timeline");
+let question=document.getElementById("question");
 let bouquetScreen=document.getElementById("bouquetScreen");
 let chapters=document.getElementById("chapters");
+let yesBtn=document.getElementById("yesBtn");
+let noBtn=document.getElementById("noBtn");
+let bouquet=document.getElementById("bouquet");
 let photos=document.querySelectorAll(".photo");
+
+/* FLOW LOCKED */
+welcome.onclick=()=>{
+welcome.classList.add("hidden");
+timeline.classList.remove("hidden");
+};
+
+timeline.onclick=()=>{
+timeline.classList.add("hidden");
+question.classList.remove("hidden");
+};
+
+let size=18;
+noBtn.onmouseover=()=>{
+noBtn.style.position="absolute";
+noBtn.style.top=Math.random()*window.innerHeight+"px";
+noBtn.style.left=Math.random()*window.innerWidth+"px";
+size+=5;
+yesBtn.style.fontSize=size+"px";
+};
+
+yesBtn.onclick=()=>{
+question.classList.add("hidden");
+bouquetScreen.classList.remove("hidden");
+};
 
 bouquet.onclick=()=>{
 bouquetScreen.classList.add("hidden");
@@ -328,45 +397,6 @@ letterOverlay.style.display="none";
 letterCard.style.display="none";
 if(typingTimeout) clearTimeout(typingTimeout);
 }
-};
-
-/* MEMORY SECTION */
-let memoryBtn=document.getElementById("memoryBtn");
-
-memoryBtn.onclick=()=>{
-let overlay=document.createElement("div");
-overlay.style.position="fixed";
-overlay.style.top="0";
-overlay.style.left="0";
-overlay.style.width="100%";
-overlay.style.height="100%";
-overlay.style.background="rgba(20,0,25,0.95)";
-overlay.style.display="flex";
-overlay.style.flexDirection="column";
-overlay.style.justifyContent="center";
-overlay.style.alignItems="center";
-overlay.style.zIndex="9999";
-
-overlay.innerHTML=`
-<h2 style="color:#ffd6e8;font-family:'Playfair Display';">
-Every memory with you is my favorite one.
-</h2>
-<div id="bigHeart" style="font-size:90px;cursor:pointer;margin-top:30px;">❤️</div>
-<p style="color:#ffb6d9;margin-top:15px;">Click the heart</p>
-`;
-
-document.body.appendChild(overlay);
-
-document.getElementById("bigHeart").onclick=()=>{
-overlay.innerHTML=`
-<h2 style="color:#ffd6e8;font-family:'Playfair Display';">
-Love you, Darling. 💖
-</h2>
-<p style="color:#ffb6d9;margin-top:20px;">Click anywhere to close</p>
-`;
-overlay.onclick=()=>overlay.remove();
-};
-
 };
 
 </script>
