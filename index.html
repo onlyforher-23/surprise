@@ -111,29 +111,55 @@ justify-content:center;
 align-items:center;
 z-index:9998;
 padding:30px;
+flex-direction:column;
 }
 
 .storyContainer{
-max-width:700px;
+max-width:750px;
 color:#ffe6f2;
 font-family:'Playfair Display', serif;
-font-size:22px;
-line-height:1.8;
+font-size:24px;
+line-height:1.9;
 opacity:0;
-transition:opacity 1.2s ease, transform 1.2s ease;
-transform:scale(0.95);
+transform:translateY(30px);
+transition:all 1.4s ease;
+text-align:center;
 }
 
 .storyContainer.show{
 opacity:1;
-transform:scale(1);
+transform:translateY(0px);
 }
 
 .storyHighlight{
 font-family:'Dancing Script', cursive;
-font-size:36px;
+font-size:42px;
 color:#ffcce6;
-margin-bottom:20px;
+margin-bottom:25px;
+}
+
+.storyProgress{
+position:absolute;
+bottom:40px;
+left:50%;
+transform:translateX(-50%);
+display:flex;
+gap:12px;
+}
+
+.storyDot{
+width:10px;
+height:10px;
+border-radius:50%;
+background:#ffb6d9;
+opacity:0.3;
+transition:all 0.4s ease;
+}
+
+.storyDot.active{
+opacity:1;
+transform:scale(1.4);
+box-shadow:0 0 15px #ffb6d9;
 }
 
 /* LETTER OVERLAY */
@@ -273,6 +299,7 @@ color:#ffcce6;
 <!-- STORY OVERLAY -->
 <div id="storyOverlay">
 <div class="storyContainer" id="storyText"></div>
+<div class="storyProgress" id="storyProgress"></div>
 </div>
 
 <!-- LETTER OVERLAY -->
@@ -291,6 +318,8 @@ color:#ffcce6;
 
 <script>
 
+/* FLOW */
+
 let welcome=document.getElementById("welcome");
 let timeline=document.getElementById("timeline");
 let question=document.getElementById("question");
@@ -302,14 +331,13 @@ let ourStoryBtn=document.getElementById("ourStoryBtn");
 
 let storyOverlay=document.getElementById("storyOverlay");
 let storyText=document.getElementById("storyText");
+let storyProgress=document.getElementById("storyProgress");
 
 let letterOverlay=document.getElementById("letterOverlay");
 let letterPaper=document.getElementById("letterPaper");
 let letterText=document.getElementById("letterText");
 let dateText=document.getElementById("dateText");
 let signText=document.getElementById("signText");
-
-/* FLOW */
 
 welcome.onclick=()=>{welcome.classList.add("hidden");timeline.classList.remove("hidden");};
 timeline.onclick=()=>{timeline.classList.add("hidden");question.classList.remove("hidden");};
@@ -325,7 +353,7 @@ question.classList.add("hidden");
 dashboard.classList.remove("hidden");
 };
 
-/* HEARTS */
+/* FLOATING HEARTS */
 
 function createHeart(){
 let heart=document.createElement("div");
@@ -338,7 +366,7 @@ setTimeout(()=>heart.remove(),7000);
 }
 setInterval(createHeart,250);
 
-/* STORY FIXED — NO FLICKER */
+/* ULTRA STORY */
 
 let storyChapters=[
 `<div class="storyHighlight">6 September 2023</div>
@@ -350,8 +378,9 @@ Life shaped us slowly.
 But something between us never truly faded.`,
 
 `<div class="storyHighlight">23 February 2025</div>
-We didn’t just continue.
-We chose each other again.`,
+We chose each other again.
+With clarity.
+With intention.`,
 
 `And now…
 it feels calmer,
@@ -359,19 +388,33 @@ stronger,
 more certain.`,
 
 `You were never just a chapter.
-You are the story. ❤️`
+You are the story. ❤️`,
+
+`And I would choose you.
+Again.
+Every lifetime.`
 ];
+
+function createProgressDots(){
+storyProgress.innerHTML="";
+for(let i=0;i<storyChapters.length;i++){
+let dot=document.createElement("div");
+dot.classList.add("storyDot");
+storyProgress.appendChild(dot);
+}
+}
 
 ourStoryBtn.onclick=function(){
 
 storyOverlay.style.display="flex";
-storyText.classList.remove("show");
+createProgressDots();
 
+let dots=document.querySelectorAll(".storyDot");
 let index=0;
 
 function showChapter(){
 
-if(index >= storyChapters.length){
+if(index>=storyChapters.length){
 storyText.innerHTML="Tap anywhere to close ✨";
 storyText.classList.add("show");
 return;
@@ -384,11 +427,16 @@ setTimeout(()=>{
 storyText.innerHTML=storyChapters[index];
 storyText.classList.add("show");
 
+dots.forEach(d=>d.classList.remove("active"));
+dots[index].classList.add("active");
+
+/* soft glow pulse */
+storyOverlay.style.boxShadow="inset 0 0 200px rgba(255,150,200,0.15)";
+setTimeout(()=>{storyOverlay.style.boxShadow="none";},900);
+
 index++;
 
-setTimeout(()=>{
-showChapter();
-},6500);
+setTimeout(()=>{showChapter();},7000);
 
 },1000);
 }
