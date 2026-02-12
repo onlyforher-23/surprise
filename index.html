@@ -202,8 +202,7 @@ animation:floatUp 8s linear infinite;
 100%{transform:translateY(-10vh); opacity:0;}
 }
 
-/* STORY OVERLAY */
-
+/* OUR STORY OVERLAY */
 #storyOverlay{
 display:none;
 position:fixed;
@@ -213,50 +212,28 @@ width:100%;
 height:100%;
 background:rgba(20,0,25,0.95);
 backdrop-filter:blur(12px);
+z-index:9998;
+display:flex;
 justify-content:center;
 align-items:center;
 flex-direction:column;
-z-index:9998;
-color:#ffd6e8;
-font-family:'Playfair Display', serif;
-text-align:center;
-padding:40px;
-}
-
-.storyHighlight{
-font-family:'Dancing Script';
-font-size:30px;
-color:#ffc2e0;
-margin-bottom:15px;
 }
 
 #storyText{
 font-size:20px;
+max-width:800px;
 line-height:1.9;
+color:#ffd6e8;
+font-family:'Playfair Display', serif;
 opacity:0;
-transition:0.6s ease;
-}
-
-#storyText.show{
-opacity:1;
+transition:opacity 0.8s ease;
 }
 
 #finalHeart{
-font-size:80px;
-margin-top:40px;
-cursor:pointer;
+font-size:85px;
+margin-top:50px;
 opacity:0;
-transition:0.5s ease;
 animation:pulse 1.5s infinite;
-}
-
-#heartMessage{
-margin-top:20px;
-font-size:24px;
-font-family:'Dancing Script';
-color:#ffb6d9;
-opacity:0;
-transition:0.5s ease;
 }
 
 @keyframes pulse{
@@ -269,78 +246,6 @@ transition:0.5s ease;
 </head>
 
 <body>
-
-<!-- WELCOME -->
-<div id="welcome" class="section">
-<h1>Hi Darling… ❤️</h1>
-<p>This is something I built just for you.</p>
-<p style="margin-top:30px;">Tap anywhere to begin ✨</p>
-</div>
-
-<!-- TIMELINE -->
-<div id="timeline" class="section hidden">
-<h2>We met softly on 6 September 2023 💫</h2>
-<p>A simple message… that slowly became something meaningful.</p>
-
-<h2 style="margin-top:30px;">23 February 💖</h2>
-<p>The day we chose each other again.</p>
-
-<p style="margin-top:40px;">Tap to continue…</p>
-</div>
-
-<!-- QUESTION -->
-<div id="question" class="section hidden">
-<h1>Will you be my Valentine? 💖</h1>
-<div>
-<button id="yesBtn">Yes 💘</button>
-<button id="noBtn">No 😢</button>
-</div>
-</div>
-
-<!-- BOUQUET -->
-<div id="bouquetScreen" class="section hidden">
-<h1>For you, always. 💖</h1>
-<img src="bouquet.png" id="bouquet">
-<p>Click the bouquet 🌹</p>
-</div>
-
-<!-- CHAPTERS -->
-<div id="chapters" class="section hidden">
-<h1>Our Beautiful Memories ✨</h1>
-
-<div class="photo-container">
-<div class="photo photo1" id="ourStoryBtn"><img src="photo1.jpg">Our Story</div>
-<div class="photo photo2"><img src="photo2.jpg">Memories</div>
-<div class="photo photo3" id="letterBtn"><img src="photo3.jpg">Love Letter</div>
-<div class="photo photo4"><img src="photo4.jpg">Our Song</div>
-</div>
-</div>
-
-<!-- LOVE LETTER -->
-<div id="letterOverlay">
-<div class="envelope" id="envelope">
-<div class="flap"></div>
-<div class="body"></div>
-</div>
-
-<div class="letterCard" id="letterCard">
-<h2>23rd February, 2026</h2>
-<div id="letterText"></div>
-<div class="signature">Always yours,<br>Manik</div>
-</div>
-</div>
-
-<!-- STORY OVERLAY -->
-<div id="storyOverlay">
-<div style="max-width:750px;">
-<h2 style="font-family:'Dancing Script'; font-size:42px; color:#ffc2e0; margin-bottom:40px;">Our Story</h2>
-<div id="storyText"></div>
-<div id="finalHeart">❤️</div>
-<div id="heartMessage"></div>
-<p style="margin-top:30px; font-size:14px; opacity:0.6;">Tap anywhere to continue ✨</p>
-</div>
-</div>
-
 <script>
 
 let welcome=document.getElementById("welcome");
@@ -401,7 +306,8 @@ setTimeout(()=>heart.remove(),8000);
 }
 setInterval(createHeart,300);
 
-/* LOVE LETTER */
+
+/* LOVE LETTER (LOCKED) */
 let letterBtn=document.getElementById("letterBtn");
 let letterOverlay=document.getElementById("letterOverlay");
 let envelope=document.getElementById("envelope");
@@ -444,6 +350,7 @@ if(typingTimeout) clearTimeout(typingTimeout);
 
 envelope.onclick=()=>{
 envelope.classList.add("open");
+
 setTimeout(()=>{
 letterCard.style.display="block";
 startTyping();
@@ -473,101 +380,92 @@ if(typingTimeout) clearTimeout(typingTimeout);
 }
 };
 
+
 /* ========================= */
-/* ===== OUR STORY LOGIC ==== */
+/* OUR STORY – AUTO VERSION */
 /* ========================= */
 
-let ourStoryBtn=document.getElementById("ourStoryBtn");
+let ourStoryBtn=document.querySelector(".photo1");
 let storyOverlay=document.getElementById("storyOverlay");
 let storyText=document.getElementById("storyText");
 let finalHeart=document.getElementById("finalHeart");
-let heartMessage=document.getElementById("heartMessage");
 
-let storyChapters=[
-`<div class="storyHighlight">6 September 2023</div>
-A simple message. A quiet beginning.`,
+let storyLines=[
+`<div style="font-family:'Dancing Script'; font-size:42px; color:#ffc2e0;">Our Story</div><br>
+It started with a simple message on 6 September 2023…
+Just a “Hi”.
+Just a moment.
+Something small that didn’t look important at the time.`,
 
-`Time moved gently.
-Life shaped us slowly.
-But something between us never truly faded.`,
+`But that small moment became conversations.
+Conversations became comfort.
+Comfort slowly became attachment.
+And attachment became something real.`,
 
-`<div class="storyHighlight">23 February 2025</div>
-We didn’t just continue.
-We chose each other again.`,
+`We didn’t rush.
+We didn’t force anything.
+We simply talked.
+We laughed.
+And you became important to me.`,
 
-`And now…
-it feels calmer,
-stronger,
-more certain.`,
+`23 February.
+Not just a date.
+Not just a decision.
+But a choice.
+A beautiful, intentional choice to try again.`,
 
-`You were never just a chapter.
-You are the story. ❤️`
+`And if I’m honest…
+I would go through every twist,
+every pause,
+every uncertain moment again —
+just to end up choosing you the same way.`
 ];
 
-let chapterIndex=0;
-
-ourStoryBtn.onclick=function(){
+ourStoryBtn.onclick=()=>{
 storyOverlay.style.display="flex";
 chapters.classList.add("hidden");
 
-chapterIndex=0;
-finalHeart.style.opacity="0";
-heartMessage.style.opacity="0";
-heartMessage.innerHTML="";
-showNextChapter();
-};
-
-function showNextChapter(){
-
-if(chapterIndex >= storyChapters.length){
-storyText.classList.remove("show");
-setTimeout(()=>{
 storyText.innerHTML="";
-finalHeart.style.opacity="1";
-},500);
-return;
-}
+storyText.style.opacity="0";
+finalHeart.style.opacity="0";
 
-storyText.classList.remove("show");
-
-setTimeout(()=>{
-storyText.innerHTML=storyChapters[chapterIndex];
-storyText.classList.add("show");
-chapterIndex++;
-},500);
-}
-
-storyOverlay.onclick=function(e){
-if(e.target===storyOverlay){
-if(finalHeart.style.opacity==="1") return;
-showNextChapter();
-}
+playStory();
 };
 
-let heartStep=0;
+function playStory(){
 
-finalHeart.onclick=function(e){
+let i=0;
 
-e.stopPropagation();
+function nextLine(){
 
-if(heartStep===0){
-heartMessage.innerHTML="Love you, Darling ❤️";
-heartMessage.style.opacity="1";
-heartStep++;
-}
-else if(heartStep===1){
-heartMessage.innerHTML="Click me again…";
-heartStep++;
-}
-else{
-heartMessage.innerHTML="Forever yours. 💖";
+if(i>=storyLines.length){
+
+setTimeout(()=>{
+finalHeart.style.opacity="1";
+
 setTimeout(()=>{
 storyOverlay.style.display="none";
 chapters.classList.remove("hidden");
-},1200);
+finalHeart.style.opacity="0";
+},4000);
+
+},1500);
+
+return;
 }
-};
+
+storyText.style.opacity="0";
+
+setTimeout(()=>{
+storyText.innerHTML=storyLines[i];
+storyText.style.opacity="1";
+i++;
+setTimeout(nextLine,4500);
+},800);
+
+}
+
+nextLine();
+}
 
 </script>
-</body>
-</html>
