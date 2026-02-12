@@ -8,6 +8,7 @@
 
 <style>
 
+/* BACKGROUND */
 body{
 margin:0;
 overflow:hidden;
@@ -15,7 +16,7 @@ font-family:Arial, sans-serif;
 color:white;
 text-align:center;
 height:100vh;
-background:linear-gradient(-45deg,#5a1f38,#9e3f67,#ff99bb,#ffd1e6);
+background:linear-gradient(-45deg,#4a1c2f,#8e3b59,#ff8fab,#ffc2d1);
 background-size:400% 400%;
 animation:gradient 20s ease infinite;
 }
@@ -26,6 +27,7 @@ animation:gradient 20s ease infinite;
 100%{background-position:0% 50%}
 }
 
+/* SECTION SYSTEM */
 .section{
 position:absolute;
 width:100%;
@@ -34,10 +36,12 @@ display:flex;
 justify-content:center;
 align-items:center;
 flex-direction:column;
+transition:0.6s;
 }
 
 .hidden{display:none;}
 
+/* BUTTONS */
 button{
 padding:12px 25px;
 margin:10px;
@@ -48,9 +52,22 @@ cursor:pointer;
 transition:0.3s;
 }
 
-#yesBtn{background:white;color:#9e3f67;}
-#noBtn{background:#333;color:white;position:relative;}
+#yesBtn{background:white;color:#8e3b59;}
+#noBtn{background:#222;color:white;position:relative;}
 
+/* BOUQUET */
+#bouquetScreen img{
+width:220px;
+cursor:pointer;
+animation:float 3s ease-in-out infinite;
+}
+
+@keyframes float{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-15px);}
+}
+
+/* CHAPTER CARDS */
 .photo-container{
 position:relative;
 width:90%;
@@ -58,175 +75,220 @@ height:70%;
 }
 
 .photo{
-width:180px;
-height:220px;
+width:190px;
+height:240px;
 background:white;
 color:black;
 position:absolute;
 border-radius:12px;
-box-shadow:0 15px 30px rgba(0,0,0,0.4);
+box-shadow:0 20px 40px rgba(0,0,0,0.5);
 padding:10px;
-text-align:center;
-font-weight:bold;
 cursor:pointer;
 transition:0.4s;
+opacity:0;
+transform:translateY(200px);
+}
+
+.photo.show{
+opacity:1;
+transform:translateY(0);
+}
+
+.photo:hover{
+transform:scale(1.08) rotate(0deg);
 }
 
 .photo img{
 width:100%;
-height:160px;
+height:170px;
 object-fit:cover;
-border-radius:6px;
+border-radius:8px;
 }
-
-.photo:hover{transform:scale(1.1) rotate(0deg);}
 
 .photo1{top:10%; left:18%; transform:rotate(-12deg);}
 .photo2{top:20%; right:18%; transform:rotate(8deg);}
 .photo3{bottom:20%; left:25%; transform:rotate(6deg);}
 .photo4{bottom:15%; right:25%; transform:rotate(-10deg);}
 
-/* REALISTIC BOUQUET */
-
-#bouquetScreen{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(20,8,25,0.95);
-display:none;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-z-index:9997;
-}
-
-.bouquetWrapper{
-position:relative;
-cursor:pointer;
-animation:floatBouquet 3s ease-in-out infinite;
-}
-
-@keyframes floatBouquet{
-0%{transform:translateY(0);}
-50%{transform:translateY(-15px);}
-100%{transform:translateY(0);}
-}
-
-.rose{
-position:absolute;
-font-size:60px;
-}
-
-.rose1{left:-40px; top:0;}
-.rose2{left:0; top:-20px;}
-.rose3{left:40px; top:0;}
-.rose4{left:-20px; top:30px;}
-.rose5{left:20px; top:30px;}
-
-.wrap{
-font-size:100px;
-}
-
-.bouquetText{
-margin-top:40px;
-font-family:'Dancing Script', cursive;
-font-size:38px;
-color:#ffcce6;
-}
-
-/* STORY OVERLAY */
-
-#storyOverlay{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(10,5,15,0.96);
-display:none;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-z-index:9998;
-padding:30px;
-overflow:hidden;
-}
-
-.storyContainer{
-max-width:750px;
-color:#ffe6f2;
-font-family:'Playfair Display', serif;
-font-size:26px;
-line-height:1.9;
-opacity:0;
-transform:translateY(80px);
-transition:all 1.2s ease;
-text-align:center;
-}
-
-.storyContainer.show{
-opacity:1;
-transform:translateY(0);
-}
-
-.storyHighlight{
-font-family:'Dancing Script', cursive;
-font-size:42px;
-color:#ffcce6;
-margin-bottom:25px;
-}
-
-/* FINAL HEART */
-
-#finalHeart{
-font-size:130px;
-cursor:pointer;
-opacity:0;
-transition:all 0.8s ease;
-}
-
-#heartMessage{
-font-family:'Dancing Script', cursive;
-font-size:42px;
-margin-top:20px;
-opacity:0;
-transition:opacity 0.6s ease;
-}
-/* LETTER OVERLAY (unchanged styling, simple clean) */
-
+/* LOVE LETTER OVERLAY */
 #letterOverlay{
 position:fixed;
 top:0;
 left:0;
 width:100%;
 height:100%;
-background:rgba(10,5,15,0.95);
+background:rgba(20,0,25,0.95);
 display:none;
 justify-content:center;
 align-items:center;
+flex-direction:column;
 z-index:9999;
 }
 
-/* ================= HTML ================= */
+/* ENVELOPE */
+.envelope{
+position:relative;
+width:260px;
+height:180px;
+cursor:pointer;
+}
+
+.envelope .body{
+position:absolute;
+width:100%;
+height:100%;
+background:#ffb6d9;
+border-radius:6px;
+}
+
+.envelope .flap{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#ffc8e2;
+clip-path:polygon(0 0, 50% 60%, 100% 0);
+transform-origin:top;
+transition:0.8s;
+}
+
+.envelope.open .flap{
+transform:rotateX(180deg);
+}
+
+/* LETTER CARD */
+.letterCard{
+position:absolute;
+width:80%;
+max-width:600px;
+background:linear-gradient(145deg,#2a1230,#3d1846);
+padding:50px;
+border-radius:20px;
+color:#ffd6e8;
+font-family:'Playfair Display', serif;
+display:none;
+animation:fadeIn 0.6s ease;
+}
+
+.letterCard h2{
+font-family:'Dancing Script', cursive;
+font-size:34px;
+color:#ffc2e0;
+margin-bottom:25px;
+}
+
+.signature{
+margin-top:40px;
+font-family:'Dancing Script', cursive;
+font-size:28px;
+color:#ffb6d9;
+}
+
+@keyframes fadeIn{
+from{opacity:0; transform:translateY(20px);}
+to{opacity:1;}
+}
+
+/* FLOATING HEARTS */
+.heart{
+position:absolute;
+font-size:20px;
+animation:floatUp 8s linear infinite;
+}
+
+@keyframes floatUp{
+0%{transform:translateY(100vh); opacity:1;}
+100%{transform:translateY(-10vh); opacity:0;}
+}
+
+/* STORY OVERLAY */
+
+#storyOverlay{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(20,0,25,0.95);
+backdrop-filter:blur(12px);
+justify-content:center;
+align-items:center;
+flex-direction:column;
+z-index:9998;
+color:#ffd6e8;
+font-family:'Playfair Display', serif;
+text-align:center;
+padding:40px;
+}
+
+.storyHighlight{
+font-family:'Dancing Script';
+font-size:30px;
+color:#ffc2e0;
+margin-bottom:15px;
+}
+
+#storyText{
+font-size:20px;
+line-height:1.9;
+opacity:0;
+transition:0.6s ease;
+}
+
+#storyText.show{
+opacity:1;
+}
+
+#finalHeart{
+font-size:80px;
+margin-top:40px;
+cursor:pointer;
+opacity:0;
+transition:0.5s ease;
+animation:pulse 1.5s infinite;
+}
+
+#heartMessage{
+margin-top:20px;
+font-size:24px;
+font-family:'Dancing Script';
+color:#ffb6d9;
+opacity:0;
+transition:0.5s ease;
+}
+
+@keyframes pulse{
+0%{transform:scale(1);}
+50%{transform:scale(1.2);}
+100%{transform:scale(1);}
+}
 
 </style>
 </head>
 
 <body>
 
+<!-- WELCOME -->
 <div id="welcome" class="section">
 <h1>Hi Darling… ❤️</h1>
-<p>Tap anywhere to begin ✨</p>
+<p>This is something I built just for you.</p>
+<p style="margin-top:30px;">Tap anywhere to begin ✨</p>
 </div>
 
+<!-- TIMELINE -->
 <div id="timeline" class="section hidden">
-<h2>23 February 2025 💖</h2>
+<h2>We met softly on 6 September 2023 💫</h2>
+<p>A simple message… that slowly became something meaningful.</p>
+
+<h2 style="margin-top:30px;">23 February 💖</h2>
 <p>The day we chose each other again.</p>
-<p>Tap to continue…</p>
+
+<p style="margin-top:40px;">Tap to continue…</p>
 </div>
 
+<!-- QUESTION -->
 <div id="question" class="section hidden">
 <h1>Will you be my Valentine? 💖</h1>
 <div>
@@ -235,106 +297,191 @@ z-index:9999;
 </div>
 </div>
 
-<!-- REAL BOUQUET -->
-<div id="bouquetScreen">
-<div class="bouquetWrapper" id="bouquetBtn">
-<div class="rose rose1">🌹</div>
-<div class="rose rose2">🌹</div>
-<div class="rose rose3">🌹</div>
-<div class="rose rose4">🌹</div>
-<div class="rose rose5">🌹</div>
-<div class="wrap">💐</div>
-</div>
-<div class="bouquetText">For you, always. Click the bouquet 🌹</div>
+<!-- BOUQUET -->
+<div id="bouquetScreen" class="section hidden">
+<h1>For you, always. 💖</h1>
+<img src="bouquet.png" id="bouquet">
+<p>Click the bouquet 🌹</p>
 </div>
 
-<div id="dashboard" class="section hidden">
+<!-- CHAPTERS -->
+<div id="chapters" class="section hidden">
 <h1>Our Beautiful Memories ✨</h1>
+
 <div class="photo-container">
 <div class="photo photo1" id="ourStoryBtn"><img src="photo1.jpg">Our Story</div>
 <div class="photo photo2"><img src="photo2.jpg">Memories</div>
-<div class="photo photo3"><img src="photo3.jpg">Love Letter</div>
+<div class="photo photo3" id="letterBtn"><img src="photo3.jpg">Love Letter</div>
 <div class="photo photo4"><img src="photo4.jpg">Our Song</div>
+</div>
+</div>
+
+<!-- LOVE LETTER -->
+<div id="letterOverlay">
+<div class="envelope" id="envelope">
+<div class="flap"></div>
+<div class="body"></div>
+</div>
+
+<div class="letterCard" id="letterCard">
+<h2>23rd February, 2026</h2>
+<div id="letterText"></div>
+<div class="signature">Always yours,<br>Manik</div>
 </div>
 </div>
 
 <!-- STORY OVERLAY -->
 <div id="storyOverlay">
-<div class="storyContainer" id="storyText"></div>
+<div style="max-width:750px;">
+<h2 style="font-family:'Dancing Script'; font-size:42px; color:#ffc2e0; margin-bottom:40px;">Our Story</h2>
+<div id="storyText"></div>
 <div id="finalHeart">❤️</div>
 <div id="heartMessage"></div>
+<p style="margin-top:30px; font-size:14px; opacity:0.6;">Tap anywhere to continue ✨</p>
+</div>
 </div>
 
 <script>
 
-/* FLOW CONTROL */
-
 let welcome=document.getElementById("welcome");
 let timeline=document.getElementById("timeline");
 let question=document.getElementById("question");
-let dashboard=document.getElementById("dashboard");
 let bouquetScreen=document.getElementById("bouquetScreen");
-let bouquetBtn=document.getElementById("bouquetBtn");
-
+let chapters=document.getElementById("chapters");
 let yesBtn=document.getElementById("yesBtn");
 let noBtn=document.getElementById("noBtn");
-let ourStoryBtn=document.getElementById("ourStoryBtn");
+let bouquet=document.getElementById("bouquet");
+let photos=document.querySelectorAll(".photo");
 
-let storyOverlay=document.getElementById("storyOverlay");
-let storyText=document.getElementById("storyText");
-let finalHeart=document.getElementById("finalHeart");
-let heartMessage=document.getElementById("heartMessage");
+/* FLOW LOCKED */
+welcome.onclick=()=>{
+welcome.classList.add("hidden");
+timeline.classList.remove("hidden");
+};
 
-/* Navigation */
+timeline.onclick=()=>{
+timeline.classList.add("hidden");
+question.classList.remove("hidden");
+};
 
-welcome.onclick=()=>{welcome.classList.add("hidden");timeline.classList.remove("hidden");};
-timeline.onclick=()=>{timeline.classList.add("hidden");question.classList.remove("hidden");};
-
+let size=18;
 noBtn.onmouseover=()=>{
 noBtn.style.position="absolute";
 noBtn.style.top=Math.random()*window.innerHeight+"px";
 noBtn.style.left=Math.random()*window.innerWidth+"px";
+size+=5;
+yesBtn.style.fontSize=size+"px";
 };
 
 yesBtn.onclick=()=>{
 question.classList.add("hidden");
-bouquetScreen.style.display="flex";
+bouquetScreen.classList.remove("hidden");
 };
 
-/* Bouquet click -> petals fall effect */
+bouquet.onclick=()=>{
+bouquetScreen.classList.add("hidden");
+chapters.classList.remove("hidden");
 
-bouquetBtn.onclick=()=>{
-createPetals();
+photos.forEach((photo,index)=>{
 setTimeout(()=>{
-bouquetScreen.style.display="none";
-dashboard.classList.remove("hidden");
-},1200);
+photo.classList.add("show");
+},400*index);
+});
 };
 
-function createPetals(){
-for(let i=0;i<20;i++){
-let petal=document.createElement("div");
-petal.innerHTML="🌸";
-petal.style.position="fixed";
-petal.style.left=Math.random()*100+"vw";
-petal.style.top="-20px";
-petal.style.fontSize="24px";
-petal.style.animation="fall 2s linear forwards";
-document.body.appendChild(petal);
+/* FLOAT HEARTS */
+function createHeart(){
+let heart=document.createElement("div");
+heart.classList.add("heart");
+heart.innerHTML=Math.random()>0.5?"💖":"🌸";
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(Math.random()*25+15)+"px";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),8000);
+}
+setInterval(createHeart,300);
 
-setTimeout(()=>petal.remove(),2000);
+/* LOVE LETTER */
+let letterBtn=document.getElementById("letterBtn");
+let letterOverlay=document.getElementById("letterOverlay");
+let envelope=document.getElementById("envelope");
+let letterCard=document.getElementById("letterCard");
+let letterText=document.getElementById("letterText");
+
+let typingTimeout=null;
+let currentIndex=0;
+
+let message=`My Darling,
+
+On 23rd February, we chose each other again.
+Not because it was easy,
+but because it felt right.
+
+That day meant more to me than words can explain.
+It wasn’t just about being together —
+it was about growing, understanding,
+and finding our way back stronger.
+
+This Valentine’s Day feels intentional.
+It feels like us.
+
+Thank you for choosing this journey.
+Thank you for choosing me.
+
+Happy Valentine’s Day.
+And Happy One Year to us. ❤️
+
+`;
+
+letterBtn.onclick=()=>{
+letterOverlay.style.display="flex";
+letterCard.style.display="none";
+letterText.innerHTML="";
+envelope.classList.remove("open");
+currentIndex=0;
+if(typingTimeout) clearTimeout(typingTimeout);
+};
+
+envelope.onclick=()=>{
+envelope.classList.add("open");
+setTimeout(()=>{
+letterCard.style.display="block";
+startTyping();
+},700);
+};
+
+function startTyping(){
+letterText.innerHTML="";
+currentIndex=0;
+if(typingTimeout) clearTimeout(typingTimeout);
+
+function type(){
+if(currentIndex<message.length){
+letterText.innerHTML+=message.charAt(currentIndex);
+currentIndex++;
+typingTimeout=setTimeout(type,60);
 }
 }
+type();
+}
 
-/* Petal animation */
-let style=document.createElement("style");
-style.innerHTML=`
-@keyframes fall{
-to{transform:translateY(100vh) rotate(360deg); opacity:0;}
-}`;
-document.head.appendChild(style);
+letterOverlay.onclick=(e)=>{
+if(e.target===letterOverlay){
+letterOverlay.style.display="none";
+letterCard.style.display="none";
+if(typingTimeout) clearTimeout(typingTimeout);
+}
+};
 
-/* STORY LOGIC */
+/* ========================= */
+/* ===== OUR STORY LOGIC ==== */
+/* ========================= */
+
+let ourStoryBtn=document.getElementById("ourStoryBtn");
+let storyOverlay=document.getElementById("storyOverlay");
+let storyText=document.getElementById("storyText");
+let finalHeart=document.getElementById("finalHeart");
+let heartMessage=document.getElementById("heartMessage");
 
 let storyChapters=[
 `<div class="storyHighlight">6 September 2023</div>
@@ -360,9 +507,8 @@ You are the story. ❤️`
 let chapterIndex=0;
 
 ourStoryBtn.onclick=function(){
-
 storyOverlay.style.display="flex";
-dashboard.classList.add("hidden");
+chapters.classList.add("hidden");
 
 chapterIndex=0;
 finalHeart.style.opacity="0";
@@ -391,15 +537,12 @@ chapterIndex++;
 },500);
 }
 
-/* Click to move to next chapter */
 storyOverlay.onclick=function(e){
 if(e.target===storyOverlay){
 if(finalHeart.style.opacity==="1") return;
 showNextChapter();
 }
 };
-
-/* FINAL HEART INTERACTION */
 
 let heartStep=0;
 
@@ -420,18 +563,11 @@ else{
 heartMessage.innerHTML="Forever yours. 💖";
 setTimeout(()=>{
 storyOverlay.style.display="none";
-dashboard.classList.remove("hidden");
-
-/* RESET everything */
-heartStep=0;
-heartMessage.innerHTML="";
-heartMessage.style.opacity="0";
-finalHeart.style.opacity="0";
-},2000);
+chapters.classList.remove("hidden");
+},1200);
 }
 };
 
 </script>
-
 </body>
 </html>
