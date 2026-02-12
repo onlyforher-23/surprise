@@ -12,9 +12,11 @@ body {
     color: white;
     text-align: center;
     height: 100vh;
-    background: linear-gradient(-45deg,#8B0000,#B22222,#ff0000,#ff4d6d);
+
+    /* Softer romantic gradient */
+    background: linear-gradient(-45deg,#5e2a3e,#a4506b,#ff758c,#ff7eb3);
     background-size: 400% 400%;
-    animation: gradient 10s ease infinite;
+    animation: gradient 15s ease infinite;
 }
 
 @keyframes gradient {
@@ -33,9 +35,7 @@ body {
     flex-direction: column;
 }
 
-.hidden {
-    display: none;
-}
+.hidden { display:none; }
 
 button {
     padding: 12px 25px;
@@ -49,66 +49,83 @@ button {
 
 #yesBtn {
     background: white;
-    color: red;
+    color: #c44569;
 }
 
 #noBtn {
-    background: black;
+    background: #333;
     color: white;
     position: relative;
 }
 
-.card-container {
-    display: grid;
-    grid-template-columns: repeat(2, 180px);
-    gap: 20px;
+/* POLAROID PHOTO STYLE */
+.photo-container {
+    position: relative;
+    width: 90%;
+    height: 70%;
 }
 
-.card {
-    height: 180px;
+.photo {
     width: 180px;
-    background-size: cover;
-    background-position: center;
-    border-radius: 20px;
-    display: flex;
-    align-items: end;
-    justify-content: center;
+    height: 220px;
+    background: white;
+    color: black;
+    position: absolute;
+    border-radius: 10px;
+    box-shadow: 0 15px 25px rgba(0,0,0,0.4);
+    padding: 10px;
+    text-align: center;
     font-weight: bold;
-    padding-bottom: 15px;
     cursor: pointer;
     transition: 0.4s;
-    box-shadow: 0 0 15px rgba(255,255,255,0.3);
+    animation: fadeIn 1.5s ease forwards;
 }
 
-.card:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 25px rgba(255,255,255,0.8);
+.photo img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 6px;
 }
 
-/* Floating hearts */
+.photo:hover {
+    transform: scale(1.1) rotate(0deg);
+}
+
+/* Random tilts */
+.photo1 { top:10%; left:20%; transform: rotate(-10deg); }
+.photo2 { top:20%; right:20%; transform: rotate(8deg); }
+.photo3 { bottom:20%; left:25%; transform: rotate(6deg); }
+.photo4 { bottom:15%; right:25%; transform: rotate(-8deg); }
+
+@keyframes fadeIn {
+    from {opacity:0; transform:scale(0.8);}
+    to {opacity:1;}
+}
+
+/* Floating hearts + flowers */
 .heart {
     position: absolute;
     font-size: 20px;
-    animation: floatUp 4s linear infinite;
+    animation: floatUp 6s linear infinite;
 }
 
 @keyframes floatUp {
     0% {transform: translateY(100vh); opacity:1;}
     100% {transform: translateY(-10vh); opacity:0;}
 }
-
 </style>
 </head>
 
 <body>
 
-<!-- Welcome Screen -->
+<!-- Welcome -->
 <div id="welcome" class="section">
     <h1>Welcome to Our Love Universe 🌎❤️</h1>
     <p>Tap anywhere to continue...</p>
 </div>
 
-<!-- Valentine Question -->
+<!-- Question -->
 <div id="question" class="section hidden">
     <h1>Will you be my Valentine? 💖</h1>
     <div>
@@ -117,14 +134,30 @@ button {
     </div>
 </div>
 
-<!-- Final Dashboard -->
+<!-- Dashboard -->
 <div id="dashboard" class="section hidden">
-    <h1>Our Special World ✨</h1>
-    <div class="card-container">
-        <div class="card" style="background-image:url('https://source.unsplash.com/300x300/?love');">Our Story</div>
-        <div class="card" style="background-image:url('https://source.unsplash.com/300x300/?couple');">Memories</div>
-        <div class="card" style="background-image:url('https://source.unsplash.com/300x300/?romantic');">Love Letter</div>
-        <div class="card" style="background-image:url('https://source.unsplash.com/300x300/?music,romance');">Our Song</div>
+    <h1>Our Beautiful Memories ✨</h1>
+
+    <div class="photo-container">
+        <div class="photo photo1">
+            <img src="https://source.unsplash.com/300x300/?love">
+            Our Story
+        </div>
+
+        <div class="photo photo2">
+            <img src="https://source.unsplash.com/300x300/?couple">
+            Memories
+        </div>
+
+        <div class="photo photo3">
+            <img src="https://source.unsplash.com/300x300/?letter">
+            Love Letter
+        </div>
+
+        <div class="photo photo4">
+            <img src="https://source.unsplash.com/300x300/?music,romance">
+            Our Song
+        </div>
     </div>
 </div>
 
@@ -136,13 +169,11 @@ let yesBtn = document.getElementById("yesBtn");
 let noBtn = document.getElementById("noBtn");
 let size = 18;
 
-// Welcome click
 welcome.addEventListener("click", () => {
     welcome.classList.add("hidden");
     question.classList.remove("hidden");
 });
 
-// No button effect
 noBtn.addEventListener("mouseover", function() {
     noBtn.style.position = "absolute";
     noBtn.style.top = Math.random() * window.innerHeight + "px";
@@ -151,26 +182,22 @@ noBtn.addEventListener("mouseover", function() {
     yesBtn.style.fontSize = size + "px";
 });
 
-// Yes click
 yesBtn.addEventListener("click", function() {
     question.classList.add("hidden");
     dashboard.classList.remove("hidden");
 });
 
-// More hearts
 function createHeart() {
     let heart = document.createElement("div");
     heart.classList.add("heart");
-    heart.innerHTML = Math.random() > 0.5 ? "💖" : "🌹";
+    heart.innerHTML = Math.random() > 0.5 ? "💖" : "🌸";
     heart.style.left = Math.random() * 100 + "vw";
     heart.style.fontSize = (Math.random() * 25 + 15) + "px";
     document.body.appendChild(heart);
-
-    setTimeout(() => heart.remove(), 4000);
+    setTimeout(() => heart.remove(), 6000);
 }
 
-setInterval(createHeart, 300);
-
+setInterval(createHeart, 250);
 </script>
 
 </body>
