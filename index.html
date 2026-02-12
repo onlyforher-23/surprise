@@ -4,6 +4,8 @@
 <title>Our Love Universe ❤️</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Playfair+Display&display=swap" rel="stylesheet">
+
 <style>
 body{
 margin:0;
@@ -12,9 +14,9 @@ font-family:Arial, sans-serif;
 color:white;
 text-align:center;
 height:100vh;
-background:linear-gradient(-45deg,#5e2a3e,#a4506b,#ff8fab,#ffc2d1);
+background:linear-gradient(-45deg,#4a1c2f,#8e3b59,#ff8fab,#ffc2d1);
 background-size:400% 400%;
-animation:gradient 18s ease infinite;
+animation:gradient 20s ease infinite;
 }
 
 @keyframes gradient{
@@ -33,9 +35,7 @@ align-items:center;
 flex-direction:column;
 }
 
-.hidden{
-display:none;
-}
+.hidden{display:none;}
 
 button{
 padding:12px 25px;
@@ -47,16 +47,8 @@ cursor:pointer;
 transition:0.3s;
 }
 
-#yesBtn{
-background:white;
-color:#c44569;
-}
-
-#noBtn{
-background:#333;
-color:white;
-position:relative;
-}
+#yesBtn{background:white;color:#8e3b59;}
+#noBtn{background:#333;color:white;position:relative;}
 
 .photo-container{
 position:relative;
@@ -86,9 +78,7 @@ object-fit:cover;
 border-radius:6px;
 }
 
-.photo:hover{
-transform:scale(1.1) rotate(0deg);
-}
+.photo:hover{transform:scale(1.1) rotate(0deg);}
 
 .photo1{top:10%; left:18%; transform:rotate(-12deg);}
 .photo2{top:20%; right:18%; transform:rotate(8deg);}
@@ -106,49 +96,60 @@ animation:floatUp 7s linear infinite;
 100%{transform:translateY(-10vh); opacity:0;}
 }
 
-/* LOVE LETTER OVERLAY */
+/* LETTER DESIGN */
+
 #letterOverlay{
 position:fixed;
 top:0;
 left:0;
 width:100%;
 height:100%;
-background:rgba(0,0,0,0.85);
+background:rgba(0,0,0,0.8);
 display:none;
 justify-content:center;
 align-items:center;
 z-index:999;
 }
 
-.letterBox{
-background:#fff0f3;
-color:#5e2a3e;
+.letterPaper{
+background:url('https://i.imgur.com/8Km9tLL.jpg');
+background-size:cover;
 width:85%;
-max-width:650px;
-padding:35px;
-border-radius:15px;
-box-shadow:0 0 30px rgba(255,255,255,0.3);
+max-width:750px;
+padding:60px 50px;
+border-radius:6px;
+box-shadow:0 0 40px rgba(0,0,0,0.6);
+color:#3e2a1f;
 text-align:left;
-font-family:'Courier New', monospace;
-font-size:16px;
-line-height:1.7;
+font-family:'Playfair Display', serif;
 position:relative;
+}
+
+.letterPaper h2{
+font-family:'Dancing Script', cursive;
+font-size:32px;
+margin-bottom:20px;
 }
 
 .closeBtn{
 position:absolute;
-top:10px;
-right:15px;
+top:20px;
+right:25px;
 cursor:pointer;
-font-weight:bold;
-color:#c44569;
-font-size:18px;
+font-size:20px;
+color:#5c3b2e;
+}
+
+.signature{
+margin-top:40px;
+font-family:'Dancing Script', cursive;
+font-size:28px;
 }
 
 .cursor{
 display:inline-block;
 width:8px;
-background:#c44569;
+background:#3e2a1f;
 animation:blink 1s infinite;
 }
 
@@ -162,32 +163,25 @@ animation:blink 1s infinite;
 
 <body>
 
-<!-- Welcome -->
 <div id="welcome" class="section">
 <h1>Hi Darling… ❤️</h1>
 <p>This isn’t just a website.</p>
-<p>It’s our story.</p>
+<p>It’s something I built for you.</p>
 <p style="margin-top:30px;">Tap anywhere to begin ✨</p>
 </div>
 
-<!-- Timeline -->
 <div id="timeline" class="section hidden">
-<h2>6 September 2023 💫</h2>
-<p>The Instagram message that changed everything.</p>
-
-<h2 style="margin-top:30px;">6 December 2023 💔</h2>
-<p>We weren’t ready… but maybe destiny was preparing us.</p>
+<h2>We met on 6 September 2023 💫</h2>
+<p>A simple message that slowly turned into something meaningful.</p>
 
 <h2 style="margin-top:30px;">23 February 2025 💖</h2>
-<p>You chose me again.</p>
-<p>And I will keep choosing you. Every single time.</p>
+<p>The day we truly began again.</p>
+<p>The day I knew this story was meant to continue.</p>
 
 <p style="margin-top:40px;">Tap to continue…</p>
 </div>
 
-<!-- Question -->
 <div id="question" class="section hidden">
-<h1>After everything…</h1>
 <h1>Will you be my Valentine? 💖</h1>
 <div>
 <button id="yesBtn">Yes 💘</button>
@@ -195,7 +189,6 @@ animation:blink 1s infinite;
 </div>
 </div>
 
-<!-- Dashboard -->
 <div id="dashboard" class="section hidden">
 <h1>Our Beautiful Memories ✨</h1>
 
@@ -207,11 +200,12 @@ animation:blink 1s infinite;
 </div>
 </div>
 
-<!-- LOVE LETTER -->
 <div id="letterOverlay">
-<div class="letterBox">
+<div class="letterPaper">
 <div class="closeBtn" onclick="closeLetter()">×</div>
+<h2>23rd February, 2026</h2>
 <div id="letterText"></div><span class="cursor"></span>
+<div class="signature">Always yours,<br>Manik</div>
 </div>
 </div>
 
@@ -229,19 +223,9 @@ let letterText=document.getElementById("letterText");
 
 let size=18;
 
-// Welcome → Timeline
-welcome.onclick=()=>{
-welcome.classList.add("hidden");
-timeline.classList.remove("hidden");
-};
+welcome.onclick=()=>{welcome.classList.add("hidden");timeline.classList.remove("hidden");};
+timeline.onclick=()=>{timeline.classList.add("hidden");question.classList.remove("hidden");};
 
-// Timeline → Question
-timeline.onclick=()=>{
-timeline.classList.add("hidden");
-question.classList.remove("hidden");
-};
-
-// No button playful move
 noBtn.onmouseover=()=>{
 noBtn.style.position="absolute";
 noBtn.style.top=Math.random()*window.innerHeight+"px";
@@ -250,13 +234,11 @@ size+=5;
 yesBtn.style.fontSize=size+"px";
 };
 
-// Yes → Dashboard
 yesBtn.onclick=()=>{
 question.classList.add("hidden");
 dashboard.classList.remove("hidden");
 };
 
-// Floating hearts
 function createHeart(){
 let heart=document.createElement("div");
 heart.classList.add("heart");
@@ -268,41 +250,33 @@ setTimeout(()=>heart.remove(),7000);
 }
 setInterval(createHeart,250);
 
-// LOVE LETTER TYPING
-let message=`Darling,
+/* Letter Typing */
 
-From 6 September 2023, when you messaged me first,
-I didn’t know that one simple Instagram notification
-would change my life.
+let message=`My Darling,
 
-Yes… we stumbled.
-Yes… we paused.
-And on 6 December 2023,
-we weren’t sure about us.
+One year ago, our story found its rhythm.
+And on 23rd February, we chose each other again.
 
-But maybe we just needed time to grow.
+That day meant more to me than words can explain.
+It wasn’t just about being together —
+it was about growing, understanding,
+and coming back stronger.
 
-Then on 23 February 2025,
-you asked me again.
+You are my comfort on quiet days,
+my laughter in chaos,
+and the reason my heart feels steady.
 
-And that moment?
-That was the easiest yes of my life.
+This Valentine’s Day feels different.
+It feels intentional.
+It feels like us.
 
-Because even when we were apart,
-I never stopped choosing you in my heart.
+Thank you for choosing this journey.
+Thank you for choosing me.
 
-You are my comfort.
-You are my chaos.
-You are my second chance.
-And this time… I’m not letting you go.
+Happy Valentine’s Day.
+And Happy One Year to us. ❤️
 
-Also… you’re ridiculously cute when you smile.
-And yes, I still get butterflies.
-
-Happy Valentine’s Day, Darling.
-And Happy 1 Year to us on 23rd Feb.
-
-Forever choosing you. ❤️`;
+`;
 
 loveLetterBtn.onclick=()=>{
 letterOverlay.style.display="flex";
@@ -312,7 +286,7 @@ function type(){
 if(i<message.length){
 letterText.innerHTML+=message.charAt(i);
 i++;
-setTimeout(type,40);
+setTimeout(type,55);
 }
 }
 type();
