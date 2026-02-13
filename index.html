@@ -501,11 +501,13 @@ margin-bottom:30px;
 color:#ffd6e8;
 }
 
-.dateInputs{
-display:flex;
-gap:15px;
-justify-content:center;
-margin-bottom:25px;
+.dateInputs select{
+width:110px;
+padding:12px;
+border-radius:10px;
+border:none;
+text-align:center;
+font-size:18px;
 }
 
 .dateInputs input{
@@ -539,12 +541,47 @@ color:#ff4d6d;
 <div id="lockScreen">
     <div class="lockBox">
         <h2>Enter Our Date ❤️</h2>
-
         <div class="dateInputs">
-            <input type="number" id="dayInput" placeholder="DD">
-            <input type="number" id="monthInput" placeholder="MM">
-            <input type="number" id="yearInput" placeholder="YYYY">
-        </div>
+
+    <!-- Day -->
+    <select id="dayInput">
+        <option value="">Day</option>
+        <!-- 1–31 -->
+        <script>
+            for(let d=1; d<=31; d++){
+                document.write(`<option value="${d}">${d}</option>`);
+            }
+        </script>
+    </select>
+
+    <!-- Month -->
+    <select id="monthInput">
+        <option value="">Month</option>
+        <option value="1">January</option>
+        <option value="2">February</option>
+        <option value="3">March</option>
+        <option value="4">April</option>
+        <option value="5">May</option>
+        <option value="6">June</option>
+        <option value="7">July</option>
+        <option value="8">August</option>
+        <option value="9">September</option>
+        <option value="10">October</option>
+        <option value="11">November</option>
+        <option value="12">December</option>
+    </select>
+
+    <!-- Year -->
+    <select id="yearInput">
+        <option value="">Year</option>
+        <script>
+            for(let y=2000; y<=2025; y++){
+                document.write(`<option value="${y}">${y}</option>`);
+            }
+        </script>
+    </select>
+
+</div>
 
         <button id="unlockBtn">Unlock 💖</button>
 
@@ -1084,7 +1121,7 @@ unlockBtn.onclick = function(){
     let month = document.getElementById("monthInput").value;
     let year = document.getElementById("yearInput").value;
 
-    if(day == "23" && month == "02" && year == "2025"){
+    if(day == "23" && month == "2" && year == "2025"){
         lockScreen.style.display = "none";
     }else{
         lockError.innerText = "Wrong date ❤️ Try again.";
