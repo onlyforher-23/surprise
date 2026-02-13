@@ -9,7 +9,6 @@
 <style>
 
 /* ================= BACKGROUND ================= */
-
 body{
 margin:0;
 overflow:hidden;
@@ -29,7 +28,6 @@ animation:gradient 20s ease infinite;
 }
 
 /* ================= SECTION SYSTEM ================= */
-
 .section{
 position:absolute;
 width:100%;
@@ -42,8 +40,6 @@ transition:0.6s;
 }
 
 .hidden{display:none;}
-
-/* ================= BUTTONS ================= */
 
 button{
 padding:12px 25px;
@@ -59,7 +55,6 @@ transition:0.3s;
 #noBtn{background:#222;color:white;position:relative;}
 
 /* ================= BOUQUET ================= */
-
 #bouquetScreen img{
 width:220px;
 cursor:pointer;
@@ -72,7 +67,6 @@ animation:float 3s ease-in-out infinite;
 }
 
 /* ================= CHAPTER CARDS ================= */
-
 .photo-container{
 position:relative;
 width:90%;
@@ -116,7 +110,6 @@ border-radius:8px;
 .photo4{bottom:15%; right:25%; transform:rotate(-10deg);}
 
 /* ================= LOVE LETTER ================= */
-
 #letterOverlay{
 position:fixed;
 top:0;
@@ -175,6 +168,13 @@ display:none;
 animation:fadeIn 0.6s ease;
 }
 
+.letterCard h2{
+font-family:'Dancing Script', cursive;
+font-size:34px;
+color:#ffc2e0;
+margin-bottom:25px;
+}
+
 .signature{
 margin-top:40px;
 font-family:'Dancing Script', cursive;
@@ -187,8 +187,19 @@ from{opacity:0; transform:translateY(20px);}
 to{opacity:1;}
 }
 
-/* ================= OUR STORY ================= */
+/* ================= FLOAT HEARTS ================= */
+.heart{
+position:absolute;
+font-size:20px;
+animation:floatUp 8s linear infinite;
+}
 
+@keyframes floatUp{
+0%{transform:translateY(100vh); opacity:1;}
+100%{transform:translateY(-10vh); opacity:0;}
+}
+
+/* ================= OUR STORY ================= */
 #storyOverlay{
 display:none;
 position:fixed;
@@ -207,8 +218,7 @@ font-family:'Playfair Display', serif;
 text-align:center;
 }
 
-/* ================= MEMORY SYSTEM ================= */
-
+/* ================= MEMORY CINEMATIC ================= */
 #memoryOverlay{
 display:none;
 position:fixed;
@@ -221,6 +231,7 @@ backdrop-filter:blur(15px);
 z-index:9997;
 justify-content:center;
 align-items:center;
+flex-direction:column;
 }
 
 .memoryWrapper{
@@ -238,9 +249,9 @@ align-items:center;
 position:absolute;
 top:18%;
 width:80%;
-height:3px;
+height:4px;
 background:#d9b38c;
-border-radius:3px;
+border-radius:4px;
 }
 
 /* Polaroid */
@@ -250,9 +261,9 @@ width:260px;
 background:white;
 padding:12px;
 border-radius:8px;
-box-shadow:0 20px 40px rgba(0,0,0,0.6);
-opacity:0;
+box-shadow:0 25px 60px rgba(0,0,0,0.7);
 transform:translateY(40px);
+opacity:0;
 transition:opacity 1s ease, transform 1s ease;
 }
 
@@ -275,9 +286,9 @@ filter:brightness(1);
 }
 
 .memoryCaption{
-margin-top:20px;
-font-family:'Playfair Display', serif;
-font-size:18px;
+margin-top:30px;
+font-size:20px;
+line-height:1.8;
 color:#ffd6e8;
 opacity:0;
 transition:opacity 1s ease;
@@ -287,20 +298,39 @@ transition:opacity 1s ease;
 opacity:1;
 }
 
-/* Mobile */
-@media(max-width:600px){
-.memoryFrame{width:200px;}
-.memoryFrame img{height:240px;}
+@keyframes zoomSoft{
+0%{transform:scale(1);}
+100%{transform:scale(1.06);}
 }
 
+.petal{
+position:absolute;
+font-size:18px;
+animation:petalFall 10s linear infinite;
+opacity:0.7;
+}
+
+@keyframes petalFall{
+0%{transform:translateY(-10vh) rotate(0deg);}
+100%{transform:translateY(110vh) rotate(360deg);}
+}
+
+@media(max-width:600px){
+.memoryFrame{
+width:200px;
+}
+.memoryFrame img{
+height:240px;
+}
+}
 </style>
 </head>
+
 <body>
 
 <!-- ================= MEMORY OVERLAY ================= -->
 <div id="memoryOverlay">
   <div class="memoryWrapper">
-
     <div class="memoryRope"></div>
 
     <div class="memoryFrame" id="memoryFrame">
@@ -308,7 +338,6 @@ opacity:1;
     </div>
 
     <div class="memoryCaption" id="memoryCaption"></div>
-
   </div>
 </div>
 
@@ -372,13 +401,10 @@ opacity:1;
 </div>
 </div>
 
-<!-- ================= OUR STORY ================= -->
+<!-- ================= OUR STORY OVERLAY ================= -->
 <div id="storyOverlay">
   <div style="max-width:700px; padding:40px;">
-
-    <h2 style="font-family:'Dancing Script'; font-size:40px; color:#ffc2e0;">
-      Our Story
-    </h2>
+    <h2 style="font-family:'Dancing Script'; font-size:40px; color:#ffc2e0;">Our Story</h2>
 
     <p style="margin-top:20px; font-size:18px; line-height:1.8;">
       It started with a simple message on 6 September 2023...
@@ -397,33 +423,32 @@ opacity:1;
     </p>
 
     <p style="margin-top:20px; font-size:18px; line-height:1.8;">
-      I truly hope I can become someone you choose every single day — not just once, but always. ❤️
+      I truly hope I can become someone you choose every single day, not just once, but always. ❤️
     </p>
 
-    <div id="storyHeart" style="font-size:80px; margin-top:40px; cursor:pointer;">
-      ❤️
-    </div>
+    <p style="margin-top:20px; font-size:18px; line-height:1.8;">
+      Now click the → ❤️
+    </p>
+
+    <div id="storyHeart" style="font-size:80px; margin-top:40px; cursor:pointer;">❤️</div>
 
     <div id="storyFinal" style="display:none; margin-top:30px;">
       <h3 style="font-family:'Dancing Script'; font-size:28px;">
         And I would choose you again… every single time.
       </h3>
     </div>
-
   </div>
 </div>
-
 <script>
 
-<script>
-
-/* ================= FLOW LOCKED ================= */
+/* ================= FLOW SYSTEM ================= */
 
 let welcome=document.getElementById("welcome");
 let timeline=document.getElementById("timeline");
 let question=document.getElementById("question");
 let bouquetScreen=document.getElementById("bouquetScreen");
 let chapters=document.getElementById("chapters");
+
 let yesBtn=document.getElementById("yesBtn");
 let noBtn=document.getElementById("noBtn");
 let bouquet=document.getElementById("bouquet");
@@ -464,8 +489,7 @@ photo.classList.add("show");
 });
 };
 
-
-/* ================= FLOAT HEARTS ================= */
+/* ================= FLOATING HEARTS ================= */
 
 function createHeart(){
 let heart=document.createElement("div");
@@ -477,7 +501,6 @@ document.body.appendChild(heart);
 setTimeout(()=>heart.remove(),8000);
 }
 setInterval(createHeart,300);
-
 
 /* ================= LOVE LETTER ================= */
 
@@ -523,6 +546,7 @@ if(typingTimeout) clearTimeout(typingTimeout);
 
 envelope.onclick=()=>{
 envelope.classList.add("open");
+
 setTimeout(()=>{
 letterCard.style.display="block";
 startTyping();
@@ -552,7 +576,6 @@ if(typingTimeout) clearTimeout(typingTimeout);
 }
 };
 
-
 /* ================= OUR STORY ================= */
 
 let storyBtn=document.querySelector(".photo1");
@@ -565,8 +588,7 @@ storyOverlay.style.display="flex";
 storyFinal.style.display="none";
 };
 
-storyHeart.onclick=(e)=>{
-e.stopPropagation();
+storyHeart.onclick=()=>{
 storyFinal.style.display="block";
 };
 
@@ -576,8 +598,7 @@ storyOverlay.style.display="none";
 }
 };
 
-
-/* ================= MEMORY CHAPTER (FIXED) ================= */
+/* ================= MEMORY CINEMATIC SECTION (FIXED SMOOTH) ================= */
 
 let memoryBtn=document.querySelector(".photo2");
 let memoryOverlay=document.getElementById("memoryOverlay");
@@ -594,71 +615,93 @@ let memoryImages=[
 ];
 
 let memoryTexts=[
-"Your peaceful eyes. Calm. Beautiful.",
-"Our birthday moment together. Us.",
-"You sleeping on my shoulder… my favorite view.",
-"Your hand holding mine in the bus — safe.",
-"That soft smile… just you being you."
+"The way you exist so softly in your own world… and somehow still became mine.",
+"The day you made my birthday feel less about candles… and more about us.",
+"The quiet comfort of you resting on my shoulder… like the world paused.",
+"Your hand in mine — simple, small… but it feels like home.",
+"And that soft smile… you don’t even realize how beautiful you are."
 ];
 
 let memoryIndex=0;
-let memoryInterval;
+let memoryTimer;
 
 memoryBtn.onclick=function(){
+
 memoryOverlay.style.display="flex";
 chapters.classList.add("hidden");
 memoryIndex=0;
-startMemory();
-};
 
-function startMemory(){
-clearInterval(memoryInterval);
+clearTimeout(memoryTimer);
 showMemory();
-memoryInterval=setInterval(showMemory,6000);
-}
+};
 
 function showMemory(){
 
 if(memoryIndex>=memoryImages.length){
-clearInterval(memoryInterval);
+
+setTimeout(()=>{
+memoryCaption.innerHTML="You are not just my favorite memory… you are my forever one. ❤️";
+memoryCaption.classList.add("show");
+
 setTimeout(()=>{
 memoryOverlay.style.display="none";
 chapters.classList.remove("hidden");
+memoryCaption.classList.remove("show");
+},5000);
+
 },2000);
+
 return;
 }
 
-/* Fade out */
+/* STEP 1 — Fade Out */
 memoryFrame.classList.remove("show");
 memoryFrame.classList.remove("reveal");
 memoryCaption.classList.remove("show");
 
 setTimeout(()=>{
 
-/* Change image AFTER fade */
+/* STEP 2 — Change Image AFTER fade */
 memoryImg.src=memoryImages[memoryIndex];
 memoryCaption.innerHTML=memoryTexts[memoryIndex];
 
-/* Fade in smoothly */
+/* STEP 3 — Fade Frame In */
 memoryFrame.classList.add("show");
 
 setTimeout(()=>{
+/* STEP 4 — Reveal brightness smoothly */
 memoryFrame.classList.add("reveal");
 memoryCaption.classList.add("show");
 },800);
 
 memoryIndex++;
 
-},800);
+/* STEP 5 — Wait before next */
+memoryTimer=setTimeout(showMemory,6000);
 
+},1000);
 }
 
 memoryOverlay.onclick=function(e){
 if(e.target===memoryOverlay){
-clearInterval(memoryInterval);
 memoryOverlay.style.display="none";
 chapters.classList.remove("hidden");
+clearTimeout(memoryTimer);
 }
 };
+
+/* ================= PETAL EFFECT ================= */
+
+function createPetal(){
+let petal=document.createElement("div");
+petal.classList.add("petal");
+petal.innerHTML="🌸";
+petal.style.left=Math.random()*100+"vw";
+petal.style.fontSize=(Math.random()*10+15)+"px";
+document.body.appendChild(petal);
+setTimeout(()=>petal.remove(),10000);
+}
+
+setInterval(createPetal,900);
 
 </script>
