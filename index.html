@@ -470,10 +470,87 @@ font-size:20px;
 line-height:1.8;
 opacity:0.9;
 }
+/* ================= LOCK SCREEN ================= */
+
+#lockScreen{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:linear-gradient(135deg,#140014,#2a001f,#3b002a);
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:20000;
+}
+
+.lockBox{
+background:rgba(255,255,255,0.05);
+padding:50px;
+border-radius:20px;
+text-align:center;
+backdrop-filter:blur(15px);
+box-shadow:0 0 40px rgba(0,0,0,0.6);
+}
+
+.lockBox h2{
+font-family:'Dancing Script', cursive;
+font-size:35px;
+margin-bottom:30px;
+color:#ffd6e8;
+}
+
+.dateInputs{
+display:flex;
+gap:15px;
+justify-content:center;
+margin-bottom:25px;
+}
+
+.dateInputs input{
+width:80px;
+padding:12px;
+border-radius:10px;
+border:none;
+text-align:center;
+font-size:18px;
+}
+
+#unlockBtn{
+background:#ff8fab;
+color:white;
+padding:10px 25px;
+border-radius:30px;
+border:none;
+cursor:pointer;
+font-size:18px;
+}
+
+#lockError{
+margin-top:15px;
+color:#ff4d6d;
+}
 </style>
 </head>
 
 <body>
+<!-- ================= DATE LOCK SCREEN ================= -->
+<div id="lockScreen">
+    <div class="lockBox">
+        <h2>Enter Our Date ❤️</h2>
+
+        <div class="dateInputs">
+            <input type="number" id="dayInput" placeholder="DD">
+            <input type="number" id="monthInput" placeholder="MM">
+            <input type="number" id="yearInput" placeholder="YYYY">
+        </div>
+
+        <button id="unlockBtn">Unlock 💖</button>
+
+        <p id="lockError"></p>
+    </div>
+</div>
 
 <!-- ================= MEMORY OVERLAY ================= -->
 <div id="memoryOverlay">
@@ -995,4 +1072,23 @@ audioPlayer.onended = function(){
     needle.classList.remove("active");
 }; 
 
+/* ================= DATE LOCK SYSTEM ================= */
+
+let unlockBtn = document.getElementById("unlockBtn");
+let lockScreen = document.getElementById("lockScreen");
+let lockError = document.getElementById("lockError");
+
+unlockBtn.onclick = function(){
+
+    let day = document.getElementById("dayInput").value;
+    let month = document.getElementById("monthInput").value;
+    let year = document.getElementById("yearInput").value;
+
+    if(day == "23" && month == "02" && year == "2025"){
+        lockScreen.style.display = "none";
+    }else{
+        lockError.innerText = "Wrong date ❤️ Try again.";
+    }
+};
+  
 </script>
