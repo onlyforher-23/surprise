@@ -586,6 +586,37 @@ opacity:0.9;
   <div id="finalMemoryText"></div>
   <div id="finalHeart">❤️</div>
 </div>
+
+<!-- ================= SONG OVERLAY ================= -->
+<div id="songOverlay">
+
+  <!-- Song List -->
+  <div id="songList">
+    <h2>Our Songs 🎶</h2>
+
+    <div class="songItem" data-src="songs/Dandelions - Dandelions (128 kbps).mp3">Dandelions</div>
+    <div class="songItem" data-src="songs/I wanna be yours .mp3">I Wanna Be Yours</div>
+    <div class="songItem" data-src="songs/Pehli Baar Javed Ali 128 Kbps.mp3">Pehli Baar</div>
+    <div class="songItem" data-src="songs/Barbaad Saiyaara 128 Kbps.mp3">Barbaad</div>
+    <div class="songItem" data-src="songs/Dil Ibaadat Tum Mile Original Motion Picturetrack 128 Kbps.mp3">Dil Ibaadat</div>
+    <div class="songItem" data-src="songs/Tum Ho Toh Saiyaara 128 Kbps.mp3">Tum Ho Toh</div>
+    <div class="songItem" data-src="songs/Teri Meri Kahani Ananya Birla 128 Kbps.mp3">Teri Meri Kahani</div>
+    <div class="songItem" data-src="songs/Be Intehaan Race 2 128 Kbps.mp3">Be Intehaan</div>
+  </div>
+
+  <!-- Vinyl Player -->
+  <div id="vinylPlayer">
+    <div class="vinyl"></div>
+    <div class="needle"></div>
+    <div id="lyricsBox"></div>
+  </div>
+
+  <audio id="audioPlayer"></audio>
+
+</div>
+
+</body>
+</html>
 <script>
 
 /* ================= FLOW SYSTEM ================= */
@@ -959,34 +990,3 @@ audioPlayer.onended = function(){
 }; 
 
 </script>
-
-<!-- ================= SONG OVERLAY ================= -->
-<div id="songOverlay">
-
-  <!-- Song List -->
-  <div id="songList">
-    <h2>Our Songs 🎶</h2>
-
-    <div class="songItem" data-src="songs/Dandelions - Dandelions (128 kbps).mp3">Dandelions</div>
-    <div class="songItem" data-src="songs/I wanna be yours .mp3">I Wanna Be Yours</div>
-    <div class="songItem" data-src="songs/Pehli Baar Javed Ali 128 Kbps.mp3">Pehli Baar</div>
-    <div class="songItem" data-src="songs/Barbaad Saiyaara 128 Kbps.mp3">Barbaad</div>
-    <div class="songItem" data-src="songs/Dil Ibaadat Tum Mile Original Motion Picturetrack 128 Kbps.mp3">Dil Ibaadat</div>
-    <div class="songItem" data-src="songs/Tum Ho Toh Saiyaara 128 Kbps.mp3">Tum Ho Toh</div>
-    <div class="songItem" data-src="songs/Teri Meri Kahani Ananya Birla 128 Kbps.mp3">Teri Meri Kahani</div>
-    <div class="songItem" data-src="songs/Be Intehaan Race 2 128 Kbps.mp3">Be Intehaan</div>
-  </div>
-
-  <!-- Vinyl Player -->
-  <div id="vinylPlayer">
-    <div class="vinyl"></div>
-    <div class="needle"></div>
-    <div id="lyricsBox"></div>
-  </div>
-
-  <audio id="audioPlayer"></audio>
-
-</div>
-
-</body>
-</html>
