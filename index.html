@@ -323,6 +323,47 @@ width:200px;
 height:240px;
 }
 }
+
+/* ===== FINAL CINEMATIC ENDING ===== */
+
+#finalMemoryScreen{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:linear-gradient(135deg,#2a001f,#4a0033,#8e3b59);
+justify-content:center;
+align-items:center;
+flex-direction:column;
+z-index:9999;
+color:#ffd6e8;
+font-family:'Dancing Script', cursive;
+text-align:center;
+padding:20px;
+}
+
+#finalMemoryText{
+font-size:42px;
+max-width:800px;
+line-height:1.6;
+opacity:1;
+}
+
+#finalHeart{
+font-size:80px;
+margin-top:40px;
+opacity:0;
+cursor:pointer;
+animation:pulse 1.5s infinite;
+}
+
+@media(max-width:600px){
+#finalMemoryText{
+font-size:30px;
+}
+}
 </style>
 </head>
 
@@ -598,13 +639,17 @@ storyOverlay.style.display="none";
 }
 };
 
-/* ================= MEMORY CINEMATIC SECTION (FIXED SMOOTH) ================= */
+/* ================= MEMORY CINEMATIC SECTION (SMOOTH FIXED) ================= */
 
 let memoryBtn=document.querySelector(".photo2");
 let memoryOverlay=document.getElementById("memoryOverlay");
 let memoryFrame=document.getElementById("memoryFrame");
 let memoryImg=document.getElementById("memoryImg");
 let memoryCaption=document.getElementById("memoryCaption");
+
+let finalScreen=document.getElementById("finalMemoryScreen");
+let finalText=document.getElementById("finalMemoryText");
+let finalHeart=document.getElementById("finalHeart");
 
 let memoryImages=[
 "memory1.jpg",
@@ -623,15 +668,16 @@ let memoryTexts=[
 ];
 
 let memoryIndex=0;
-let memoryTimer;
+let memoryTimeout;
 
 memoryBtn.onclick=function(){
 
 memoryOverlay.style.display="flex";
 chapters.classList.add("hidden");
-memoryIndex=0;
 
-clearTimeout(memoryTimer);
+memoryIndex=0;
+clearTimeout(memoryTimeout);
+
 showMemory();
 };
 
@@ -640,56 +686,76 @@ function showMemory(){
 if(memoryIndex>=memoryImages.length){
 
 setTimeout(()=>{
-memoryCaption.innerHTML="You are not just my favorite memory… you are my forever one. ❤️";
-memoryCaption.classList.add("show");
-
-setTimeout(()=>{
 memoryOverlay.style.display="none";
-chapters.classList.remove("hidden");
-memoryCaption.classList.remove("show");
-},5000);
-
-},2000);
+showFinalCinematic();
+},1500);
 
 return;
 }
 
-/* STEP 1 — Fade Out */
+/* Smooth reset without flash */
 memoryFrame.classList.remove("show");
 memoryFrame.classList.remove("reveal");
 memoryCaption.classList.remove("show");
 
-setTimeout(()=>{
+memoryTimeout=setTimeout(()=>{
 
-/* STEP 2 — Change Image AFTER fade */
 memoryImg.src=memoryImages[memoryIndex];
 memoryCaption.innerHTML=memoryTexts[memoryIndex];
 
-/* STEP 3 — Fade Frame In */
 memoryFrame.classList.add("show");
 
 setTimeout(()=>{
-/* STEP 4 — Reveal brightness smoothly */
 memoryFrame.classList.add("reveal");
 memoryCaption.classList.add("show");
 },800);
 
 memoryIndex++;
 
-/* STEP 5 — Wait before next */
-memoryTimer=setTimeout(showMemory,6000);
+memoryTimeout=setTimeout(showMemory,5000);
 
-},1000);
+},400);
 }
+
+/* ===== CINEMATIC ENDING ===== */
+
+function showFinalCinematic(){
+
+finalScreen.style.display="flex";
+finalText.innerHTML="";
+finalHeart.style.opacity="0";
+
+let finalMessage="You are not just my favorite memory… you are my forever one. ❤️";
+
+let i=0;
+
+function typeWriter(){
+if(i<finalMessage.length){
+finalText.innerHTML+=finalMessage.charAt(i);
+i++;
+setTimeout(typeWriter,55);
+}else{
+setTimeout(()=>{
+finalHeart.style.opacity="1";
+},600);
+}
+}
+
+typeWriter();
+}
+
+finalHeart.onclick=function(){
+finalScreen.style.display="none";
+chapters.classList.remove("hidden");
+};
 
 memoryOverlay.onclick=function(e){
 if(e.target===memoryOverlay){
 memoryOverlay.style.display="none";
 chapters.classList.remove("hidden");
-clearTimeout(memoryTimer);
+clearTimeout(memoryTimeout);
 }
 };
-
 /* ================= PETAL EFFECT ================= */
 
 function createPetal(){
@@ -705,3 +771,11 @@ setTimeout(()=>petal.remove(),10000);
 setInterval(createPetal,900);
 
 </script>
+<!-- FINAL MEMORY CINEMATIC -->
+<div id="finalMemoryScreen">
+  <div id="finalMemoryText"></div>
+  <div id="finalHeart">❤️</div>
+</div>
+
+</body>
+</html>
