@@ -911,13 +911,13 @@ type();
 }
 
 letterOverlay.onclick=(e)=>{
-if(e.target===letterOverlay){
-letterOverlay.style.display="none";
-letterCard.style.display="none";
-if(typingTimeout) clearTimeout(typingTimeout);
-}
+    if(e.target===letterOverlay){
+        letterOverlay.style.display="none";
+        letterCard.style.display="none";
+        if(typingTimeout) clearTimeout(typingTimeout);
+        checkAllChapters();
+    }
 };
-
 /* ================= OUR STORY ================= */
 
 let storyBtn=document.querySelector(".photo1");
@@ -935,9 +935,10 @@ storyFinal.style.display="block";
 };
 
 storyOverlay.onclick=(e)=>{
-if(e.target===storyOverlay){
-storyOverlay.style.display="none";
-}
+    if(e.target===storyOverlay){
+        storyOverlay.style.display="none";
+        checkAllChapters();
+    }
 };
 
 /* ================= MEMORY CINEMATIC SECTION (SMOOTH FIXED) ================= */
@@ -1079,11 +1080,12 @@ chapters.classList.remove("hidden");
 };
 
 memoryOverlay.onclick=function(e){
-if(e.target===memoryOverlay){
-memoryOverlay.style.display="none";
-chapters.classList.remove("hidden");
-clearTimeout(memoryTimeout);
-}
+    if(e.target===memoryOverlay){
+        memoryOverlay.style.display="none";
+        chapters.classList.remove("hidden");
+        clearTimeout(memoryTimeout);
+        checkAllChapters();
+    }
 };
 /* ================= PETAL EFFECT ================= */
 
@@ -1125,6 +1127,7 @@ songOverlay.onclick = function(e){
         vinyl.style.animationPlayState = "paused";
         needle.classList.remove("active");
         vinylPlayer.style.display = "none";
+              checkAllChapters();
     }
 };
 
@@ -1167,22 +1170,18 @@ let giftBox = null;
 
 storyBtn.addEventListener("click", function(){
     chaptersClicked.story = true;
-    checkAllChapters();
 });
 
 memoryBtn.addEventListener("click", function(){
     chaptersClicked.memory = true;
-    checkAllChapters();
 });
 
 letterBtn.addEventListener("click", function(){
     chaptersClicked.letter = true;
-    checkAllChapters();
 });
 
 songBtn.addEventListener("click", function(){
     chaptersClicked.song = true;
-    checkAllChapters();
 });
 
 function checkAllChapters(){
@@ -1249,7 +1248,15 @@ function startDisneyText(){
 
     function typeLine(){
 
-        if(lineIndex >= lines.length) return;
+        if(lineIndex >= lines.length){
+    setTimeout(()=>{
+        disneyOverlay.style.opacity = "0";
+        setTimeout(()=>{
+            disneyOverlay.remove();
+        },1000);
+    },3000);
+    return;
+}
 
         let currentText = lines[lineIndex];
         textBox.innerHTML = "";
@@ -1259,7 +1266,7 @@ function startDisneyText(){
             if(charIndex < currentText.length){
                 textBox.innerHTML += currentText.charAt(charIndex);
                 charIndex++;
-                setTimeout(typeChar, 45);
+                setTimeout(typeChar, 85);
             }else{
                 setTimeout(()=>{
                     textBox.style.opacity = "0";
