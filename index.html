@@ -215,10 +215,80 @@ font-family:'Playfair Display', serif;
 text-align:center;
 }
 
+@keyframes zoomSoft {
+0%{transform:scale(1);}
+100%{transform:scale(1.08);}
+}
+
+.petal{
+position:absolute;
+font-size:18px;
+animation:petalFall 10s linear infinite;
+opacity:0.7;
+}
+
+@keyframes petalFall{
+0%{transform:translateY(-10vh) rotate(0deg);}
+100%{transform:translateY(110vh) rotate(360deg);}
+}
+  
 </style>
 </head>
 
 <body>
+
+<!-- ================= MEMORY OVERLAY ================= -->
+<div id="memoryOverlay" style="
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(15,0,20,0.95);
+backdrop-filter:blur(15px);
+z-index:9997;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+">
+
+<div id="memoryContainer" style="
+text-align:center;
+color:#ffd6e8;
+font-family:'Playfair Display', serif;
+max-width:750px;
+">
+
+<img id="memoryImage" style="
+width:85%;
+max-width:500px;
+border-radius:20px;
+box-shadow:0 20px 60px rgba(0,0,0,0.6);
+transition:transform 6s ease, opacity 1s ease;
+opacity:0;
+">
+
+<p id="memoryText" style="
+margin-top:30px;
+font-size:20px;
+line-height:1.8;
+opacity:0;
+transition:opacity 1s ease;
+"></p>
+
+<div id="memoryHeart" style="
+font-size:80px;
+margin-top:40px;
+opacity:0;
+animation:pulse 1.5s infinite;
+cursor:pointer;
+">
+❤️
+</div>
+
+</div>
+</div>
 
 <!-- WELCOME -->
 <div id="welcome" class="section">
@@ -475,4 +545,116 @@ storyOverlay.style.display="none";
 }
 };
 
+/* ========================= */
+/* ===== MEMORY CHAPTER ===== */
+/* ========================= */
+
+let memoryBtn=document.querySelector(".photo2");
+let memoryOverlay=document.getElementById("memoryOverlay");
+let memoryImage=document.getElementById("memoryImage");
+let memoryText=document.getElementById("memoryText");
+let memoryHeart=document.getElementById("memoryHeart");
+
+let memoryIndex=0;
+
+let memoryData=[
+{
+img:"memory1.jpg",
+text:"The way you exist so softly in your own world… and somehow still became mine."
+},
+{
+img:"memory2.jpg",
+text:"The day you made my birthday feel less about candles… and more about us."
+},
+{
+img:"memory3.jpg",
+text:"The quiet moments… when the world disappears, and all that matters is you breathing next to me."
+},
+{
+img:"memory4.jpg",
+text:"Your hand in mine — simple, small… but it feels like home."
+},
+{
+img:"memory5.jpg",
+text:"And the way you smile, tease, and steal my peace… you don’t even realize how beautiful you are."
+}
+];
+
+memoryBtn.onclick=function(){
+
+memoryOverlay.style.display="flex";
+chapters.classList.add("hidden");
+
+memoryIndex=0;
+memoryHeart.style.opacity="0";
+playMemory();
+
+};
+
+/* AUTO PROGRESSION */
+
+function playMemory(){
+
+if(memoryIndex>=memoryData.length){
+
+setTimeout(()=>{
+memoryHeart.style.opacity="1";
+
+memoryHeart.onclick=function(){
+
+memoryText.style.opacity="0";
+
+setTimeout(()=>{
+memoryText.innerHTML="You are not just my favorite memory… you are my forever one. ❤️";
+memoryText.style.opacity="1";
+
+setTimeout(()=>{
+memoryOverlay.style.display="none";
+chapters.classList.remove("hidden");
+memoryHeart.style.opacity="0";
+},4000);
+
+},800);
+
+};
+
+},1500);
+
+return;
+}
+
+memoryImage.style.opacity="0";
+memoryText.style.opacity="0";
+
+setTimeout(()=>{
+
+memoryImage.src=memoryData[memoryIndex].img;
+memoryImage.style.opacity="1";
+memoryImage.style.animation="zoomSoft 6s ease forwards";
+
+memoryText.innerHTML=memoryData[memoryIndex].text;
+memoryText.style.opacity="1";
+
+memoryIndex++;
+
+setTimeout(playMemory,5000);
+
+},800);
+
+}
+
+/* PETALS */
+
+function createPetal(){
+let petal=document.createElement("div");
+petal.classList.add("petal");
+petal.innerHTML="🌸";
+petal.style.left=Math.random()*100+"vw";
+petal.style.fontSize=(Math.random()*10+15)+"px";
+document.body.appendChild(petal);
+setTimeout(()=>petal.remove(),10000);
+}
+
+setInterval(createPetal,800);
+  
 </script>
