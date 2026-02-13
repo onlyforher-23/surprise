@@ -372,6 +372,96 @@ animation:pulse 1.5s infinite;
 font-size:30px;
 }
 }
+/* ================= SONG OVERLAY ================= */
+
+#songOverlay{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:linear-gradient(135deg,#0f0014,#2a001f,#4a0033);
+justify-content:center;
+align-items:center;
+flex-direction:column;
+z-index:10000;
+color:white;
+font-family:'Playfair Display', serif;
+}
+
+/* Song List */
+
+#songList{
+text-align:center;
+}
+
+.songItem{
+padding:12px 20px;
+margin:8px;
+background:rgba(255,255,255,0.08);
+border-radius:30px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.songItem:hover{
+background:rgba(255,255,255,0.2);
+transform:scale(1.05);
+}
+
+/* Vinyl Player */
+
+#vinylPlayer{
+display:none;
+position:relative;
+width:350px;
+height:350px;
+margin-top:40px;
+}
+
+.vinyl{
+width:100%;
+height:100%;
+border-radius:50%;
+background:
+radial-gradient(circle at center,#111 20%,#000 21%,#000 40%,#111 41%,#000 60%);
+animation:spin 3s linear infinite;
+animation-play-state:paused;
+}
+
+@keyframes spin{
+from{transform:rotate(0deg);}
+to{transform:rotate(360deg);}
+}
+
+/* Needle */
+
+.needle{
+position:absolute;
+width:150px;
+height:6px;
+background:#ccc;
+top:40px;
+right:-40px;
+transform-origin:left center;
+transform:rotate(-30deg);
+transition:0.8s ease;
+}
+
+.needle.active{
+transform:rotate(-10deg);
+}
+
+/* Lyrics */
+
+#lyricsBox{
+margin-top:30px;
+max-width:600px;
+font-size:22px;
+line-height:1.8;
+opacity:0.9;
+}
 </style>
 </head>
 
@@ -811,6 +901,90 @@ setTimeout(()=>petal.remove(),10000);
 }
 
 setInterval(createPetal,900);
-  
+
+ /* ================= SONG SYSTEM ================= */
+
+let songBtn = document.querySelector(".photo4");
+let songOverlay = document.getElementById("songOverlay");
+let songItems = document.querySelectorAll(".songItem");
+let vinylPlayer = document.getElementById("vinylPlayer");
+let vinyl = document.querySelector(".vinyl");
+let needle = document.querySelector(".needle");
+let audioPlayer = document.getElementById("audioPlayer");
+let lyricsBox = document.getElementById("lyricsBox");
+
+/* Open Song Overlay */
+songBtn.onclick = function(){
+    songOverlay.style.display = "flex";
+    chapters.classList.add("hidden");
+};
+
+/* Close overlay when clicking outside */
+songOverlay.onclick = function(e){
+    if(e.target === songOverlay){
+        songOverlay.style.display = "none";
+        chapters.classList.remove("hidden");
+        audioPlayer.pause();
+        vinyl.style.animationPlayState = "paused";
+        needle.classList.remove("active");
+        vinylPlayer.style.display = "none";
+    }
+};
+
+/* Song Click */
+songItems.forEach(function(item){
+
+    item.onclick = function(){
+
+        let songSrc = this.getAttribute("data-src");
+
+        audioPlayer.src = songSrc;
+        audioPlayer.play();
+
+        vinylPlayer.style.display = "block";
+        vinyl.style.animationPlayState = "running";
+        needle.classList.add("active");
+
+        lyricsBox.innerHTML = "Playing: " + this.innerText + " ❤️";
+    };
+
+});
+
+/* Stop animation when song ends */
+audioPlayer.onended = function(){
+    vinyl.style.animationPlayState = "paused";
+    needle.classList.remove("active");
+}; 
+
 </script>
 
+<!-- ================= SONG OVERLAY ================= -->
+<div id="songOverlay">
+
+  <!-- Song List -->
+  <div id="songList">
+    <h2>Our Songs 🎶</h2>
+
+    <div class="songItem" data-src="songs/Dandelions - Dandelions (128 kbps).mp3">Dandelions</div>
+    <div class="songItem" data-src="songs/I wanna be yours .mp3">I Wanna Be Yours</div>
+    <div class="songItem" data-src="songs/Pehli Baar Javed Ali 128 Kbps.mp3">Pehli Baar</div>
+    <div class="songItem" data-src="songs/Barbaad Saiyaara 128 Kbps.mp3">Barbaad</div>
+    <div class="songItem" data-src="songs/Dil Ibaadat Tum Mile Original Motion Picturetrack 128 Kbps.mp3">Dil Ibaadat</div>
+    <div class="songItem" data-src="songs/Tum Ho Toh Saiyaara 128 Kbps.mp3">Tum Ho Toh</div>
+    <div class="songItem" data-src="songs/Teri Meri Kahani Ananya Birla 128 Kbps.mp3">Teri Meri Kahani</div>
+    <div class="songItem" data-src="songs/Be Intehaan Race 2 128 Kbps.mp3">Be Intehaan</div>
+  </div>
+
+  <!-- Vinyl Player -->
+  <div id="vinylPlayer">
+    <div class="vinyl"></div>
+    <div class="needle"></div>
+    <div id="lyricsBox"></div>
+  </div>
+
+  <audio id="audioPlayer"></audio>
+
+</div>
+
+</body>
+</html>
