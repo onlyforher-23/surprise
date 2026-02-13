@@ -333,7 +333,9 @@ top:0;
 left:0;
 width:100%;
 height:100%;
-background:linear-gradient(135deg,#2a001f,#4a0033,#8e3b59);
+background:linear-gradient(135deg,#1a0014,#3b002a,#7a1f46,#b83263);
+background-size:400% 400%;
+animation:gradientMove 12s ease infinite;
 justify-content:center;
 align-items:center;
 flex-direction:column;
@@ -342,6 +344,12 @@ color:#ffd6e8;
 font-family:'Dancing Script', cursive;
 text-align:center;
 padding:20px;
+}
+
+@keyframes gradientMove{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
 }
 
 #finalMemoryText{
@@ -479,6 +487,12 @@ font-size:30px;
       </h3>
     </div>
   </div>
+</div>
+
+<!-- FINAL MEMORY CINEMATIC -->
+<div id="finalMemoryScreen">
+  <div id="finalMemoryText"></div>
+  <div id="finalHeart">❤️</div>
 </div>
 <script>
 
@@ -692,6 +706,34 @@ showFinalCinematic();
 
 return;
 }
+function showFinalCinematic(){
+
+finalScreen.style.display="flex";
+finalText.innerHTML="";
+finalHeart.style.opacity="0";
+
+let finalMessage="You are not just my favorite memory… you are my forever one. ❤️";
+
+let i=0;
+
+function typeWriter(){
+if(i<finalMessage.length){
+finalText.innerHTML+=finalMessage.charAt(i);
+i++;
+setTimeout(typeWriter,55);
+}else{
+setTimeout(()=>{
+finalHeart.style.opacity="1";
+},600);
+}
+}
+
+typeWriter();
+}
+finalHeart.onclick=function(){
+finalScreen.style.display="none";
+chapters.classList.remove("hidden");
+};
 
 /* Smooth reset without flash */
 memoryFrame.classList.remove("show");
@@ -769,13 +811,6 @@ setTimeout(()=>petal.remove(),10000);
 }
 
 setInterval(createPetal,900);
-
+  
 </script>
-<!-- FINAL MEMORY CINEMATIC -->
-<div id="finalMemoryScreen">
-  <div id="finalMemoryText"></div>
-  <div id="finalHeart">❤️</div>
-</div>
 
-</body>
-</html>
