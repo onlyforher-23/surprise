@@ -559,7 +559,24 @@ line-height:1.6;
 opacity:1;
 transition:opacity 0.8s ease;
 }
-  
+/* ================= SPECIAL GIFT ================= */
+
+#specialGift{
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%, -50%);
+font-size:90px;
+cursor:pointer;
+z-index:30000;
+animation:giftPulse 1.5s infinite;
+}
+
+@keyframes giftPulse{
+0%{transform:translate(-50%,-50%) scale(1);}
+50%{transform:translate(-50%,-50%) scale(1.2);}
+100%{transform:translate(-50%,-50%) scale(1);}
+}    
 </style>
 </head>
 
@@ -1278,22 +1295,5 @@ unlockBtn.onclick = function(){
         lockError.innerText = "Wrong date ❤️ Try again Darling.";
     }
 };
-/* ================= SPECIAL GIFT ================= */
 
-#specialGift{
-position:fixed;
-top:50%;
-left:50%;
-transform:translate(-50%, -50%);
-font-size:90px;
-cursor:pointer;
-z-index:30000;
-animation:giftPulse 1.5s infinite;
-}
-
-@keyframes giftPulse{
-0%{transform:translate(-50%,-50%) scale(1);}
-50%{transform:translate(-50%,-50%) scale(1.2);}
-100%{transform:translate(-50%,-50%) scale(1);}
-}  
 </script>
