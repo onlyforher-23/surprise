@@ -533,6 +533,33 @@ font-size:18px;
 margin-top:15px;
 color:#ff4d6d;
 }
+
+/* ================= DISNEY OVERLAY ================= */
+
+#disneyOverlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:black;
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:40000;
+}
+
+#disneyText{
+max-width:800px;
+font-family:'Dancing Script', cursive;
+font-size:42px;
+color:#ffffff;
+text-align:center;
+line-height:1.6;
+opacity:1;
+transition:opacity 0.8s ease;
+}
+  
 </style>
 </head>
 
@@ -1108,7 +1135,131 @@ audioPlayer.onended = function(){
     vinyl.style.animationPlayState = "paused";
     needle.classList.remove("active");
 }; 
+/* ================= SPECIAL GIFT SYSTEM ================= */
 
+let chaptersClicked = {
+    story: false,
+    memory: false,
+    letter: false,
+    song: false
+};
+
+let giftBox = null;
+
+/* Mark each chapter as opened */
+
+storyBtn.addEventListener("click", function(){
+    chaptersClicked.story = true;
+    checkAllChapters();
+});
+
+memoryBtn.addEventListener("click", function(){
+    chaptersClicked.memory = true;
+    checkAllChapters();
+});
+
+letterBtn.addEventListener("click", function(){
+    chaptersClicked.letter = true;
+    checkAllChapters();
+});
+
+songBtn.addEventListener("click", function(){
+    chaptersClicked.song = true;
+    checkAllChapters();
+});
+
+function checkAllChapters(){
+    if(
+        chaptersClicked.story &&
+        chaptersClicked.memory &&
+        chaptersClicked.letter &&
+        chaptersClicked.song
+    ){
+        showGift();
+    }
+}
+
+function showGift(){
+
+    if(document.getElementById("specialGift")) return;
+
+    giftBox = document.createElement("div");
+    giftBox.id = "specialGift";
+    giftBox.innerHTML = "🎁";
+
+    document.body.appendChild(giftBox);
+
+}
+/* ================= DISNEY TEXT EFFECT ================= */
+
+let disneyOverlay = null;
+
+document.addEventListener("click", function(e){
+
+    if(e.target && e.target.id === "specialGift"){
+        startDisneyText();
+        e.target.remove();
+    }
+
+});
+
+function startDisneyText(){
+
+    disneyOverlay = document.createElement("div");
+    disneyOverlay.id = "disneyOverlay";
+
+    let textBox = document.createElement("div");
+    textBox.id = "disneyText";
+
+    disneyOverlay.appendChild(textBox);
+    document.body.appendChild(disneyOverlay);
+
+    let lines = [
+        "I must be with you.",
+        "I want nothing else in this life than to be with you, to listen and watch you.",
+        "Wouldn't it be wonderful to be together, really together?",
+        "You asked me a silly question once and again, why I love you.",
+        "Your beautiful voice, your beauty, to argue with you, to laugh with you.",
+        "The glory of you.",
+        "I cannot envisage a life without loving you.",
+        "With a depth and passion that I have felt for no one else in this life.",
+        "I love you.",
+        "I love you.",
+        "I am glad I love you."
+    ];
+
+    let lineIndex = 0;
+
+    function typeLine(){
+
+        if(lineIndex >= lines.length) return;
+
+        let currentText = lines[lineIndex];
+        textBox.innerHTML = "";
+        let charIndex = 0;
+
+        function typeChar(){
+            if(charIndex < currentText.length){
+                textBox.innerHTML += currentText.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeChar, 45);
+            }else{
+                setTimeout(()=>{
+                    textBox.style.opacity = "0";
+                    setTimeout(()=>{
+                        textBox.style.opacity = "1";
+                        lineIndex++;
+                        typeLine();
+                    },800);
+                },2000);
+            }
+        }
+
+        typeChar();
+    }
+
+    typeLine();
+}
 /* ================= DATE LOCK SYSTEM ================= */
 
 let unlockBtn = document.getElementById("unlockBtn");
@@ -1127,5 +1278,22 @@ unlockBtn.onclick = function(){
         lockError.innerText = "Wrong date ❤️ Try again Darling.";
     }
 };
-  
+/* ================= SPECIAL GIFT ================= */
+
+#specialGift{
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%, -50%);
+font-size:90px;
+cursor:pointer;
+z-index:30000;
+animation:giftPulse 1.5s infinite;
+}
+
+@keyframes giftPulse{
+0%{transform:translate(-50%,-50%) scale(1);}
+50%{transform:translate(-50%,-50%) scale(1.2);}
+100%{transform:translate(-50%,-50%) scale(1);}
+}  
 </script>
