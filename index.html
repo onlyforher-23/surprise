@@ -8,7 +8,7 @@
 
 <style>
 
-/* BACKGROUND */
+/* ================= BACKGROUND ================= */
 body{
 margin:0;
 overflow:hidden;
@@ -27,7 +27,7 @@ animation:gradient 20s ease infinite;
 100%{background-position:0% 50%}
 }
 
-/* SECTION SYSTEM */
+/* ================= SECTION SYSTEM ================= */
 .section{
 position:absolute;
 width:100%;
@@ -54,6 +54,7 @@ transition:0.3s;
 #yesBtn{background:white;color:#8e3b59;}
 #noBtn{background:#222;color:white;position:relative;}
 
+/* ================= BOUQUET ================= */
 #bouquetScreen img{
 width:220px;
 cursor:pointer;
@@ -65,6 +66,7 @@ animation:float 3s ease-in-out infinite;
 50%{transform:translateY(-15px);}
 }
 
+/* ================= CHAPTER CARDS ================= */
 .photo-container{
 position:relative;
 width:90%;
@@ -107,7 +109,7 @@ border-radius:8px;
 .photo3{bottom:20%; left:25%; transform:rotate(6deg);}
 .photo4{bottom:15%; right:25%; transform:rotate(-10deg);}
 
-/* LOVE LETTER */
+/* ================= LOVE LETTER ================= */
 #letterOverlay{
 position:fixed;
 top:0;
@@ -185,6 +187,7 @@ from{opacity:0; transform:translateY(20px);}
 to{opacity:1;}
 }
 
+/* ================= FLOAT HEARTS ================= */
 .heart{
 position:absolute;
 font-size:20px;
@@ -196,7 +199,7 @@ animation:floatUp 8s linear infinite;
 100%{transform:translateY(-10vh); opacity:0;}
 }
 
-/* ===== OUR STORY OVERLAY STYLE ===== */
+/* ================= OUR STORY ================= */
 #storyOverlay{
 display:none;
 position:fixed;
@@ -215,9 +218,89 @@ font-family:'Playfair Display', serif;
 text-align:center;
 }
 
-@keyframes zoomSoft {
+/* ================= MEMORY CINEMATIC ================= */
+#memoryOverlay{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(15,0,20,0.96);
+backdrop-filter:blur(15px);
+z-index:9997;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+}
+
+.memoryWrapper{
+position:relative;
+width:100%;
+height:100%;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+}
+
+/* Rope */
+.memoryRope{
+position:absolute;
+top:18%;
+width:80%;
+height:4px;
+background:#d9b38c;
+border-radius:4px;
+}
+
+/* Polaroid */
+.memoryFrame{
+position:relative;
+width:260px;
+background:white;
+padding:12px;
+border-radius:8px;
+box-shadow:0 25px 60px rgba(0,0,0,0.7);
+transform:translateY(40px);
+opacity:0;
+transition:opacity 1s ease, transform 1s ease;
+}
+
+.memoryFrame.show{
+opacity:1;
+transform:translateY(0);
+}
+
+.memoryFrame img{
+width:100%;
+height:300px;
+object-fit:cover;
+border-radius:6px;
+filter:brightness(0);
+transition:filter 2s ease;
+}
+
+.memoryFrame.reveal img{
+filter:brightness(1);
+}
+
+.memoryCaption{
+margin-top:30px;
+font-size:20px;
+line-height:1.8;
+color:#ffd6e8;
+opacity:0;
+transition:opacity 1s ease;
+}
+
+.memoryCaption.show{
+opacity:1;
+}
+
+@keyframes zoomSoft{
 0%{transform:scale(1);}
-100%{transform:scale(1.08);}
+100%{transform:scale(1.06);}
 }
 
 .petal{
@@ -231,73 +314,41 @@ opacity:0.7;
 0%{transform:translateY(-10vh) rotate(0deg);}
 100%{transform:translateY(110vh) rotate(360deg);}
 }
-  
+
+@media(max-width:600px){
+.memoryFrame{
+width:200px;
+}
+.memoryFrame img{
+height:240px;
+}
+}
 </style>
 </head>
 
 <body>
 
 <!-- ================= MEMORY OVERLAY ================= -->
-<div id="memoryOverlay" style="
-display:none;
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(15,0,20,0.95);
-backdrop-filter:blur(15px);
-z-index:9997;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-">
+<div id="memoryOverlay">
+  <div class="memoryWrapper">
+    <div class="memoryRope"></div>
 
-<div id="memoryContainer" style="
-text-align:center;
-color:#ffd6e8;
-font-family:'Playfair Display', serif;
-max-width:750px;
-">
+    <div class="memoryFrame" id="memoryFrame">
+      <img id="memoryImg" src="">
+    </div>
 
-<img id="memoryImage" style="
-width:85%;
-max-width:500px;
-border-radius:20px;
-box-shadow:0 20px 60px rgba(0,0,0,0.6);
-transition:transform 6s ease, opacity 1s ease;
-opacity:0;
-">
-
-<p id="memoryText" style="
-margin-top:30px;
-font-size:20px;
-line-height:1.8;
-opacity:0;
-transition:opacity 1s ease;
-"></p>
-
-<div id="memoryHeart" style="
-font-size:80px;
-margin-top:40px;
-opacity:0;
-animation:pulse 1.5s infinite;
-cursor:pointer;
-">
-❤️
+    <div class="memoryCaption" id="memoryCaption"></div>
+  </div>
 </div>
 
-</div>
-</div>
-
-<!-- WELCOME -->
+<!-- ================= WELCOME ================= -->
 <div id="welcome" class="section">
 <h1>Hi Darling… ❤️</h1>
 <p>This is something I built just for you.</p>
 <p style="margin-top:30px;">Tap anywhere to begin ✨</p>
 </div>
 
-<!-- TIMELINE -->
+<!-- ================= TIMELINE ================= -->
 <div id="timeline" class="section hidden">
 <h2>We met softly on 6 September 2023 💫</h2>
 <p>A simple message… that slowly became something meaningful.</p>
@@ -308,7 +359,7 @@ cursor:pointer;
 <p style="margin-top:40px;">Tap to continue…</p>
 </div>
 
-<!-- QUESTION -->
+<!-- ================= QUESTION ================= -->
 <div id="question" class="section hidden">
 <h1>Will you be my Valentine? 💖</h1>
 <div>
@@ -317,14 +368,14 @@ cursor:pointer;
 </div>
 </div>
 
-<!-- BOUQUET -->
+<!-- ================= BOUQUET ================= -->
 <div id="bouquetScreen" class="section hidden">
 <h1>For you, always. 💖</h1>
 <img src="bouquet.png" id="bouquet">
 <p>Click the bouquet 🌹</p>
 </div>
 
-<!-- CHAPTERS -->
+<!-- ================= CHAPTERS ================= -->
 <div id="chapters" class="section hidden">
 <h1>Our Beautiful Memories ✨</h1>
 
@@ -336,7 +387,7 @@ cursor:pointer;
 </div>
 </div>
 
-<!-- LOVE LETTER -->
+<!-- ================= LOVE LETTER ================= -->
 <div id="letterOverlay">
 <div class="envelope" id="envelope">
 <div class="flap"></div>
@@ -350,7 +401,7 @@ cursor:pointer;
 </div>
 </div>
 
-<!-- OUR STORY OVERLAY (ADDED ONLY) -->
+<!-- ================= OUR STORY OVERLAY ================= -->
 <div id="storyOverlay">
   <div style="max-width:700px; padding:40px;">
     <h2 style="font-family:'Dancing Script'; font-size:40px; color:#ffc2e0;">Our Story</h2>
@@ -368,7 +419,7 @@ cursor:pointer;
     </p>
 
     <p style="margin-top:20px; font-size:18px; line-height:1.8;">
-      And if I ever hurt you or do something wrong, don’t leave me… fight with me, argue with me, even scold me — but stay,
+      And if I ever hurt you or do something wrong, don’t leave me… fight with me, argue with me, even scold me — but stay.
     </p>
 
     <p style="margin-top:20px; font-size:18px; line-height:1.8;">
@@ -376,7 +427,7 @@ cursor:pointer;
     </p>
 
     <p style="margin-top:20px; font-size:18px; line-height:1.8;">
-      Now click the -> ❤️
+      Now click the → ❤️
     </p>
 
     <div id="storyHeart" style="font-size:80px; margin-top:40px; cursor:pointer;">❤️</div>
@@ -390,17 +441,19 @@ cursor:pointer;
 </div>
 <script>
 
+/* ================= FLOW SYSTEM ================= */
+
 let welcome=document.getElementById("welcome");
 let timeline=document.getElementById("timeline");
 let question=document.getElementById("question");
 let bouquetScreen=document.getElementById("bouquetScreen");
 let chapters=document.getElementById("chapters");
+
 let yesBtn=document.getElementById("yesBtn");
 let noBtn=document.getElementById("noBtn");
 let bouquet=document.getElementById("bouquet");
 let photos=document.querySelectorAll(".photo");
 
-/* FLOW LOCKED */
 welcome.onclick=()=>{
 welcome.classList.add("hidden");
 timeline.classList.remove("hidden");
@@ -436,7 +489,8 @@ photo.classList.add("show");
 });
 };
 
-/* FLOAT HEARTS */
+/* ================= FLOATING HEARTS ================= */
+
 function createHeart(){
 let heart=document.createElement("div");
 heart.classList.add("heart");
@@ -448,7 +502,8 @@ setTimeout(()=>heart.remove(),8000);
 }
 setInterval(createHeart,300);
 
-/* LOVE LETTER */
+/* ================= LOVE LETTER ================= */
+
 let letterBtn=document.getElementById("letterBtn");
 let letterOverlay=document.getElementById("letterOverlay");
 let envelope=document.getElementById("envelope");
@@ -521,9 +576,7 @@ if(typingTimeout) clearTimeout(typingTimeout);
 }
 };
 
-/* ========================= */
-/* ===== OUR STORY ONLY ===== */
-/* ========================= */
+/* ================= OUR STORY ================= */
 
 let storyBtn=document.querySelector(".photo1");
 let storyOverlay=document.getElementById("storyOverlay");
@@ -545,105 +598,95 @@ storyOverlay.style.display="none";
 }
 };
 
-/* ========================= */
-/* ===== MEMORY CHAPTER ===== */
-/* ========================= */
+/* ================= MEMORY CINEMATIC SECTION ================= */
 
 let memoryBtn=document.querySelector(".photo2");
 let memoryOverlay=document.getElementById("memoryOverlay");
-let memoryImage=document.getElementById("memoryImage");
-let memoryText=document.getElementById("memoryText");
-let memoryHeart=document.getElementById("memoryHeart");
+let memoryFrame=document.getElementById("memoryFrame");
+let memoryImg=document.getElementById("memoryImg");
+let memoryCaption=document.getElementById("memoryCaption");
+
+let memoryImages=[
+"memory1.jpg",
+"memory2.jpg",
+"memory3.jpg",
+"memory4.jpg",
+"memory5.jpg"
+];
+
+let memoryTexts=[
+"The way you exist so softly in your own world… and somehow still became mine.",
+"The day you made my birthday feel less about candles… and more about us.",
+"The quiet comfort of you resting on my shoulder… like the world paused.",
+"Your hand in mine — simple, small… but it feels like home.",
+"And that soft smile… you don’t even realize how beautiful you are."
+];
 
 let memoryIndex=0;
-
-let memoryData=[
-{
-img:"memory1.jpg",
-text:"The way you exist so softly in your own world… and somehow still became mine."
-},
-{
-img:"memory2.jpg",
-text:"The day you made my birthday feel less about candles… and more about us."
-},
-{
-img:"memory3.jpg",
-text:"The quiet moments… when the world disappears, and all that matters is you breathing next to me."
-},
-{
-img:"memory4.jpg",
-text:"Your hand in mine — simple, small… but it feels like home."
-},
-{
-img:"memory5.jpg",
-text:"And the way you smile, tease, and steal my peace… you don’t even realize how beautiful you are."
-}
-];
+let memoryTimeout;
 
 memoryBtn.onclick=function(){
 
 memoryOverlay.style.display="flex";
 chapters.classList.add("hidden");
-
 memoryIndex=0;
-memoryHeart.style.opacity="0";
+
+clearTimeout(memoryTimeout);
 playMemory();
-
 };
-
-/* AUTO PROGRESSION */
 
 function playMemory(){
 
-if(memoryIndex>=memoryData.length){
+if(memoryIndex>=memoryImages.length){
 
-setTimeout(()=>{
-memoryHeart.style.opacity="1";
+memoryTimeout=setTimeout(()=>{
+memoryCaption.innerHTML="You are not just my favorite memory… you are my forever one. ❤️";
+memoryCaption.classList.add("show");
 
-memoryHeart.onclick=function(){
-
-memoryText.style.opacity="0";
-
-setTimeout(()=>{
-memoryText.innerHTML="You are not just my favorite memory… you are my forever one. ❤️";
-memoryText.style.opacity="1";
-
-setTimeout(()=>{
+memoryTimeout=setTimeout(()=>{
 memoryOverlay.style.display="none";
 chapters.classList.remove("hidden");
-memoryHeart.style.opacity="0";
-},4000);
+memoryCaption.classList.remove("show");
+},5000);
 
-},800);
-
-};
-
-},1500);
+},2000);
 
 return;
 }
 
-memoryImage.style.opacity="0";
-memoryText.style.opacity="0";
+/* reset state */
+memoryFrame.classList.remove("show");
+memoryFrame.classList.remove("reveal");
+memoryCaption.classList.remove("show");
 
-setTimeout(()=>{
+memoryTimeout=setTimeout(()=>{
 
-memoryImage.src=memoryData[memoryIndex].img;
-memoryImage.style.opacity="1";
-memoryImage.style.animation="zoomSoft 6s ease forwards";
+memoryImg.src=memoryImages[memoryIndex];
+memoryCaption.innerHTML=memoryTexts[memoryIndex];
 
-memoryText.innerHTML=memoryData[memoryIndex].text;
-memoryText.style.opacity="1";
+memoryFrame.classList.add("show");
+
+memoryTimeout=setTimeout(()=>{
+memoryFrame.classList.add("reveal");
+memoryCaption.classList.add("show");
+},1200);
 
 memoryIndex++;
 
-setTimeout(playMemory,5000);
+memoryTimeout=setTimeout(playMemory,6000);
 
-},800);
-
+},600);
 }
 
-/* PETALS */
+memoryOverlay.onclick=function(e){
+if(e.target===memoryOverlay){
+memoryOverlay.style.display="none";
+chapters.classList.remove("hidden");
+clearTimeout(memoryTimeout);
+}
+};
+
+/* ================= PETAL EFFECT ================= */
 
 function createPetal(){
 let petal=document.createElement("div");
@@ -655,6 +698,6 @@ document.body.appendChild(petal);
 setTimeout(()=>petal.remove(),10000);
 }
 
-setInterval(createPetal,800);
-  
+setInterval(createPetal,900);
+
 </script>
