@@ -627,6 +627,10 @@ bouquet.onclick=()=>{
 bouquetScreen.classList.add("hidden");
 chapters.classList.remove("hidden");
 
+songOverlay.style.display="none";
+memoryOverlay.style.display="none";
+finalScreen.style.display="none";
+
 photos.forEach((photo,index)=>{
 setTimeout(()=>{
 photo.classList.add("show");
